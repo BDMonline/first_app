@@ -1,0 +1,8 @@
+<% provide(:title, 'Get in touch') %>
+    <h1>Contact Brian</h1>
+    <p>
+       Welcome to the home page of this app created with ref to
+       <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+     </p>
+
+

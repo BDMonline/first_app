@@ -48,5 +48,19 @@ it "should have the right title" do
                     :text => "Big Brian's Bonza Biggie | About")
 end
 
+describe "Contact page" do
+
+    it "should have the content 'Contact Brian'" do
+      visit '/static_pages/contact'
+      page.should have_selector('h1', :text => 'Contact Brian')
+    end
+  end
+
+it "should have the right title" do
+  visit '/static_pages/contact'
+  page.should have_selector('title',
+                    :text => "Big Brian's Bonza Biggie | Get in touch")
+end
+
 end
 
