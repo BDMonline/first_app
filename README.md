@@ -1,3 +1,7 @@
+#Learning Ruby on Rails
+
+This is the first application for Hartl's Tutorial on Ruby on Rails. The text below is the default Rails README, which is not very helpful for this application.
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
