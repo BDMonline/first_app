@@ -2,18 +2,20 @@ require 'spec_helper'
 
 describe "Static pages" do
 
+let(:base_title) {"Big Brian's Bonza Biggie"}
+
   describe "Home page" do
 
-    it "should have the content 'Sample App'" do
+    it "should have the h1 'Sample App'" do
       visit '/static_pages/home'
       page.should have_selector('h1', :text => 'Sample App')
     end
   end
 
-it "should have the right title" do
+it "should have the title Home" do
   visit '/static_pages/home'
   page.should have_selector('title',
-                    :text => "Big Brian's Bonza Biggie | Home")
+                    :text => "#{base_title} | Home")
 end
   
 
@@ -46,6 +48,20 @@ it "should have the right title" do
   visit '/static_pages/about'
   page.should have_selector('title',
                     :text => "Big Brian's Bonza Biggie | About")
+end
+
+describe "Contact page" do
+
+    it "should have the content 'Contact Brian'" do
+      visit '/static_pages/contact'
+      page.should have_selector('h1', :text => 'Contact Brian')
+    end
+  end
+
+it "should have the right title" do
+  visit '/static_pages/contact'
+  page.should have_selector('title',
+                    :text => "Big Brian's Bonza Biggie | Get in touch")
 end
 
 end
