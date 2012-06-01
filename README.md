@@ -1,6 +1,6 @@
 #Learning Ruby on Rails
 
-This is the first application for Hartl's Tutorial on Ruby on Rails. The text below is the default Rails README, which is not very helpful for this application.
+This is the first application for [Hartl]'s *Tutorial* on Ruby on Rails (http://michaelhartl.com/). The text below is the default Rails README, which is not very helpful for this application.
 
 == Welcome to Rails
 
