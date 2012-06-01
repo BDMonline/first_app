@@ -1,8 +1,15 @@
 <% provide(:title, 'Home') %>
+<!DOCTYPE html>
+<html>
+  <head>
+	  <title>Big Brian's Bonza Biggie | <%= yield(:title) %></title>
+  </head>
+  <body>
     <h1>Sample App</h1>
     <p>
        Welcome to the home page of this app created with ref to
        <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
      </p>
-
+   </body>
+ </html>
 

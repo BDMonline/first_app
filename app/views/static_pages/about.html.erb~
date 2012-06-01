@@ -1,0 +1,13 @@
+<% provide(:title, 'About Brian') %>
+<!DOCTYPE html>
+<html>
+  <head>
+	  <title>Big Brian's Bonza Biggie | <%= yield(:title) %></title>
+  </head>
+  <body>
+    <h1>About Brian</h1>
+    <p>
+  	Brian is an ageing balding maths teacher who wants to build a web app.
+    </p>
+   </body>
+ </html>
