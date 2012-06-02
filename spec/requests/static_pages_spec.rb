@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Static pages" do
 
-let(:base_title) {"Big Brian's Bonza Biggie"}
+let(:base_title) {"Brian's Beautiful Bundle"}
 
   describe "Home page" do
 
@@ -12,10 +12,10 @@ let(:base_title) {"Big Brian's Bonza Biggie"}
     end
   end
 
-it "should have the title Home" do
+it "should not have an extended title" do
   visit '/static_pages/home'
-  page.should have_selector('title',
-                    :text => "#{base_title} | Home")
+  page.should_not have_selector('title',
+                    :text => "| Home")
 end
   
 
