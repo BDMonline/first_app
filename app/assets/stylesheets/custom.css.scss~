@@ -1,11 +1,16 @@
 @import "bootstrap";
 
+/* mixins, variables, etc: */
+
+$grayLightish: #eaeaea;
+$pinkish: #ffaaaa;
 
 /* universal */
 
 html {
   overflow-y: scroll;
 }
+
 
 body {
   padding-top: 60px;
@@ -21,10 +26,9 @@ textarea {
 
 .center {
   text-align: center;
-}
-
-.center h1 {
-  margin-bottom: 10px;
+  h1 {
+    margin-bottom: 10px;
+  }
 }
 
 
@@ -35,6 +39,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+
+  font-family:"Times New Roman",Georgia,Serif;
+ 
+
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
@@ -61,14 +69,14 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 2.1em;
-  color: #ff0000;
+  color: $pinkish;
   text-transform: uppercase;
   letter-spacing: -3px;
   padding-top: 9px;
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: #fff;
+    color: $white;
     text-decoration: none;
   }
 }
@@ -79,12 +87,12 @@ p {
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 5px solid #eaeaea;
+  border-top: 5px solid $grayLightish;
   color: $grayLight;
   a {
-    color: #555;
+    color: $gray;
       &:hover { 
-    color: #222;
+    color: $grayDarker;
     }
   }
   small {
