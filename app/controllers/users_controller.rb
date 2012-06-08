@@ -1,6 +1,7 @@
 
 class UsersController < ApplicationController
   def show
+    params[:bigone]="snookums"
     @user = User.find(params[:id])
   end
   

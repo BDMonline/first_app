@@ -1,0 +1,13 @@
+<%= @question.name %> <p>
+<%= @question.text %> <p>
+<%= @question.parameters %> <p>
+<%= @question.answers %> <p>
+<%= @param_hash.to_s %> <p>
+<%= @example_param_hash.to_s %> <p>
+<%= @paramtext %> <p>
+<%= @example_answers %> <p>
+<%= @example_question %> <p>
+
+
+<% provide(:title, @question.name) %>
+<h1>Question no. <%=@question.id%>  <%=@question.name %></h1>

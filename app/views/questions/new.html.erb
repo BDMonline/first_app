@@ -1,0 +1,27 @@
+/* ONLY ADMINISTRATORS SHOULD HAVE ACCESS */
+
+<%= provide(:title, 'New Question') %>
+<h1>Enter a New Question</h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@question) do |f| %>
+      <%= render 'shared/qerror_messages' %>
+
+      <%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+
+      <%= f.label :text, :style => "font-size: 1.7em;"%>  Use ` as delimiter for any embedded expressions
+      <%= f.text_field :text %>
+
+      <%= f.label :parameters, :style => "font-size: 1.7em;"%> If parameters are needed, give names (uppercase letters) and ranges, separated by spaces, e.g. "A (2,3,7,8) B (-2..5) C [0,3]"
+      <%= f.text_field :parameters %>
+
+      <%= f.label :answers, :style => "font-size: 1.7em;"%> Use ` to separate multiple answers. End with "t" if order matters, "f" if not.
+      <%= f.text_field :answers %>
+
+      <%= f.submit "Create Question", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

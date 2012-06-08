@@ -1,5 +1,6 @@
 FirstApp::Application.routes.draw do
   resources :users
+  resources :questions
   resources :sessions, only: [:new, :create, :destroy]
 
   root to: "static_pages#home"
@@ -10,7 +11,8 @@ FirstApp::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
-  match '/contact', to: 'static_pages#contact'  
+  match '/contact', to: 'static_pages#contact'
+  match '/addquestion', to: 'questions#new'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -68,4 +70,6 @@ FirstApp::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
+mathjax 'mathjax'
 end
