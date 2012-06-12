@@ -11,7 +11,10 @@ $pinkish: #ffaaaa;
   box-sizing: border-box;
 }
 
+
+
 /* universal */
+
 
 html {
   overflow-y: scroll;
@@ -46,9 +49,9 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 3em;
-  letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  color: $gray;
 }
 
 h2 {
@@ -65,7 +68,22 @@ h3 {
   letter-spacing: -1px;
   text-align: left;
   font-weight: bold;
-  color: $blueDark;
+  color: $blue;
+}
+
+h6 {
+  font-size: 1.2em;
+  border: 1px solid $gray;
+  font-weight: normal;
+  text-transform: lowercase;
+  float:left
+}
+
+h7 {
+  font-size: 1.2em;
+  text-align: left;
+  font-weight: bold;
+  color: $red;
 }
 
 p {
@@ -79,6 +97,7 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 2.1em;
+  font-family: Verdana;
   color: $pinkish;
   text-transform: uppercase;
   letter-spacing: -3px;
@@ -156,7 +175,8 @@ input, textarea, select, .uneditable-input {
   width: 100%;
   padding: 10px;
   height: auto;
-  margin-bottom: 40px;
+  margin-top: 7px;
+  margin-bottom: 7px;
   @include box_sizing;
 }
 
@@ -249,4 +269,37 @@ table {
   @include box_sizing;
 }
 
+.clear { /* generic container (i.e. div) for floating buttons */
+     overflow: hidden;
+     width: 100%;
+ }
 
+ a.button {
+     background: transparent url('bg_button_a.gif') no-repeat scroll top right;
+     color: #444;
+     display: block;
+     float: left;
+     font: normal 12px arial, sans-serif;
+     height: 24px;
+     margin-right: 6px;
+     padding-right: 18px; /* sliding doors padding */
+     text-decoration: none;
+ }
+
+ a.button span {
+     background: transparent url('bg_button_span.gif') no-repeat;
+     display: block;
+     line-height: 14px;
+     padding: 5px 0 5px 18px;
+ }
+
+ a.button:active {
+     background-position: bottom right;
+     color: #000;
+     outline: none; /* hide dotted outline in Firefox */
+ }
+
+ a.button:active span {
+     background-position: bottom left;
+     padding: 6px 0 4px 18px; /* push text down 1px */
+ }

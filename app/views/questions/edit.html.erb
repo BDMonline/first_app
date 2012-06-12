@@ -1,7 +1,7 @@
-/* ONLY ADMINISTRATORS SHOULD HAVE ACCESS */
+This is the edit page. 
 
-<%= provide(:title, 'New Question') %>
-<h1>Enter a New Question</h1>
+<%= provide(:title, 'New Question')%> <%= @error %>
+<h1>Please correct the Question</h1>
 
 
 <div class="row">
@@ -11,17 +11,25 @@
 
       <%= f.label :name, :style => "font-size: 1.7em;"%>
       <%= f.text_field :name %>
+      <h1><p></h1>
 
       <%= f.label :text, :style => "font-size: 1.7em;"%>  Use ` as delimiter for any embedded expressions
       <%= f.text_field :text %>
+      Sample question text: <h7><%= @example_question %> </h7>
+      <h1><p></h1>
 
       <%= f.label :parameters, :style => "font-size: 1.7em;"%> If parameters are needed, give names (uppercase letters) and ranges, separated by spaces, e.g. "A (2,3,7,8) B (-2..5) C [0..3]"
       <%= f.text_field :parameters %>
+      Parameter choice:<h7> <%= @paramtext %> </h7> <p>
+      Parameter assignments used for illustration purposes on this page:<h7> <%= @example_param_hash.to_s %> </h7> <p>
+      <h1><p></h1>
 
       <%= f.label :answers, :style => "font-size: 1.7em;"%> Use ` to separate multiple answers. End with "t" if order matters, "f" if not.
       <%= f.text_field :answers %>
+      Answers for example question: <h7><%= @example_answers %></h7>
+      <h1><p></h1>
 
-      <%= f.submit "Create Question", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Update Question", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

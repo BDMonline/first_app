@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
   #validates :parameters, format: { with: VALID_PARAMETERS_REGEX }
   # if using regex, needs to cope with multidigithumbers and decimals!!!
 
-  VALID_ANSWERS_REGEX = /\A(([+-\/*^\(\)A-Z]|\d)+)*((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+(`((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+)*(t|f)?\z/
+  VALID_ANSWERS_REGEX = /\A[^`]*`(([+-\/*^\(\)A-Z]|\d)*((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*[+-\/*^\(\)A-Z]|\d)+(`(((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+))*(t|f)?\z/
   validates :answers, presence: true, format: { with: VALID_ANSWERS_REGEX }
   
   VALID_TEXT_REGEX = /\A[^`]*(`(([+-\/*^\(\)A-Z]|\d)+)*((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+(`((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+)*`[^`]*)*\z/
