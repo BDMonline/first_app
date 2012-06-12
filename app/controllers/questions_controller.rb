@@ -339,7 +339,7 @@ begin
             return ourexp
         end
 
-        return 1/0
+        
     end
 
 
@@ -485,7 +485,7 @@ end
                 end
                 throw :answer_problem, @example_answers
             else 
-                #@example_answers=answers
+                @example_answers=answers
             end
         end
 
@@ -509,6 +509,12 @@ end
                     question_text=question_text[1..-1]
                     split_pos=question_text.index('`')
                     formula = question_text[0..split_pos-1]
+                    if formula[-1]=='f'
+                        formula=formula[0..-2]
+                        float=true
+                    else
+                        float=false
+                    end
                     
                     if @example_param_hash==nil
                         @error=true
@@ -520,7 +526,9 @@ end
                         @error=true
                         throw :question_problem, "ERROR: Question contains formula with undefined parameter"
                     else
-                        @example_question=@example_question+calculate(formula).to_s+formula
+                        formula_result=calculate(formula)
+                        formula_result=formula_result.to_f if float
+                        @example_question=@example_question+formula_result.to_s
                         question_text=question_text[split_pos+1..-1]
                         unless question_text==nil
                             if question_text.count('`')>0
