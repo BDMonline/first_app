@@ -1,0 +1,51 @@
+
+<% provide(:title, @question.name) %>
+<h1>Question no. <%=@question.id%> <p> <%=@question.name %></h1>
+
+This is how the question could appear: 
+
+<h2>'<%= @example_question %>' </h2><p>
+
+
+The expected answer(s) to the question as posed above is/are: <h2><%= @example_answers %>.</h2> <p>
+
+This example question and answer were generated with the parameter choice: <%= @example_param_hash %>. (Ignore this if you didn't include parameters) <p> 
+ 
+
+It is <%= @order_matters.to_s %> that the order of the answers is significant. (Feel free not to worry about this if the question just has one answer.)<h1><p></h1>
+
+<h2>
+	If you need to make changes, do so below: </h2>
+<h1><p></h1>
+<div class="row">
+  <div class="span8 well">
+    <%= form_for @question do |f| %>
+   
+
+      <%= render 'shared/qerror_messages' %>
+
+      <%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+      <h1><p></h1>
+
+      <%= f.label :text, :style => "font-size: 1.7em;"%>  Use ` as delimiter for any embedded expressions
+      <%= f.text_field :text %>
+     
+      <h1><p></h1>
+
+      <%= f.label :parameters, :style => "font-size: 1.7em;"%> If parameters are needed, give names (uppercase letters) and ranges, separated by spaces, e.g. "A (2,3,7,8) B (-2..5) C [0..3]"
+      
+      <%= f.text_field :parameters %> <%= @paramtext %>
+      <h1><p></h1>
+      
+
+      <%= f.label :answers, :style => "font-size: 1.7em;"%> Use ` to separate multiple answers. End with "t" if order matters, "f" if not.<p>      
+      <%= f.text_field :answers %>
+      Answer(s) to example question: <%= @example_answers %>
+      <h1><p></h1>
+
+
+      <%= f.submit "Update Question", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -427,7 +427,7 @@ end
                         value=rand(bound_l..bound_h)
                         @example_param_hash[string1]=value
                     end
-                elsif string2.match(/\A\[-?(\d)+(\.(\d)+)?\.\.-?(\d)+(\.(\d)+)?]\z/)
+                elsif string2.match(/\A\[-?(\d)+(\.(\d)+)?\.\.-?(\d)+(\.(\d)+)?\]\z/)
                     dots_pos=string2.index('..')
                     bound_l=string2[1..dots_pos-1].to_r
                     bound_h=string2[dots_pos+2..-2].to_r
