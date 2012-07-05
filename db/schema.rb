@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120630224244) do
+ActiveRecord::Schema.define(:version => 20120705065811) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(:version => 20120630224244) do
     t.string   "name"
     t.string   "parameters"
     t.string   "answers"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "text"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.text     "text",       :limit => 255
   end
 
   add_index "questions", ["name"], :name => "index_questions_on_name", :unique => true
