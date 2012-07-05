@@ -1,0 +1,11 @@
+<% provide(:title, 'All Elements') %>
+<h1>All Elements</h1>
+
+
+
+<ul class="elements">
+  <% @elements.each do |element| %>
+    <%= render element %>
+  <% end %>
+</ul>
+

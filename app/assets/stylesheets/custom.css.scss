@@ -22,7 +22,7 @@ html {
 
 
 body {
-  padding-top: 60px;
+  padding-top: 120px;
 }
 
 section {
@@ -85,6 +85,13 @@ h7 {
   font-weight: bold;
   color: $red;
 }
+
+h8 {
+  font-size: 1em;
+  font-weight: normal;
+  color: $grayLight;
+}
+
 
 p {
   font-size: 1.1em;

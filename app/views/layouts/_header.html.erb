@@ -8,6 +8,9 @@
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
             <li><%= link_to "Users", users_path %></li>
+            <li><%= link_to "Questions", questions_path %></li>
+            <li><%= link_to "Elements", elements_path %></li>
+            <li><%= link_to "Items", items_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
@@ -26,7 +29,14 @@
           <% end %>
         </ul>
       </nav>
+      <h2>
+    <% if session[:current_item_id] %>
+      Building item <%= session[:current_item_id] %>
+    <% end %>
+  </h2>
+  
     </div>
+    
   </div>
 </header>
 

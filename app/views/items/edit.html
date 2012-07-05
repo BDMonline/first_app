@@ -1,0 +1,42 @@
+<% provide(:title,  @item.name) %>
+
+<h1>Update Item <%= @item.id %>: <%= @item.name %> </h1>
+
+<div class="row">
+  <aside class="span10">
+    <section>
+      <h2> <p>
+      	Showing Item <%= @item.id %> <p>
+
+
+        Content: <%= @item.content %> <p>
+        Name: <%= @item.name %> <p>
+        
+        Tags: <%= @item.tags %> <p>
+        
+        <%= link_to "Add a new element", elements_path %><p>
+
+      </h2>
+    </section>
+  </aside>
+</div>
+
+<div class="row">
+  <div class="span10">
+  <%= form_for(@item) do |f| %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+
+      <%= f.label :tags %>
+      <%= f.text_field :tags %>
+
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
+

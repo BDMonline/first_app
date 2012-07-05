@@ -1,0 +1,24 @@
+<% provide(:title, @item.name) %>
+
+
+<% provide(:title, @item.name) %>
+<div class="row">
+  <aside class="span10">
+    <section>
+      <h2> <p>
+      	Showing Item <%= @item.id %> <p>
+
+
+        Content: <%= @item.content %> <p>
+        Name: <%= @item.name %> <p>
+        
+        Tags: <%= @item.tags %> <p>
+        
+        <%= link_to "Elements index", elements_path %><p>
+
+        <%= link_to "Edit this item", edit_item_path %>
+
+      </h2>
+    </section>
+  </aside>
+</div>

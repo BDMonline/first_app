@@ -1,0 +1,27 @@
+<% provide(:title, @element.name) %>
+
+
+<% provide(:title, @element.name) %>
+<div class="row">
+  <aside class="span10">
+    <section>
+      <h2> <p>
+        Category: <%= @element.category %> <p>
+        Name: <%= @element.name %> <p>
+        <%= @element.content %> <p>
+        <% if @element.category=="image" %>
+        	<img src = <%= @element.content %> /> <p>
+        <% end %>
+        <% if @element.category=="video" %>
+			<iframe frameborder="0" width="480" height="360" src= <%= @element.content %> > </iframe><br /></i> <p>
+        <% end %>
+        Tags: <%= @element.tags %> <p>
+        <% if session[:current_item_id] %>
+        <% @item=Item.find_by_id(session[:current_item_id]) %>
+        <%= link_to("Add to Item", edit_item_path ) %>
+    	<% end %>
+
+      </h2>
+    </section>
+  </aside>
+</div>

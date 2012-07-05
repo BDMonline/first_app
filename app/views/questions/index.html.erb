@@ -1,0 +1,11 @@
+<% provide(:title, 'All Questions') %>
+<h1>All questions</h1>
+
+
+
+<ul class="questions">
+  <% @questions.each do |question| %>
+    <%= render question %>
+  <% end %>
+</ul>
+

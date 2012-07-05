@@ -1,0 +1,21 @@
+/* ONLY ADMINISTRATORS SHOULD HAVE ACCESS */
+
+<%= provide(:title, 'New Item') %>
+<h1>Enter a New Item</h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@item) do |f| %>
+      <%= render 'shared/ierror_messages' %>
+
+      <%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+
+      <%= f.label :tags, :style => "font-size: 1.7em;"%> Keywords that can be used to find this item.
+      <%= f.text_field :tags %>
+
+      <%= f.submit "Create Item", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

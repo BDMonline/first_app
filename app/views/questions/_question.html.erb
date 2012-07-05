@@ -1,0 +1,11 @@
+<li>
+  <%= link_to question.name, question %>
+  <i><%= question.text %></i>
+  <% if current_user.admin? %>
+
+    | <%= link_to "show", question %>
+
+    | <%= link_to "delete", question, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

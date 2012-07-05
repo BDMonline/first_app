@@ -1,6 +1,12 @@
 FirstApp::Application.routes.draw do
+  #get "elements/new"
+
+  #get "items/new"
+
   resources :users
   resources :questions
+  resources :items
+  resources :elements
   resources :sessions, only: [:new, :create, :destroy]
 
   root to: "static_pages#home"
