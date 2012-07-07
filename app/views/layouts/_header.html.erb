@@ -4,6 +4,7 @@
       <%= link_to "Robo Tutor", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
+          <h1><%= current_user %></h1>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
