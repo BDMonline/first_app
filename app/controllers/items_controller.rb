@@ -47,8 +47,7 @@ class ItemsController < ApplicationController
             @item=Item.find_by_id(session[:current_item_id])
 
             render "edit"
-            #@items = Item.paginate(page: params[:page])
-            #render "index"
+       
         end
     end
 
