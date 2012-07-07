@@ -4,10 +4,10 @@
       <%= link_to "Robo Tutor", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <h1><%= current_user %></h1>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
+            <h1><%= current_user.name %></h1>
             <li><%= link_to "Users", users_path %></li>
             <li><%= link_to "Questions", questions_path %></li>
             <li><%= link_to "Elements", elements_path %></li>
