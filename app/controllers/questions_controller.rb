@@ -2,6 +2,9 @@ include Math
 
 class QuestionsController < ApplicationController
 include ApplicationHelper
+
+before_filter :author_user
+
 # begin
 
 #     #We want to express numbers as rationals enclosed in angle brackets.
@@ -130,5 +133,9 @@ include ApplicationHelper
         else
             render 'new'
         end
+    end
+    private
+    def author_user
+      redirect_to(root_path) unless current_user.author
     end
 end

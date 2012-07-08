@@ -2,6 +2,8 @@
 class ItemsController < ApplicationController
 
     include ApplicationHelper
+
+    before_filter :author_user
     
     def show 
         @item=Item.find(params[:id])
@@ -66,4 +68,9 @@ class ItemsController < ApplicationController
       #deal with invalid item
     end
   end
+
+  private
+    def author_user
+      redirect_to(root_path) unless current_user.author
+    end
 end

@@ -1,5 +1,7 @@
 class ElementsController < ApplicationController
 	
+    before_filter :author_user
+
     def destroy
         Element.find(params[:id]).destroy
         flash[:success] = "Element destroyed."
@@ -27,5 +29,10 @@ class ElementsController < ApplicationController
         else
             render 'new'
         end
+    end
+
+    private
+    def author_user
+      redirect_to(root_path) unless current_user.author
     end
 end
