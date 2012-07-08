@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
+  before_filter :author_user
 
   def show
     params[:bigone]="snookums"
@@ -59,4 +60,9 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
+
+    def author_user
+      redirect_to(root_path) unless current_user.author
+    end
+
 end
