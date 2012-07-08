@@ -3,10 +3,12 @@
 <h1>Update Item <%= @item.id %>: <%= @item.name %> </h1>
 
 <div class="row">
-  <aside class="span10">
+  <aside class="span12">
     <section>
       <h2> <p>
       	Showing Item <%= @item.id %> <p>
+
+        <%= @item_html.html_safe %>
 
 
         Content: <%= @item.content %> <p>
@@ -15,6 +17,8 @@
         Tags: <%= @item.tags %> <p>
         
         <%= link_to "Add a new element", elements_path %><p>
+
+        <%= link_to "Add a new question", questions_path %><p>
 
       </h2>
     </section>

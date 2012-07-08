@@ -12,7 +12,7 @@ class ElementsController < ApplicationController
 
     def show
     	@element = Element.find(params[:id])
-        session[:new_element_id]= @element.id
+        session[:new_element_id]= @element.id.to_s
     end
 
 	def new

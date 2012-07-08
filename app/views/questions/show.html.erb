@@ -31,9 +31,14 @@ This is the Show page
 <p>
 <%= link_to "Edit this question", :controller => :questions, :action => :edit%>
 
-<p>
-
 <%= link_to "Reload this question", :controller => :questions, :action => :show%>
+
+<% if session[:current_item_id] %>
+        <% @item=Item.find_by_id(session[:current_item_id]) %>
+        <%= link_to("Add to Item", edit_item_path ) %>
+<% end %>
+
+
 
 <p>
 <h2>

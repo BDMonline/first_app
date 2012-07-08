@@ -1,8 +1,11 @@
 
 class ItemsController < ApplicationController
+
+    include ApplicationHelper
     
     def show 
         @item=Item.find(params[:id])
+        create_item(@item)
     end
 
     def destroy
@@ -40,11 +43,13 @@ class ItemsController < ApplicationController
                 @item.update_attributes(params[:item])
                 flash[:success] = "Item updated"
             end
+            create_item(@item)
             render "edit"
         
         else
             session[:current_item_id]=params[:id]
             @item=Item.find_by_id(session[:current_item_id])
+            create_item(@item)
 
             render "edit"
        

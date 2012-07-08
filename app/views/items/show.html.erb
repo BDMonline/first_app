@@ -8,6 +8,8 @@
       <h2> <p>
       	Showing Item <%= @item.id %> <p>
 
+        <%= @item_html.html_safe %>
+
 
         Content: <%= @item.content %> <p>
         Name: <%= @item.name %> <p>
@@ -15,6 +17,8 @@
         Tags: <%= @item.tags %> <p>
         
         <%= link_to "Elements index", elements_path %><p>
+
+        <%= link_to "Questions index", questions_path %><p>
 
         <%= link_to "Edit this item", edit_item_path %>
 
