@@ -1,5 +1,6 @@
 <li>
   <%= link_to element.name, element %>
+  (<%= element.category %>)
   <i><%= element.tags %></i>
   <% if current_user.admin? %>
 

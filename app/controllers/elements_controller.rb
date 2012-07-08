@@ -17,6 +17,19 @@ class ElementsController < ApplicationController
         session[:new_element_id]= @element.id.to_s
     end
 
+    def edit
+        @element = Element.find(params[:id])
+    end
+
+    def update
+        @element = Element.find(params[:id])
+        if @element.update_attributes(params[:element])
+          flash[:success] = "Element updated"
+        end
+        render "show"
+    end
+
+
 	def new
         @element = Element.new
     end

@@ -16,6 +16,8 @@
 			<iframe frameborder="0" width="480" height="360" src= <%= @element.content %> > </iframe><br /></i> <p>
         <% end %>
         Tags: <%= @element.tags %> <p>
+        <%= link_to("Edit Element", edit_element_path) %><p>
+        <%= link_to("New Element", new_element_path) %>
         <% if session[:current_item_id] %>
         <% @item=Item.find_by_id(session[:current_item_id]) %>
         <%= link_to("Add to Item", edit_item_path ) %>
