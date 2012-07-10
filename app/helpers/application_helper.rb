@@ -432,7 +432,7 @@ module ApplicationHelper
         @example_answers=catch(:answer_problem) do
             @order_matters=false
             answers=@question.answers
-            if answers.include?('`')
+            #if answers.include?('`')
                 if answers[-1].match(/[tf]/)
                     @order_matters=true if answers[-1]="t"
                     answers=answers[0..-2]
@@ -466,9 +466,9 @@ module ApplicationHelper
                     #end
                 end
                 throw :answer_problem, @example_answers
-            else 
-                @example_answers=answers
-            end
+            #else 
+                #@example_answers=answers
+            #end
         end
 
         @example_question=catch(:question_problem) do
@@ -541,7 +541,9 @@ module ApplicationHelper
     def create_item(item)
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
-        @item_html=""
+        @ans=params["@ans"]
+        @item_html="<form>"
+        count=0
         content=eval(item.content)
         content.each do
             |item_string|
@@ -554,6 +556,31 @@ module ApplicationHelper
                 <p><h9>)+@example_question+%Q(</h9> 
                 
                 )
+                
+                @item_html=@item_html+%Q(
+                <table class="table">  
+                <tbody>
+                )
+
+                @example_answers.each do
+                    |answer|
+                    @item_html=@item_html+%Q(
+                        <tr>
+                        <td>
+                        <input type="textarea"  name="@ans[]" value=")+ @ans[count].to_s + '" rows="1" cols="10" > </td>'
+                    if @ans[count]
+                        if @ans[count]==answer
+                            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                        else
+                            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td>'
+                        end
+                    end
+                    count=count+1
+                    @item_html=@item_html+ '</tr>'
+                end
+                @item_html=@item_html+ '</tbody> </table>'
+
+
             else
                 element=Element.find_by_id(item_string.to_i)
                 if element
@@ -581,6 +608,10 @@ module ApplicationHelper
 
             end
         end
+        @item_html=@item_html+%Q(
+        <input type="submit" value="Check answers" />
+        </form>
+        )
 
 
 
