@@ -360,7 +360,12 @@ module ApplicationHelper
         end
     end
 
-    def construct
+    def construct(fix_to_user)
+        if fix_to_user==1
+            srand(@question.id+current_user.id)
+        else
+            srand()
+        end 
         @error=false
         #@question = Question.find(params[:id])
         @param=@question.parameters.split(' ')
@@ -550,7 +555,7 @@ module ApplicationHelper
             if item_string[0]=="Q"
                
                 @question=Question.find_by_id(item_string[1..-1].to_i)
-                construct
+                construct(1)
                 @item_html=@item_html+%Q(
                 
                 <p><h9>)+@example_question+%Q(</h9> 

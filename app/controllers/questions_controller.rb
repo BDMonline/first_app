@@ -46,7 +46,7 @@ before_filter :author_user
     def show
         @question = Question.find(params[:id])
         session[:new_element_id]= "Q"+@question.id.to_s
-        construct
+        construct(0)
 
         if @error 
             flash.now[:success] = "There was a problem with this question. Please address the issues below."
@@ -64,7 +64,7 @@ before_filter :author_user
 
         @question = Question.find(params[:id])
         #@question.update_attributes(params[:question])
-        construct
+        construct(0)
 
 
         if @error
@@ -92,7 +92,7 @@ before_filter :author_user
 
         @question = Question.find(params[:id])
         if @question.update_attributes(params[:question])
-            construct
+            construct(0)
             if @error
                 flash.now[:failure] = "There was a problem with this question"
                 render 'edit'
