@@ -1,7 +1,7 @@
 /* ONLY ADMINISTRATORS SHOULD HAVE ACCESS */
 
 <%= provide(:title, 'New Element') %>
-<h1>Enter a New Element</h1>
+<h1>Edit Element</h1>
 
 
 <div class="row">
@@ -16,7 +16,7 @@
       <%= f.text_field :name %>
 
       <%= f.label :content, :style => "font-size: 1.7em;"%>
-      <%= f.text_field :content %>
+      <%= f.text_area :content, "cols" => 30, "rows" => 5%>
 
       <%= f.label :tags, :style => "font-size: 1.7em;"%>
       <%= f.text_field :tags %>

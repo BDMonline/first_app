@@ -434,7 +434,7 @@ module ApplicationHelper
             answers=@question.answers
             if answers.include?('`')
                 if answers[-1].match(/[tf]/)
-                    @order_matters=true if answers[-1]=true
+                    @order_matters=true if answers[-1]="t"
                     answers=answers[0..-2]
                 end
 
@@ -458,7 +458,7 @@ module ApplicationHelper
                     # end
                     #begin
                         x=calculate(this_answer).to_s
-                        @amicrazy=x
+                        
                         @example_answers << x
                     #rescue
                     #    @error=true
@@ -551,7 +551,7 @@ module ApplicationHelper
                 construct
                 @item_html=@item_html+%Q(
                 
-                <h2>)+@example_question+%Q(</h2>
+                <h9>)+@example_question+%Q(</h9> <p>
                 
                 )
             else
@@ -561,7 +561,7 @@ module ApplicationHelper
                 if category=="text"
                     @item_html=@item_html+%Q(
                     
-                    <h2>)+element.content+%Q(</h2>
+                    <h9>)+element.content+%Q(</h9> <p>
                   
                     )
                 elsif category=="image"

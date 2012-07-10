@@ -14,7 +14,7 @@ This is the edit page.
       <h1><p></h1>
 
       <%= f.label :text, :style => "font-size: 1.7em;"%>  Use ` as delimiter for any embedded expressions
-      <%= f.text_field :text %>
+      <%= f.text_area :text, "cols" => 30, "rows" => 5%>
       Sample question text: <h7><%= @example_question %> </h7>
       <h1><p></h1>
 

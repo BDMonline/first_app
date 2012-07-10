@@ -10,13 +10,15 @@
       <%= render 'shared/eerror_messages' %>
 
       <%= f.label :category, :style => "font-size: 1.7em;"%>  
-      <%= f.text_field :category %>
+      <%= f.radio_button :category, "text" %> text 
+      <%= f.radio_button :category, "image" %> image
+      <%= f.radio_button :category, "video" %> video <br /><br />
 
       <%= f.label :name, :style => "font-size: 1.7em;"%>
       <%= f.text_field :name %>
 
       <%= f.label :content, :style => "font-size: 1.7em;"%>
-      <%= f.text_field :content %>
+      <%= f.text_area :content, "cols" => 30, "rows" => 5%>
 
       <%= f.label :tags, :style => "font-size: 1.7em;"%>
       <%= f.text_field :tags %>

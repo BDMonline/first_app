@@ -13,7 +13,7 @@
       <%= f.text_field :name %>
 
       <%= f.label :text, :style => "font-size: 1.7em;"%>  Use ` as delimiter for any embedded expressions
-      <%= f.text_field :text %>
+      <%= f.text_area :text, "cols" => 30, "rows" => 5%>
 
       <%= f.label :parameters, :style => "font-size: 1.7em;"%> If parameters are needed, give names (uppercase letters) and ranges, separated by spaces, e.g. "A (2,3,7,8) B (-2..5) C [0..3]"
       <%= f.text_field :parameters %>

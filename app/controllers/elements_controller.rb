@@ -26,7 +26,6 @@ class ElementsController < ApplicationController
         if @element.update_attributes(params[:element])
           flash[:success] = "Element updated"
         end
-        render "show"
     end
 
 
