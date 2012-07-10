@@ -551,7 +551,7 @@ module ApplicationHelper
                 construct
                 @item_html=@item_html+%Q(
                 
-                <h9>)+@example_question+%Q(</h9> <p>
+                <p><h9>)+@example_question+%Q(</h9> 
                 
                 )
             else
@@ -561,7 +561,7 @@ module ApplicationHelper
                 if category=="text"
                     @item_html=@item_html+%Q(
                     
-                    <h9>)+element.content+%Q(</h9> <p>
+                    <p><h9>)+element.content+%Q(</h9>
                   
                     )
                 elsif category=="image"
