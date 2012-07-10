@@ -564,11 +564,16 @@ module ApplicationHelper
 
                 @example_answers.each do
                     |answer|
+                    if @ans && @ans[count]
+                        answer_given=@ans[count].to_s
+                    else
+                        answer_given=''
+                    end
                     @item_html=@item_html+%Q(
                         <tr>
                         <td>
-                        <input type="textarea"  name="@ans[]" value=")+ @ans[count].to_s + '" rows="1" cols="10" > </td>'
-                    if @ans[count]
+                        <input type="textarea"  name="@ans[]" value=")+ answer_given + '" rows="1" cols="10" > </td>'
+                    if @ans && @ans[count]
                         if @ans[count]==answer
                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
                         else
