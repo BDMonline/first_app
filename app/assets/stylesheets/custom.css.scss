@@ -22,6 +22,7 @@ html {
 
 
 body {
+  font-size: 1.6em;
   padding-top: 120px;
 }
 
@@ -43,7 +44,7 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, h7, h8, h9 {
   line-height: 1;
 }
 
@@ -55,7 +56,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 2.1em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
@@ -70,6 +71,16 @@ h3 {
   font-weight: bold;
   color: $blue;
 }
+
+h4 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  text-align: left;
+  font-weight: bold;
+  color: $grayLight;
+}
+
+
 
 h6 {
   font-size: 1.2em;
@@ -110,7 +121,7 @@ p {
 #logo {
   float: left;
   margin-right: 10px;
-  font-size: 2.1em;
+  font-size: 1.8em;
   font-family: Verdana;
   color: $pinkish;
   text-transform: uppercase;
