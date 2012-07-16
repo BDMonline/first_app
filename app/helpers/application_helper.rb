@@ -745,7 +745,7 @@ module ApplicationHelper
             current_user.update_attribute(:item_successes, success_array.to_s)
             
         elsif eval(current_user.item_successes).include?(@item.id)
-            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstar.jpg width="90" height="90" /> </td>'
+            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td>'
         end
 
         # unless correct==total
