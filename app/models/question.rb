@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   
-  attr_accessible :answers, :name, :parameters, :text
+  attr_accessible :answers, :name, :parameters, :text, :precision_regime
 
   validates :name, presence: true, length: { maximum: 50 },
   		uniqueness:  { case_sensitive: false }

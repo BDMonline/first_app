@@ -6,11 +6,6 @@ module ApplicationHelper
 	    return log(x)
 	end
 
-    def precision_regime
-        return "3s"
-    end
-
-
 	def lg(x)
 	    return log10(x)
 	end
@@ -471,7 +466,7 @@ module ApplicationHelper
                     #     throw :answer_problem, "ERROR: Answer uses undefined parameter(s) e.g. "+this_answer.match(/[A-Z]/)[0]
                     # end
                     #begin
-                        x=calculate(this_answer,precision_regime).to_s
+                        x=calculate(this_answer,@question.precision_regime).to_s
                         
                         @example_answers << x
                     #rescue
@@ -522,7 +517,7 @@ module ApplicationHelper
                         @error=true
                         throw :question_problem, "ERROR: Question contains formula with undefined parameter"
                     else
-                        formula_result=calculate(formula,precision_regime)
+                        formula_result=calculate(formula,@question.precision_regime)
                         formula_result=formula_result.to_f if float
                         @example_question=@example_question+formula_result.to_s
                         question_text=question_text[split_pos+1..-1]
@@ -631,7 +626,7 @@ module ApplicationHelper
 
 
 
-    def create_item(item, precision_regime)
+    def create_item(item)
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
         @ans=params["@ans"]
@@ -643,6 +638,7 @@ module ApplicationHelper
             if item_string[0]=="Q"
                
                 @question=Question.find_by_id(item_string[1..-1].to_i)
+                @precision_regime=@question.precision_regime
                 construct(1)
                 @item_html=@item_html+%Q(
                 
@@ -667,7 +663,7 @@ module ApplicationHelper
                         <td>
                         <input type="textarea"  name="@ans[]" value=")+ answer_given + '" rows="1" cols="10" > </td>'
                     if @ans && @ans[count]
-                        ans_match=match(answer,@ans[count],precision_regime)
+                        ans_match=match(answer,@ans[count],@precision_regime)
                         #@item_html=@item_html+'<tr><td><i>'+answer+@ans[count]+ans_match.to_s+'</i></td></tr>'
                         if ans_match==0
                              @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
