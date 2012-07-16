@@ -635,6 +635,7 @@ module ApplicationHelper
 
 
     def create_item(item)
+        
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
         @ans=params["@ans"]
