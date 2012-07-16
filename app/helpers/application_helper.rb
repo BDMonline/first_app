@@ -6,6 +6,11 @@ module ApplicationHelper
 	    return log(x)
 	end
 
+    def precision_regime
+        return "3s"
+    end
+
+
 	def lg(x)
 	    return log10(x)
 	end
@@ -343,21 +348,25 @@ module ApplicationHelper
 
         
     end
-    def calculate(string)
+    def calculate(string, precision_regime)
     unless string.count('(')==string.count(')') 
-        puts string, "initial input"
+        #puts string, "initial input"
         x=1/0
-        puts prepare(string), "outcome of prepare"
+        #puts prepare(string), "outcome of prepare"
     end
         x=evaluate(prepare(string))[1..-2].to_r
-        d=x.denominator
-        if d==1 
-            return x.numerator
-        elsif d>1000
-            return x.to_f
-        else
-            return x
+        if precision_regime=='0'
+            d=x.denominator
+            if d==1 
+                return x.numerator
+            else
+                return x
+            end
         end
+        figures=(precision_regime[0..-2]).to_i
+
+        return rounded(x,figures)
+        #return x.to_s+figures.to_s
     end
 
     def construct(fix_to_user)
@@ -462,7 +471,7 @@ module ApplicationHelper
                     #     throw :answer_problem, "ERROR: Answer uses undefined parameter(s) e.g. "+this_answer.match(/[A-Z]/)[0]
                     # end
                     #begin
-                        x=calculate(this_answer).to_s
+                        x=calculate(this_answer,precision_regime).to_s
                         
                         @example_answers << x
                     #rescue
@@ -513,7 +522,7 @@ module ApplicationHelper
                         @error=true
                         throw :question_problem, "ERROR: Question contains formula with undefined parameter"
                     else
-                        formula_result=calculate(formula)
+                        formula_result=calculate(formula,precision_regime)
                         formula_result=formula_result.to_f if float
                         @example_question=@example_question+formula_result.to_s
                         question_text=question_text[split_pos+1..-1]
@@ -543,7 +552,86 @@ module ApplicationHelper
     
     end
 
-    def create_item(item)
+    def rounded(number,figs)
+        if number<0
+            sign ='-'
+        else
+            sign=''
+        end
+        if number==0
+            answer="0"
+            if figs>1
+                answer=answer+'.'+'0'*(figs-1)
+                return answer
+            end
+        end
+        number = number.abs
+        exponent=(log10(number)).floor
+        abscissa=number.to_f/(10**exponent)
+        abscissa=abscissa.round(figs-1).to_s.delete('.')
+        shortness=figs-abscissa.length
+        if shortness>0
+            abscissa=abscissa+"0"*shortness
+        end
+        if exponent == figs-1
+            return sign+abscissa
+        elsif exponent < 0
+            return sign+"0."+"0"*(-1-exponent)+abscissa
+        elsif exponent >= figs
+            return sign+abscissa + "0"*(exponent-figs+1)
+        else
+            return sign+abscissa[0..exponent]+"."+abscissa[exponent+1..-1]
+        end
+    end
+                
+      
+    def match(stringx,stringy,precision_regime)
+        figs=precision_regime[0..-2].to_i
+     
+        if figs==0
+            if stringx==stringy
+                return 0
+            else
+                return 2
+            end
+        elsif precision_regime[-1]=="h"
+            if stringx==stringy
+                return 0
+            elsif stringx==rounded(stringy.to_f,figs)
+                return 1
+            else
+                return 2
+            end
+        elsif precision_regime[-1]=="r"
+            if stringx==rounded(stringy.to_f,figs)
+                return 0
+            else
+                return 2
+            end
+        elsif precision_regime[-1]=="s"
+            diff=(rounded(stringx.to_f,figs).delete('.')[0..figs-1].to_i-rounded(stringy.to_f,figs).delete('.')[0..figs-1].to_i).abs
+            if diff>1
+                return 2
+            else
+                excess_figs=stringy.delete('.').to_i.to_s.length-figs
+                if excess_figs>1
+                    return 1
+                else
+                    return 0
+                end
+            end
+        end
+    end
+
+
+
+
+
+
+
+
+
+    def create_item(item, precision_regime)
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
         @ans=params["@ans"]
@@ -579,10 +667,14 @@ module ApplicationHelper
                         <td>
                         <input type="textarea"  name="@ans[]" value=")+ answer_given + '" rows="1" cols="10" > </td>'
                     if @ans && @ans[count]
-                        if @ans[count]==answer
-                            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                        ans_match=match(answer,@ans[count],precision_regime)
+                        #@item_html=@item_html+'<tr><td><i>'+answer+@ans[count]+ans_match.to_s+'</i></td></tr>'
+                        if ans_match==0
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                        elsif ans_match==1
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td>'
                         else
-                            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td>'
                         end
                     end
                     count=count+1
