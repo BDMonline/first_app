@@ -720,7 +720,7 @@ module ApplicationHelper
             end
         end
         @item_html=@item_html+%Q(
-        <input type="submit" value="Check answers" />
+        <input type="submit" value="Check answers" style="background-color:#58f; color:#fff;">
         </form>
         )
 

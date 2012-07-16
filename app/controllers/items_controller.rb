@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
 
   private
     def author_user
-      redirect_to(root_path) if current_user.nil?
+      redirect_to(signin_path) unless current_user
       redirect_to(root_path) unless current_user.author
     end
 end
