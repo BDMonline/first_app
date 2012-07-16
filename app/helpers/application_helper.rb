@@ -635,13 +635,15 @@ module ApplicationHelper
 
 
     def create_item(item)
-        
+
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
         @ans=params["@ans"]
         @item_html="<form>"
         count=0
         content=eval(item.content)
+        correct=0
+        total=0
         content.each do
             |item_string|
             if item_string[0]=="Q"
@@ -658,6 +660,7 @@ module ApplicationHelper
                 <table class="table">  
                 <tbody>
                 )
+                total=total+@example_answers.count
 
                 @example_answers.each do
                     |answer|
@@ -674,9 +677,9 @@ module ApplicationHelper
                         <input type="textarea"  name="@ans[]" value=")+ answer_given + '" rows="1" cols="10" > </td>'
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
-                        #@item_html=@item_html+'<tr><td><i>'+answer+@ans[count]+ans_match.to_s+'</i></td></tr>'
                         if ans_match==0
                              @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                            correct=correct+1
                         elsif ans_match==1
                              @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td>'
                         else
@@ -720,6 +723,40 @@ module ApplicationHelper
         <input type="submit" value="Check answers" />
         </form>
         )
+
+        @item_html=@item_html+%Q(
+        <table class="table">  
+        <tbody>
+        <tr>
+        <td>
+        )
+
+this_user=current_user
+
+        #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
+        @item_html=@item_html+this_user.item_successes+'Score: '+correct.to_s+'/'+total.to_s+ "</td>"
+
+        if correct==total
+            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td>'
+            success_array=eval(this_user.item_successes)
+            unless success_array.include?(@item.id)
+                success_array << @item.id
+            end
+            
+            #this_user.update_attribute(:item_successes, success_array.to_s)
+            @item_html=@item_html+this_user.item_successes
+        elsif eval(this_user.item_successes).include?(@item.id)
+            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstar.jpg width="90" height="90" /> </td>'
+
+            
+        end
+        @item_html=@item_html+ %Q(
+            </tr>
+            </tbody> 
+            </table>
+            )
+
+
 
 
 

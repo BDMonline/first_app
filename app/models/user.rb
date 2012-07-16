@@ -10,7 +10,7 @@
 
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name , :password,:password_confirmation  
+  attr_accessible :email, :name , :password,:password_confirmation, :item_successes  
          #ensures only these columns are acc'ble - don't worry, the p'word ones don't persist.
   has_secure_password
   
