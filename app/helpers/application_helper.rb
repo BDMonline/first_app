@@ -350,7 +350,7 @@ module ApplicationHelper
         #puts prepare(string), "outcome of prepare"
     end
         x=evaluate(prepare(string))[1..-2].to_r
-        if precision_regime=='0'
+        if precision_regime[0]=='0'
             d=x.denominator
             if d==1 
                 return x.numerator
