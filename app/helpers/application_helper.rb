@@ -472,7 +472,7 @@ module ApplicationHelper
                     #     throw :answer_problem, "ERROR: Answer uses undefined parameter(s) e.g. "+this_answer.match(/[A-Z]/)[0]
                     # end
                     #begin
-                        x=calculate(this_answer,@question.precision_regime).to_s
+                        x=calculate(this_answer,@precision_regime).to_s
                         
                         @example_answers << x+precision_regime.reverse
                     #rescue
