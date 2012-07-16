@@ -720,7 +720,7 @@ module ApplicationHelper
             end
         end
         @item_html=@item_html+%Q(
-        <input type="submit" value="Check answers" style="background-color:#58f; color:#fff;">
+        <input type="submit" value="Check answers" style="background-color:#39f; color:#fff;">
         </form>
         )
 
@@ -736,7 +736,7 @@ module ApplicationHelper
         @item_html=@item_html+'Score: '+correct.to_s+'/'+total.to_s+ "</td>"
 
         if correct==total
-            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td>'
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
             success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
                 success_array << @item.id
@@ -745,7 +745,7 @@ module ApplicationHelper
             current_user.update_attribute(:item_successes, success_array.to_s)
             
         elsif eval(current_user.item_successes).include?(@item.id)
-            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td>'
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td> <h2>Item previously solved</h2> </td> </tr> </tbody> </table> </div>' + @item_html
         end
 
         # unless correct==total
