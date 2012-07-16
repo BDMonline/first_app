@@ -1,6 +1,8 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <li>  <%= link_to 'Signed in as '+current_user.name, '#' %>  </li>
+    <% if signed_in? %>
+      <li>  <%= link_to 'Signed in as '+current_user.name, '#' %>  </li>
+    <% end %>
     <div class="container">
       <%= link_to "Robo Tutor", root_path, id: "logo" %>
         
