@@ -453,6 +453,12 @@ module ApplicationHelper
 
                 answerlist.each do
                     |this_answer|
+                    precision_regime=@question.precision_regime
+                    if this_answer[-2].match(/[hsr]/)
+                        precision_regime=this_answer[-2..-1].reverse
+                        this_answer=this_answer[0..-3]
+                    end
+
                     #if @example_param_hash==nil
                     #    @error=true
                     #    throw :answer_problem, "ERROR: No valid parameters defined"
@@ -468,7 +474,7 @@ module ApplicationHelper
                     #begin
                         x=calculate(this_answer,@question.precision_regime).to_s
                         
-                        @example_answers << x
+                        @example_answers << x+precision_regime.reverse
                     #rescue
                     #    @error=true
                     #    throw :answer_problem, 'ERROR: Answer calculation '+this_answer+' causes evaluation error HERE'
@@ -526,11 +532,11 @@ module ApplicationHelper
                                split_pos=question_text.index('`')
                                @example_question=@example_question+question_text[0..split_pos-1]
                                question_text=question_text[split_pos..-1]
-                            else @example_question=@example_question+question_text+'.'
+                            else @example_question=@example_question+question_text
                               question_text=''
                             end
                         else
-                        question_text="."
+                        question_text=""
                         end
                     end
                     @example_question.gsub!('+-','-')
@@ -586,6 +592,8 @@ module ApplicationHelper
         if figs==0
             if stringx==stringy
                 return 0
+            elsif stringx.to_f==stringy.to_f
+                return 1
             else
                 return 2
             end
@@ -638,7 +646,6 @@ module ApplicationHelper
             if item_string[0]=="Q"
                
                 @question=Question.find_by_id(item_string[1..-1].to_i)
-                @precision_regime=@question.precision_regime
                 construct(1)
                 @item_html=@item_html+%Q(
                 
@@ -653,6 +660,8 @@ module ApplicationHelper
 
                 @example_answers.each do
                     |answer|
+                    @precision_regime=answer[-2..-1].reverse
+                    answer=answer[0..-3]
                     if @ans && @ans[count]
                         answer_given=@ans[count].to_s
                     else

@@ -21,7 +21,7 @@
       <%= f.label :answers, :style => "font-size: 1.7em;"%> Use ` to separate multiple answers. End with "t" if order matters, "f" if not.
       <%= f.text_field :answers %>
 
-      <%= f.label :precision_regime, :style => "font-size: 1.7em;"%> 0 for exact answers only, Otherwise number of sf + h/s/r (harsh/soft/round)
+      <%= f.label :precision_regime, :style => "font-size: 1.7em;"%> 0h for exact answers only, Otherwise number of sf + h/s/r (harsh/soft/round)
       <%= f.text_field :precision_regime %>
 
       <%= f.submit "Create Question", class: "btn btn-large btn-primary" %>
