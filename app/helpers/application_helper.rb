@@ -731,25 +731,35 @@ module ApplicationHelper
         <td>
         )
 
-this_user=current_user
 
         #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
-        @item_html=@item_html+this_user.item_successes+'Score: '+correct.to_s+'/'+total.to_s+ "</td>"
+        @item_html=@item_html+'Score: '+correct.to_s+'/'+total.to_s+ "</td>"
 
         if correct==total
             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td>'
-            success_array=eval(this_user.item_successes)
+            success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
                 success_array << @item.id
             end
             
-            #this_user.update_attribute(:item_successes, success_array.to_s)
-            @item_html=@item_html+this_user.item_successes
-        elsif eval(this_user.item_successes).include?(@item.id)
-            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstar.jpg width="90" height="90" /> </td>'
-
+            current_user.update_attribute(:item_successes, success_array.to_s)
             
+        elsif eval(current_user.item_successes).include?(@item.id)
+            @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstar.jpg width="90" height="90" /> </td>'
         end
+
+        # unless correct==total
+        #     success_array=eval(current_user.item_successes)
+        #     if success_array.include?(@item.id)
+        #         success_array.delete(@item.id)
+        #         current_user.update_attribute(:item_successes, success_array.to_s)
+        #     end
+        # end
+
+
+
+sign_in current_user
+
         @item_html=@item_html+ %Q(
             </tr>
             </tbody> 
