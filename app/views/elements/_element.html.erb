@@ -11,8 +11,8 @@
                                   data: { confirm: "You sure?" } %>
 
     <% if session[:current_item_id] %>
-    <% @element=element %>
-    | <%= link_to "add to item", addelement_path(element.id) %>
+   
+    | <%= link_to "add to item", add_element_path(element.id), :eltid => element.id %>
     <% end %>
   <% end %>
 </li>

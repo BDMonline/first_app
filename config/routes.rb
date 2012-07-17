@@ -11,8 +11,8 @@ FirstApp::Application.routes.draw do
 
   root to: "static_pages#home"
 
-  match '/addelement.:eltid', to: 'elements#add_to_item'
-  match '/addquestion.:quesid', to: 'questions#add_to_item'
+  match '/add_element', to: 'elements#add_to_item'
+  match '/addquestion', to: 'questions#add_to_item'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

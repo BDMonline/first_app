@@ -48,9 +48,9 @@ class ElementsController < ApplicationController
 
         #@element = Element.find(params[:id])
         @item=Item.find_by_id(session[:current_item_id])
-        @item[:content]=(eval(@item[:content]) << (params[:eltid]).to_s).to_s
+        @item[:content]=(eval(@item[:content]) << (params[:format]).to_s).to_s
         @item.update_attributes(params[:item])
-        flash.now[:success] = "Added Element "+params[:eltid].to_s+" to Item "+@item.id.to_s
+        flash.now[:success] = "Added Element "+params[:format].to_s+" to Item "+@item.id.to_s
         @elements = Element.paginate(page: params[:page])
         session[:new_element_id]=nil
         render "index"

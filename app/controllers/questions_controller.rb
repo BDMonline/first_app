@@ -137,9 +137,9 @@ before_filter :author_user
 
     def add_to_item
         @item=Item.find_by_id(session[:current_item_id])
-        @item[:content]=(eval(@item[:content]) << ("Q"+params[:quesid]).to_s).to_s
+        @item[:content]=(eval(@item[:content]) << ("Q"+params[:format]).to_s).to_s
         @item.update_attributes(params[:item])
-        flash.now[:success] = "Added Element "+"Q"+params[:quesid].to_s+" to Item "+@item.id.to_s
+        flash.now[:success] = "Added Element "+"Q"+params[:format].to_s+" to Item "+@item.id.to_s
         @questions = Question.paginate(page: params[:page])
         session[:new_element_id]=nil
         render "index"

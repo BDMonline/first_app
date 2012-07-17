@@ -12,7 +12,7 @@
 
     <% if session[:current_item_id] %>
     	<% @question=question %>
-    	| <%= link_to "add to item", addquestion_path(question.id) %>
+    	| <%= link_to "add to item", addquestion_path(@question.id) %>
     <% end %>
   <% end %>
 </li>
