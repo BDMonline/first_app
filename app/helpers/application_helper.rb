@@ -733,7 +733,7 @@ module ApplicationHelper
 
 
         #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
-        @item_html=@item_html+'Score: '+correct.to_s+'/'+total.to_s+ "</td>"
+        @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
         if correct==total
             @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html

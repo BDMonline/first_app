@@ -11,7 +11,7 @@
         	<img src = <%= @element.content %> /> <p>
         <% end %>
         <% if @element.category=="video" %>
-			<iframe frameborder="0" width="480" height="360" src= <%= @element.content %> > </iframe><br /></i> <p>
+			<iframe width="560" height="315" src= <%= @element.content %>  frameborder="0" allowfullscreen></iframe> <p>
         <% end %>
         Tags: <%= @element.tags %> <p>
         <%= link_to("Edit Element", edit_element_path) %><p>
