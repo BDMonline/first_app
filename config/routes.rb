@@ -11,6 +11,8 @@ FirstApp::Application.routes.draw do
 
   root to: "static_pages#home"
 
+  match '/addelement.:eltid', to: 'elements#add_to_item'
+  match '/addquestion.:quesid', to: 'questions#add_to_item'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
@@ -20,8 +22,6 @@ FirstApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   #match '/addquestion', to: 'questions#new'
 
-  match '/addelement.:eltid', to: 'elements#add_to_item'
-  match '/addquestion.:quesid', to: 'questions#add_to_item'
 
 
   # The priority is based upon order of creation:
