@@ -3,9 +3,16 @@
   <i><%= question.text %></i>
   <% if current_user.admin? %>
 
+    | <%= link_to "edit", edit_question_path(question.id) %>
+
     | <%= link_to "show", question %>
 
     | <%= link_to "delete", question, method: :delete,
                                   data: { confirm: "You sure?" } %>
+
+    <% if session[:current_item_id] %>
+    	<% @question=question %>
+    	| <%= link_to "add to item", addquestion_path(question.id) %>
+    <% end %>
   <% end %>
 </li>

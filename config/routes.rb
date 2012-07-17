@@ -18,7 +18,11 @@ FirstApp::Application.routes.draw do
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
-  match '/addquestion', to: 'questions#new'
+  #match '/addquestion', to: 'questions#new'
+
+  match '/addelement.:eltid', to: 'elements#add_to_item'
+  match '/addquestion.:quesid', to: 'questions#add_to_item'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

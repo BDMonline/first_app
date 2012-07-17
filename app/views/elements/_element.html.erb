@@ -1,12 +1,18 @@
 <li>
-  <%= link_to element.name, element %>
+	<%= element.id %>
+  |<%= link_to element.name, element %>
   (<%= element.category %>)
-  <i><%= element.tags %></i>
+  {<i><%= element.tags %></i>}
   <% if current_user.admin? %>
 
-    | <%= link_to "show", element %>
+    | <%= link_to "edit", edit_element_path(element.id) %>
 
     | <%= link_to "delete", element, method: :delete,
                                   data: { confirm: "You sure?" } %>
+
+    <% if session[:current_item_id] %>
+    <% @element=element %>
+    | <%= link_to "add to item", addelement_path(element.id) %>
+    <% end %>
   <% end %>
 </li>

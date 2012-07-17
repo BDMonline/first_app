@@ -1,5 +1,5 @@
-<% provide(:title, 'All Elements') %>
-<h1>All Elements</h1>
+<% provide(:title, 'Elements Index') %>
+<h1>Elements Index</h1>
 
 
 
@@ -10,4 +10,10 @@
 </ul>
 
 <%= link_to("New Element", new_element_path) %>
+
+<% if session[:current_item_id] %>
+<p>
+<%= link_to("Go to Item "+session[:current_item_id].to_s, "/items/"+session[:current_item_id].to_s+"/edit") %>
+<% end %>
+
 

@@ -735,7 +735,7 @@ module ApplicationHelper
         #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
         @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
-        if correct==total
+        if correct==total && total>0
             @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
             success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
