@@ -448,8 +448,14 @@ module ApplicationHelper
                 end
 
                 @example_answers = []
-                answerlist=answers.split('`')
+                answerlist=answers.split(/\[[^\[\]]*\]/)
                 answerlist.delete('')
+
+                @promptlist=answers.scan(/\[[^\[\]]*\]/)
+                (0..@promptlist.count-1).each do
+                    |index|
+                    @promptlist[index]=@promptlist[index][1..-2]
+                end
 
                 answerlist.each do
                     |this_answer|
@@ -548,7 +554,7 @@ module ApplicationHelper
             end
         end
             
-        return [@question.text, @param_hash.to_s, @example_param_hash.to_s, @paramtext, @example_answers, @example_question,@error]
+        return [@question.text, @param_hash.to_s, @example_param_hash.to_s, @paramtext, @example_answers, @example_question,@error,@promptlist]
         
     
     end
@@ -662,8 +668,10 @@ module ApplicationHelper
                 )
                 total=total+@example_answers.count
 
-                @example_answers.each do
-                    |answer|
+                (0..@example_answers.count-1).each do
+                    |index|
+                    answer=@example_answers[index]
+
                     @precision_regime=answer[-2..-1].reverse
                     answer=answer[0..-3]
                     if @ans && @ans[count]
@@ -674,7 +682,9 @@ module ApplicationHelper
                     @item_html=@item_html+%Q(
                         <tr>
                         <td>
-                        <input type="textarea"  name="@ans[]" value=")+ answer_given + '" rows="1" cols="10" > </td>'
+                        <h5>
+                        )
+                    @item_html=@item_html+@promptlist[index]+'</h5></td><td> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
                         if ans_match==0
