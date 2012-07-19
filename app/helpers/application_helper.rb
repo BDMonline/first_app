@@ -679,12 +679,22 @@ module ApplicationHelper
                     else
                         answer_given=''
                     end
+
+                    top_tail=@promptlist[index].split('`')
+                    top=top_tail[0]
+                    if top_tail[1]
+                        tail=top_tail[1]
+                    else
+                        tail=''
+                    end
+
                     @item_html=@item_html+%Q(
                         <tr>
-                        <td>
+                        <td style="vertical-align:middle">
                         <h5>
                         )
-                    @item_html=@item_html+@promptlist[index]+'</h5></td><td> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
+                    @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
+                    @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
                         if ans_match==0

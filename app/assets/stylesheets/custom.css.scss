@@ -43,7 +43,7 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+h1, h2, h3, h4, h5, h5a, h6, h7, h8, h9 {
   line-height: 1;
 }
 
@@ -80,7 +80,13 @@ h4 {
 }
 
 h5 {
-  padding-top: 15px;
+  font-size: 1.9em;
+  text-align: right;
+  font-weight: bold;
+  color: $gray;
+}
+
+h5a {
   font-size: 1.9em;
   text-align: right;
   font-weight: bold;
