@@ -825,7 +825,7 @@ module ApplicationHelper
             @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td> <h2>Item previously solved</h2> </td> </tr> </tbody> </table> </div>' + @item_html
         end
 
-        # unless correct==total
+        # unless correct==total 
         #     success_array=eval(current_user.item_successes)
         #     if success_array.include?(@item.id)
         #         success_array.delete(@item.id)
