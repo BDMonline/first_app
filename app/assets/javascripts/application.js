@@ -11,6 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
+//= require prettyphoto-rails
 //= require bootstrap
 //= require_tree .

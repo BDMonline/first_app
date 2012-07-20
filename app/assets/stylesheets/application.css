@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require prettyphoto-rails
  *= require_tree .
 */
 table, td, th { vertical-align: middle ;}
