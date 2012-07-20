@@ -212,15 +212,15 @@ module ApplicationHelper
                 ourexp=breakdown[0]+evaluate(breakdown[1])+breakdown[2]  ##Yes, I know.
             end
 
-            puts 'bbb', breakdown, 'bbb'
+           # puts 'bbb', breakdown, 'bbb'
 
 
         
-            puts ourexp, 'after bracket removed'
+           # puts ourexp, 'after bracket removed'
         end
 
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+          #  puts 'handing back', ourexp
             return ourexp
         end
 
@@ -231,15 +231,15 @@ module ApplicationHelper
 
     #deal with functions
         ['acos','asin','atan','sin','cos','tan','log','exp','ln','lg'].each do |func|
-            puts func
+           # puts func
             if ourexp.match(func+'[^<]')
                 x=1/0
             end
             ourexp=ourexp.gsub(func,'~#~')
-            puts ourexp
+         #   puts ourexp
         
 
-            puts 'got to 66'
+         #   puts 'got to 66'
             
             while ourexp.match(/~#~/)
                 breakdown=ourexp.partition(/~#~/)
@@ -248,7 +248,7 @@ module ApplicationHelper
                     x=1/0
                 end
                 subbreak=breakdown[2].partition(/>/)
-                puts subbreak, '@@@'
+                #puts subbreak, '@@@'
                 if subbreak[0]==""  
                     #function has no argument 
                     x=1/0
@@ -263,9 +263,9 @@ module ApplicationHelper
                 # except it doesnt work e.g. in 3/-exp(6). We'll have to deal with /- and *- as special cases later.
 
                 if subbreak[0].match(/\A<-?\d+\/\d+\z/)
-                    puts func+'('+subbreak[0][1..-1]+'.to_r)','*&*&**'
+                    #puts func+'('+subbreak[0][1..-1]+'.to_r)','*&*&**'
                     ourexp=breakdown[0]+ "<" + eval(func+'('+subbreak[0][1..-1]+'.to_r)').to_r.to_s + subbreak[1]+subbreak[2]
-                    puts func,ourexp,"!!!!!!"
+                    #puts func,ourexp,"!!!!!!"
                 else
                     x=1/0 # we insist on brackets after these functions, so by this stage they'd jolly well be followed by just a number.
                     #ourexp=breakdown[0]+ "~#~"+ evaluate(subbreak[0]+'>')+subbreak[1][1..-1]+subbreak[2]### need to fix so we're evaluating the argument of the func
@@ -278,28 +278,28 @@ module ApplicationHelper
         
     puts 'got to 89'
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+            #puts 'handing back', ourexp
             return ourexp
         end
 
         #deal with pi
 
         ourexp=ourexp.gsub(/pi/,'<'+PI.to_r.to_s+'>')
-        puts ourexp
+        #puts ourexp
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+            #puts 'handing back', ourexp
             return ourexp
         end
 
         #deal with e's 
 
         ourexp=ourexp.gsub(/e/,'<'+exp(1).to_r.to_s+'>')
-        puts ourexp
+        #puts ourexp
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+            #puts 'handing back', ourexp
             return ourexp
         end
-    puts 'got to 132'
+    #puts 'got to 132'
         #deal with ^/*-+
 
         #'*_' and '/_' are special cases - ooooh those unary minuses!
@@ -317,19 +317,19 @@ module ApplicationHelper
                     operator = operator_raw
                 end
                 ourexp=breakdown1[0]+'```'+breakdown1[2]
-                puts ourexp
+                #puts ourexp
 
                 while ourexp.match(/<-?\d+\/\d+```-?\d+\/\d+>/) do
                     breakdown=ourexp.partition(/<-?\d+\/\d+```-?\d+\/\d+>/)
                     subbreak=breakdown[1].partition(/```/)
                     value1=subbreak[0][1..-1]
                     value2=subbreak[2][0..-2]
-                    puts value1+'.to_r'+operator+value2+'.to_r','*&*'
+                    #puts value1+'.to_r'+operator+value2+'.to_r','*&*'
                     value3='<'+eval('('+value1+'.to_r'+')'+operator+'('+value2+'.to_r'+')').to_s+'>'
                     ourexp=breakdown[0]+value3+breakdown[2]
-                    puts ourexp
+                    #puts ourexp
                     if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+            #puts 'handing back', ourexp
             return ourexp
         end
                 end
@@ -337,7 +337,7 @@ module ApplicationHelper
         end
         
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            puts 'handing back', ourexp
+            #puts 'handing back', ourexp
             return ourexp
         end
 
@@ -677,7 +677,7 @@ module ApplicationHelper
                 end
 
                 if hint_element.category=="video"
-                    hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Image" /> </a>'
+                    hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Video" /> </a>'
                 end
 
                 if hint_element.category=="image"
@@ -698,8 +698,9 @@ module ApplicationHelper
                 <td style="vertical-align:middle">
                 <h9>)+@example_question+%Q(</h9> </td> 
                 <td style="vertical-align:middle"> 
-                
-                )+hint_html+%Q( 
+                <p align="right">
+                )+hint_html+%Q(
+                <p>
                 </td> 
                 </tr>
                 </tbody>
@@ -742,12 +743,12 @@ module ApplicationHelper
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
                         if ans_match==0
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> <p> </td>'
                             correct=correct+1
                         elsif ans_match==1
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> <p> </td>'
                         else
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> <p> </td>'
                         end
                     end
                     count=count+1
@@ -787,7 +788,7 @@ module ApplicationHelper
                     # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
                     #                     )
                 end
-                @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> '+hint_html+%Q(</h9> 
+                @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(<p> </h9> 
                 </td> 
                 </tr>
                 )
@@ -797,7 +798,7 @@ module ApplicationHelper
             end
         end
         @item_html=@item_html+%Q(
-        <input type="submit" value="Check answers" style="background-color:#365f91; color:#fff;">
+        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
         </form>
         )
 
@@ -813,7 +814,7 @@ module ApplicationHelper
         @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
         if correct==total && total>0
-            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
             success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
                 success_array << @item.id
