@@ -656,16 +656,20 @@ module ApplicationHelper
                 <table class="table">  
                 <tbody>
                 )
-
         content.each do
-            
-            |item_string|
+            |item_bit|
+            @item_html=@item_html+'<tr> <td style="vertical-align:middle">'
+            if item_bit.class==String
+                item_string=item_bit
+                hint_array=[]
+            else
+                item_string=item_bit[0]
+                hint_array=item_bit[1..-1]
+            end
 
-            @item_html=@item_html+" <tr> "
+            #need to have code for hints ready first.
 
-            hint_array=item_string.split("h")[1..-1]
-
-            hint_html=' '
+            hint_html='#'
             hint_array.each do
                 |hint|
                 hint_element=Element.find_by_id(hint.to_i)
@@ -673,43 +677,37 @@ module ApplicationHelper
                     hint_div_count=hint_div_count+1
                     div_id="link-"+hint_div_count.to_s
                     @item_html='<div id= "'+div_id+ '" class="hide"><h3><p>'+hint_element.content+'</p></h3></div>'+@item_html
-                    hint_html=hint_html+'<a href="#'+div_id+'" rel="prettyPhoto" title=""><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Hintbutton-1.png" alt="Hint" width="70" /></a> '
+                    hint_html=hint_html+'<a href="#'+div_id+'" rel="prettyPhoto" title=""><img src="assets/images/rook.png" alt="Hint" width="160" /></a>'
                 end
 
                 if hint_element.category=="video"
-                    hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Image" /> </a>'
+                    hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video">Video</a>'
                 end
 
                 if hint_element.category=="image"
-                    hint_html=hint_html+'<a href="'+hint_element.content+'" rel="prettyPhoto" title="Image"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Imagebutton.png" width="70" alt="Image" /></a>'
+                    hint_html=hint_html+'<a href="'+hint_element.content+'" rel="prettyPhoto" title="Image"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Image" /></a>'
                 end
-                hint_html=hint_html+' <br />'
 
             end
-            
-            if item_string[0]=="Q"
 
+
+            if item_string[0]=="Q"
                
                 @question=Question.find_by_id(item_string[1..-1].to_i)
                 construct(1)
                 @item_html=@item_html+%Q(
                 
-                <p>
-                <td style="vertical-align:middle">
-                <h9>)+@example_question+%Q(</h9> </td> 
-                <td style="vertical-align:middle"> 
+                <p> <h9>)+@example_question+%Q(</h9> </td> </tr> 
                 
-                )+hint_html+%Q( 
-                </td> 
-                </tr>
                 </tbody>
-                </table>         
+                    </table>
+
+                    <table class="table">  
+                    <tbody>
+                    <tr>
                 )
                 
-                @item_html=@item_html+%Q(
-                <table class="table">  
-                <tbody>
-                )
+                
                 total=total+@example_answers.count
 
                 (0..@example_answers.count-1).each do
@@ -732,34 +730,34 @@ module ApplicationHelper
                         tail=''
                     end
 
-                    @item_html=@item_html+%Q(
-                        <tr>
-                        <td style="vertical-align:middle">
+                    @item_html=@item_html+%Q(<td style="vertical-align:middle">
+                        
+                        
                         <h5>
                         )
-                    @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
-                    @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
+                    @item_html=@item_html+top+'</h5> </td> <td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
+                    @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a> </td>'
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
                         if ans_match==0
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td> '
                             correct=correct+1
                         elsif ans_match==1
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td> '
                         else
-                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td>'
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td> '
                         end
                     end
-                    count=count+1
-                    @item_html=@item_html+ '</tr>'
+                    @item_html=@item_html+'</tr>' 
+                    
                 end
-                @item_html=@item_html+ '</tbody> </table>'
-                @item_html=@item_html+%Q(
-                <table class="table">  
-                <tbody>
-                <tr>
-                )
+                %Q(</tbody>
+                    </table>
 
+                    <table class="table">  
+                    <tbody>
+                    )
+                
 
 
             else
@@ -767,37 +765,36 @@ module ApplicationHelper
                 if element
                 category=element.category
                 if category=="text"
-                    content_html=' <h9> '+ element.content+ ' </h9> '
-                    #@item_html=@item_html+%Q(
+                    @item_html=@item_html+%Q(
                     
-                    #<p><h9>)+element.content+hint_html+%Q(</h9>
+                    <p><h9>)+element.content+%Q(</h9>
                   
-                    #)
+                    )
                 elsif category=="image"
-                    content_html=' <h2> <img src = '+element.content+ ' /> </h2> '
-                    # @item_html=@item_html+%Q(
+                    @item_html=@item_html+%Q(
                     
-                    # <h2> <img src = )+element.content+%Q( /> </h2>
+                    <h2> <img src = )+element.content+%Q( /> </h2>
                    
-                    # )
+                    )
                 elsif category=="video"
-                    content_html='<h2> <iframe frameborder="0" width="480" height="360" src= '+element.content+' > </iframe><br /></i> </h2> '
-                    # @item_html=@item_html+%Q(
+                    @item_html=@item_html+%Q(
                   
-                    # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
-                    #                     )
+                    <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
+                                        )
                 end
-                @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> '+hint_html+%Q(</h9> 
-                </td> 
-                </tr>
-                )
+                @item_html=@item_html+' </td> <td>'+hint_html+'</td> </tr> '
             end
+        
                     
 
             end
         end
+
+        @item_html=@item_html+ '</tbody> </table>'
+
+
         @item_html=@item_html+%Q(
-        <input type="submit" value="Check answers" style="background-color:#365f91; color:#fff;">
+        <input type="submit" value="Check answers" style="background-color:#39f; color:#fff;">
         </form>
         )
 
