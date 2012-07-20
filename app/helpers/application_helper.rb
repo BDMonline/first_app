@@ -743,12 +743,12 @@ module ApplicationHelper
                     if @ans && @ans[count]
                         ans_match=match(answer,@ans[count],@precision_regime)
                         if ans_match==0
-                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> <p> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
                             correct=correct+1
                         elsif ans_match==1
-                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> <p> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
                         else
-                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> <p> </td>'
+                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
                         end
                     end
                     count=count+1
@@ -788,7 +788,7 @@ module ApplicationHelper
                     # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
                     #                     )
                 end
-                @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(<p> </h9> 
+                @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(</p> </h9> 
                 </td> 
                 </tr>
                 )
@@ -814,7 +814,7 @@ module ApplicationHelper
         @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
         if correct==total && total>0
-            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
             success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
                 success_array << @item.id
@@ -823,7 +823,7 @@ module ApplicationHelper
             current_user.update_attribute(:item_successes, success_array.to_s)
             
         elsif eval(current_user.item_successes).include?(@item.id)
-            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td> <h2>Item previously solved</h2> </td> </tr> </tbody> </table> </div>' + @item_html
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item previously solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
         end
 
         # unless correct==total 
