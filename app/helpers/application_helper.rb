@@ -696,10 +696,10 @@ module ApplicationHelper
                 
                 <p>
                 <td style="vertical-align:middle">
-                <h9>)+@example_question+%Q(</h9> 
+                <h9>)+@example_question+%Q(</h9> </td> 
                 <td style="vertical-align:middle"> 
                 
-                )+hint_html+%Q(</h9> 
+                )+hint_html+%Q( 
                 </td> 
                 </tr>
                 </tbody>
