@@ -2,13 +2,15 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+
+        <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= mathjax_tag %>
-    <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
-<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
     <%= render 'layouts/shim' %>    
   </head>
   <body>
