@@ -24,6 +24,7 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.0'
+gem 'jquery-ui-rails'
 gem 'prettyphoto-rails'
 
 group :test, :development do

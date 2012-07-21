@@ -212,15 +212,15 @@ module ApplicationHelper
                 ourexp=breakdown[0]+evaluate(breakdown[1])+breakdown[2]  ##Yes, I know.
             end
 
-           # puts 'bbb', breakdown, 'bbb'
+            puts 'bbb', breakdown, 'bbb'
 
 
         
-           # puts ourexp, 'after bracket removed'
+            puts ourexp, 'after bracket removed'
         end
 
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-          #  puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
 
@@ -231,15 +231,15 @@ module ApplicationHelper
 
     #deal with functions
         ['acos','asin','atan','sin','cos','tan','log','exp','ln','lg'].each do |func|
-           # puts func
+            puts func
             if ourexp.match(func+'[^<]')
                 x=1/0
             end
             ourexp=ourexp.gsub(func,'~#~')
-         #   puts ourexp
+            puts ourexp
         
 
-         #   puts 'got to 66'
+            puts 'got to 66'
             
             while ourexp.match(/~#~/)
                 breakdown=ourexp.partition(/~#~/)
@@ -248,7 +248,7 @@ module ApplicationHelper
                     x=1/0
                 end
                 subbreak=breakdown[2].partition(/>/)
-                #puts subbreak, '@@@'
+                puts subbreak, '@@@'
                 if subbreak[0]==""  
                     #function has no argument 
                     x=1/0
@@ -263,9 +263,9 @@ module ApplicationHelper
                 # except it doesnt work e.g. in 3/-exp(6). We'll have to deal with /- and *- as special cases later.
 
                 if subbreak[0].match(/\A<-?\d+\/\d+\z/)
-                    #puts func+'('+subbreak[0][1..-1]+'.to_r)','*&*&**'
+                    puts func+'('+subbreak[0][1..-1]+'.to_r)','*&*&**'
                     ourexp=breakdown[0]+ "<" + eval(func+'('+subbreak[0][1..-1]+'.to_r)').to_r.to_s + subbreak[1]+subbreak[2]
-                    #puts func,ourexp,"!!!!!!"
+                    puts func,ourexp,"!!!!!!"
                 else
                     x=1/0 # we insist on brackets after these functions, so by this stage they'd jolly well be followed by just a number.
                     #ourexp=breakdown[0]+ "~#~"+ evaluate(subbreak[0]+'>')+subbreak[1][1..-1]+subbreak[2]### need to fix so we're evaluating the argument of the func
@@ -278,28 +278,28 @@ module ApplicationHelper
         
     puts 'got to 89'
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            #puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
 
         #deal with pi
 
         ourexp=ourexp.gsub(/pi/,'<'+PI.to_r.to_s+'>')
-        #puts ourexp
+        puts ourexp
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            #puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
 
         #deal with e's 
 
         ourexp=ourexp.gsub(/e/,'<'+exp(1).to_r.to_s+'>')
-        #puts ourexp
+        puts ourexp
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            #puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
-    #puts 'got to 132'
+    puts 'got to 132'
         #deal with ^/*-+
 
         #'*_' and '/_' are special cases - ooooh those unary minuses!
@@ -317,19 +317,19 @@ module ApplicationHelper
                     operator = operator_raw
                 end
                 ourexp=breakdown1[0]+'```'+breakdown1[2]
-                #puts ourexp
+                puts ourexp
 
                 while ourexp.match(/<-?\d+\/\d+```-?\d+\/\d+>/) do
                     breakdown=ourexp.partition(/<-?\d+\/\d+```-?\d+\/\d+>/)
                     subbreak=breakdown[1].partition(/```/)
                     value1=subbreak[0][1..-1]
                     value2=subbreak[2][0..-2]
-                    #puts value1+'.to_r'+operator+value2+'.to_r','*&*'
+                    puts value1+'.to_r'+operator+value2+'.to_r','*&*'
                     value3='<'+eval('('+value1+'.to_r'+')'+operator+'('+value2+'.to_r'+')').to_s+'>'
                     ourexp=breakdown[0]+value3+breakdown[2]
-                    #puts ourexp
+                    puts ourexp
                     if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            #puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
                 end
@@ -337,7 +337,7 @@ module ApplicationHelper
         end
         
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
-            #puts 'handing back', ourexp
+            puts 'handing back', ourexp
             return ourexp
         end
 
@@ -656,167 +656,145 @@ module ApplicationHelper
                 <table class="table">  
                 <tbody>
                 )
-
         content.each do
-            
-            |item_string|
+            |item_bit|
+            @item_html=@item_html+'<tr> <td style="vertical-align:middle">'
+            if item_bit.class==String
+                item_string=item_bit
+                hint_array=[]
+            else
+                item_string=item_bit[0]
+                hint_array=item_bit[1..-1]
+            end
 
-            @item_html=@item_html+" <tr> "
+            #need to have code for hints ready first.
 
-            hint_array=item_string.split("h")[1..-1]
-
-            item_string=item_string.split("h")[0]
-
-            hint_html=' '
+            hint_html='#'
             hint_array.each do
                 |hint|
                 hint_element=Element.find_by_id(hint.to_i)
-                unless hint_element==nil
-
-                    if hint_element.category=="text"
-                        hint_div_count=hint_div_count+1
-                        div_id="link-"+hint_div_count.to_s
-                        @item_html='<div id= "'+div_id+ '" class="hide"><h3><p>'+hint_element.content+'</p></h3></div>'+@item_html
-                        hint_html=hint_html+'<a href="#'+div_id+'" rel="prettyPhoto" title=""><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Hintbutton-1.png" alt="Hint" width="70" /></a> '
-                    end
-
-                    if hint_element.category=="video"
-                        hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Video" /> </a>'
-                    end
-
-                    if hint_element.category=="image"
-                        hint_html=hint_html+'<a href="'+hint_element.content+'" rel="prettyPhoto" title="Image"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Imagebutton.png" width="70" alt="Image" /></a>'
-                    end
-
-                    hint_html=hint_html+' <br />'
-
-                else
-                    hint_html=hint_html+'no such element as '+hint
+                if hint_element.category=="text"
+                    hint_div_count=hint_div_count+1
+                    div_id="link-"+hint_div_count.to_s
+                    @item_html='<div id= "'+div_id+ '" class="hide"><h3><p>'+hint_element.content+'</p></h3></div>'+@item_html
+                    hint_html=hint_html+'<a href="#'+div_id+'" rel="prettyPhoto" title=""><img src="assets/images/rook.png" alt="Hint" width="160" /></a>'
                 end
 
+                if hint_element.category=="video"
+                    hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video">Video</a>'
+                end
 
+                if hint_element.category=="image"
+                    hint_html=hint_html+'<a href="'+hint_element.content+'" rel="prettyPhoto" title="Image"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Image" /></a>'
+                end
 
             end
-            
-            if item_string[0]=="Q"
 
+
+            if item_string[0]=="Q"
                
                 @question=Question.find_by_id(item_string[1..-1].to_i)
-                if @question
-                    construct(1)
-                    @item_html=@item_html+%Q(
-                    
-                    <p>
-                    <td style="vertical-align:middle">
-                    <h9>)+@example_question+%Q(</h9> </td> 
-                    <td style="vertical-align:middle"> 
-                    <p align="right">
-                    )+hint_html+%Q(
-                    <p>
-                    </td> 
-                    </tr>
-                    </tbody>
-                    </table>         
-                    )
-                    
-                    @item_html=@item_html+%Q(
-                    <table class="table">  
-                    <tbody>
-                    )
-                    total=total+@example_answers.count
+                construct(1)
+                @item_html=@item_html+%Q(
+                
+                <p> <h9>)+@example_question+%Q(</h9> </td> </tr> 
+                
+                </tbody>
+                    </table>
 
-                    (0..@example_answers.count-1).each do
-                        |index|
-                        answer=@example_answers[index]
-
-                        @precision_regime=answer[-2..-1].reverse
-                        answer=answer[0..-3]
-                        if @ans && @ans[count]
-                            answer_given=@ans[count].to_s
-                        else
-                            answer_given=''
-                        end
-
-                        top_tail=@promptlist[index].split('`')
-                        top=top_tail[0]
-                        if top_tail[1]
-                            tail=top_tail[1]
-                        else
-                            tail=''
-                        end
-
-                        @item_html=@item_html+%Q(
-                            <tr>
-                            <td style="vertical-align:middle">
-                            <h5>
-                            )
-                        @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
-                        @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
-                        if @ans && @ans[count]
-                            ans_match=match(answer,@ans[count],@precision_regime)
-                            if ans_match==0
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
-                                correct=correct+1
-                            elsif ans_match==1
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
-                            else
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
-                            end
-                        end
-                        count=count+1
-                        @item_html=@item_html+ '</tr>'
-                    end
-                    @item_html=@item_html+ '</tbody> </table>'
-                    @item_html=@item_html+%Q(
                     <table class="table">  
                     <tbody>
                     <tr>
-                    )
-                else
-                    @item_html=@item_html+ 'No such question as '+item_string[1..-1]
+                )
+                
+                
+                total=total+@example_answers.count
+
+                (0..@example_answers.count-1).each do
+                    |index|
+                    answer=@example_answers[index]
+
+                    @precision_regime=answer[-2..-1].reverse
+                    answer=answer[0..-3]
+                    if @ans && @ans[count]
+                        answer_given=@ans[count].to_s
+                    else
+                        answer_given=''
+                    end
+
+                    top_tail=@promptlist[index].split('`')
+                    top=top_tail[0]
+                    if top_tail[1]
+                        tail=top_tail[1]
+                    else
+                        tail=''
+                    end
+
+                    @item_html=@item_html+%Q(<td style="vertical-align:middle">
+                        
+                        
+                        <h5>
+                        )
+                    @item_html=@item_html+top+'</h5> </td> <td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
+                    @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a> </td>'
+                    if @ans && @ans[count]
+                        ans_match=match(answer,@ans[count],@precision_regime)
+                        if ans_match==0
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </td> '
+                            correct=correct+1
+                        elsif ans_match==1
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </td> '
+                        else
+                             @item_html=@item_html+'<td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </td> '
+                        end
+                    end
+                    @item_html=@item_html+'</tr>' 
+                    
                 end
+                %Q(</tbody>
+                    </table>
 
-
+                    <table class="table">  
+                    <tbody>
+                    )
+                
 
 
             else
                 element=Element.find_by_id(item_string.to_i)
                 if element
-                    category=element.category
-                    if category=="text"
-                        content_html=' <h9> '+ element.content+ ' </h9> '
-                        #@item_html=@item_html+%Q(
-                        
-                        #<p><h9>)+element.content+hint_html+%Q(</h9>
-                      
-                        #)
-                    elsif category=="image"
-                        content_html=' <h2> <img src = '+element.content+ ' /> </h2> '
-                        # @item_html=@item_html+%Q(
-                        
-                        # <h2> <img src = )+element.content+%Q( /> </h2>
-                       
-                        # )
-                    elsif category=="video"
-                        content_html='<h2> <iframe frameborder="0" width="480" height="360" src= '+element.content+' > </iframe><br /></i> </h2> '
-                        # @item_html=@item_html+%Q(
-                      
-                        # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
-                        #                     )
-                    end
-                    @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(</p> </h9> 
-                    </td> 
-                    </tr>
+                category=element.category
+                if category=="text"
+                    @item_html=@item_html+%Q(
+                    
+                    <p><h9>)+element.content+%Q(</h9>
+                  
                     )
-                else
-                    @item_html=@item_html+ 'No such element as '+item_string
+                elsif category=="image"
+                    @item_html=@item_html+%Q(
+                    
+                    <h2> <img src = )+element.content+%Q( /> </h2>
+                   
+                    )
+                elsif category=="video"
+                    @item_html=@item_html+%Q(
+                  
+                    <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
+                                        )
                 end
+                @item_html=@item_html+' </td> <td>'+hint_html+'</td> </tr> '
+            end
+        
                     
 
             end
         end
+
+        @item_html=@item_html+ '</tbody> </table>'
+
+
         @item_html=@item_html+%Q(
-        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+        <input type="submit" value="Check answers" style="background-color:#39f; color:#fff;">
         </form>
         )
 
@@ -832,7 +810,7 @@ module ApplicationHelper
         @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
         if correct==total && total>0
-            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td> <h1>Item solved</h1> </td> </tr> </tbody> </table> </div>' + @item_html
             success_array=eval(current_user.item_successes)
             unless success_array.include?(@item.id)
                 success_array << @item.id
@@ -841,10 +819,10 @@ module ApplicationHelper
             current_user.update_attribute(:item_successes, success_array.to_s)
             
         elsif eval(current_user.item_successes).include?(@item.id)
-            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item previously solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
+            @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td> <h2>Item previously solved</h2> </td> </tr> </tbody> </table> </div>' + @item_html
         end
 
-        # unless correct==total 
+        # unless correct==total
         #     success_array=eval(current_user.item_successes)
         #     if success_array.include?(@item.id)
         #         success_array.delete(@item.id)
