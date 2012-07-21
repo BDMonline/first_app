@@ -573,17 +573,7 @@ module ApplicationHelper
             end
         end
         number = number.abs
-        unless log10(number)== -Infinity
-            exponent=(log10(number)).floor
-        else
-            answer="0"
-            if figs>1
-                answer=answer+'.'+'0'*(figs-1)
-                return answer
-            end
-        end
-
-        return '0'+
+        exponent=(log10(number)).floor
         abscissa=number.to_f/(10**exponent)
         abscissa=abscissa.round(figs-1).to_s.delete('.')
         shortness=figs-abscissa.length
