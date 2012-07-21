@@ -742,6 +742,7 @@ module ApplicationHelper
                             top=top_tail[0]
                         else
                             top=''
+                        end
                         if top_tail[1]
                             tail=top_tail[1]
                         else
