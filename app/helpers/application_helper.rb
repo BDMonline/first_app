@@ -738,7 +738,10 @@ module ApplicationHelper
                         end
 
                         top_tail=@promptlist[index].split('`')
-                        top=top_tail[0]
+                        if top_tail[0]
+                            top=top_tail[0]
+                        else
+                            top=''
                         if top_tail[1]
                             tail=top_tail[1]
                         else
