@@ -2,6 +2,15 @@ module ApplicationHelper
 
 	include Math
 
+    def sortable(column, title = nil)
+        title ||= column.titleize
+        css_class = (column == sort_column) ? "current #{sort_direction}" : nil
+        direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+        link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
+    end
+
+
+
 	def ln(x)
 	    return log(x)
 	end
@@ -569,21 +578,11 @@ module ApplicationHelper
             answer="0"
             if figs>1
                 answer=answer+'.'+'0'*(figs-1)
-                return answer
             end
+            return answer
         end
         number = number.abs
-        unless log10(number)== -Infinity
-            exponent=(log10(number)).floor
-        else
-            answer="0"
-            if figs>1
-                answer=answer+'.'+'0'*(figs-1)
-                return answer
-            end
-        end
-
-        return '0'+
+        exponent=(log10(number)).floor
         abscissa=number.to_f/(10**exponent)
         abscissa=abscissa.round(figs-1).to_s.delete('.')
         shortness=figs-abscissa.length
@@ -818,7 +817,7 @@ module ApplicationHelper
                         # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
                         #                     )
                     end
-                    @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(</p> </h9> 
+                    @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(</p> 
                     </td> 
                     </tr>
                     )

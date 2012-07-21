@@ -112,7 +112,7 @@ h7 {
 }
 
 h8 {
-  font-size: 1em;
+  font-size: 0.6em;
   font-weight: normal;
   color: $grayLight;
 }
@@ -211,11 +211,9 @@ aside {
 input, textarea, select, .uneditable-input {
   font-size: 1.6em;
   border: 1px solid #bbb;
-  width: 100%;
-  padding: 10px;
+  width: auto;
+  padding: 5px;
   height: auto;
-  margin-top: 7px;
-  margin-bottom: 7px;
   @include box_sizing;
 }
 

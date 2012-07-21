@@ -1,15 +1,36 @@
 <% provide(:title, 'Questions Index') %>
 <h1>Questions index</h1>
 
+<%= will_paginate %>
+
+<%= form_tag questions_path, :method => 'get' do %>
+
+	<%=render 'layouts/indexintro' %>
+
+<% end %>
+
+<table class="table" align="left">
+<tr>  
+	<th> id </th>
+	<th> <%= sortable "name" %> </th>    
+	<th> <%= sortable "text" %> </th>  
+	<th> <%= sortable "tags" %> </th>
+	<th> </th>
+</tr>
+
+	<% for question in @questions %>
+	    <%= render question %>
+	<% end %>
 
 
-<ul class="questions">
-  <% @questions.each do |question| %>
-    <%= render question %>
-  <% end %>
-</ul>
+
+</table>
+
+
 
 <%= link_to("New Question", new_question_path) %>
+
+<%= will_paginate %>
 
 <% if session[:current_item_id] %>
 <p>

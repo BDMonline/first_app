@@ -2,46 +2,10 @@ include Math
 
 class QuestionsController < ApplicationController
 include ApplicationHelper
-
+helper_method :sort_column, :sort_direction
 before_filter :author_user
 
-# begin
 
-#     #We want to express numbers as rationals enclosed in angle brackets.
-
-    
-
-
-
-    
-
-
-#     #puts number('3.2'), number('-3')
-
-    
-
-
-
-
-    
-
-
-# rescue
-#     return "An error was caused"
-# end
-
-
-#     class QuestionTextError < Exception
-#     end
-    
-#     class ParameterError < Exception
-#     end
-
-#     class AnswersError < Exception
-#     end
-
-
-	
 
     def show
         @question = Question.find(params[:id])
@@ -82,7 +46,9 @@ before_filter :author_user
     end
 
     def index
-        @questions = Question.paginate(page: params[:page])
+        params[:sort]||=''
+        params[:direction]||=''
+        @questions = Question.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
     end
 
     def update
@@ -146,6 +112,15 @@ before_filter :author_user
     end
 
     private
+
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
+
+    def sort_column
+        Element.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
     def author_user
         if current_user
             redirect_to(root_path) unless current_user.author

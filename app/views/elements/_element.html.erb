@@ -1,18 +1,33 @@
-<li>
-	<%= element.id %>
+
+  <tr>
+    <td>
+	     <%= element.id %>
+    </td>
+    <td>
+
   <%= link_to element.name, element %>
-  (<%= element.category %>)
-  {<i><%= element.tags %></i>}
+  </td>
+    <td>
+  <%= element.category %>
+  </td>
+    <td>
+  <i><%= element.tags %></i>
+  </td>
+    <td> 
   <% if current_user.admin? %>
 
-    | <%= link_to "edit", edit_element_path(element.id) %>
+    <%= link_to "edit", edit_element_path(element.id) %>
 
     | <%= link_to "delete", element, method: :delete,
                                   data: { confirm: "You sure?" } %>
 
-    <% if session[:current_item_id] %>
-   
-    | <%= link_to "add to item", add_element_path(element.id), :eltid => element.id %>
+      <% if session[:current_item_id] %>
+     
+      | <%= link_to "add to item", add_element_path(element.id), :eltid => element.id %>
+      
+      
+      <% end %>
     <% end %>
-  <% end %>
-</li>
+  </td>
+  </tr>
+

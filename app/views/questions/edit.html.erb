@@ -24,6 +24,9 @@ This is the edit page.
       Parameter assignments used for illustration purposes on this page:<h7> <%= @example_param_hash.to_s %> </h7> <p>
       <h1><p></h1>
 
+      <%= f.label :tags, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :tags %>
+
       <%= f.label :answers, :style => "font-size: 1.7em;"%> Example: "[perimeter`m]2*A+2*Bh3[area`m^2]A*B" means that the first answer will be introduced by the prompt "perimeter" and followed by "m", and that its value is calculated from the parameters A and B by the formula "2A+2B". It will be marked using the precision regime "3h" - see below. The second answer is introduced by "area" and followed by "m^2", and is calculated using "AB". Since the precision regime is not specified, the one below will be used.
 
       End with "t" if order matters, "f" if not.

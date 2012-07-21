@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716192554) do
+ActiveRecord::Schema.define(:version => 20120722192821) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120716192554) do
     t.datetime "updated_at",                                        :null => false
     t.text     "text",             :limit => 255
     t.string   "precision_regime",                :default => "2s"
+    t.text     "tags",                            :default => ""
   end
 
   add_index "questions", ["name"], :name => "index_questions_on_name", :unique => true

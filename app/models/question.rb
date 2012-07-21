@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   
-  attr_accessible :answers, :name, :parameters, :text, :precision_regime
+  attr_accessible :answers, :name, :tags, :parameters, :text, :precision_regime
 
   validates :name, presence: true, length: { maximum: 50 },
   		uniqueness:  { case_sensitive: false }
@@ -14,6 +14,14 @@ class Question < ActiveRecord::Base
   
   #VALID_TEXT_REGEX = /\A[^`]*(`(([+-\/*^\(\)A-Z]|\d)+)*((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+(`((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+)*`[^`]*)*\z/
   validates :text, presence: true#, format: { with: VALID_TEXT_REGEX }
+
+def self.search(search)
+    if search
+      where('tags LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+end
 
 end
 # all are strings

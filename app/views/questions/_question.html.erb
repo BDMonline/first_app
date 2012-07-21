@@ -1,17 +1,29 @@
-<li>
-  <%= question.id %>
-  <%= link_to question.name, question %>
-  <i><%= question.text %></i>
-  <% if current_user.admin? %>
+<tr>
+  <td>
+    <%= question.id %>
+  </td>
+  <td>
+    <%= link_to question.name, question %>
+  </td>
+  <td>  
+    <i><%= question.text %></i>
+  </td>
+  <td>
+  <i><%= question.tags %></i>
+  </td>
+  <td>
+    <% if current_user.admin? %>
 
-    | <%= link_to "edit", edit_question_path(question.id) %>
+      | <%= link_to "edit", edit_question_path(question.id) %>
 
-    | <%= link_to "delete", question, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+      | <%= link_to "delete", question, method: :delete,
+                                    data: { confirm: "You sure?" } %>
 
-    <% if session[:current_item_id] %>
-    	<% @question=question %>
-    	| <%= link_to "add to item", addquestion_path(@question.id) %>
+      <% if session[:current_item_id] %>
+      	<% @question=question %>
+      	| <%= link_to "add to item", addquestion_path(@question.id) %>
+      <% end %>
     <% end %>
-  <% end %>
-</li>
+  </td>
+</tr> 
+
