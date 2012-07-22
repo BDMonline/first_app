@@ -1,15 +1,38 @@
 <% provide(:title, 'Elements Index') %>
 <h1>Elements Index</h1>
 
+<%= will_paginate %>
+
+<%= form_tag elements_path, :method => 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <h8><%= text_field_tag :search, params[:search], class: "input-mini" %>
+    <%= submit_tag "Search Tags", class: "btn btn-medium btn-info", :name => nil %></h8>
+  </p>
+<% end %>
+
+<table class="table" align="left">
+<tr>  
+	<th>id</th>
+	<th><%= sortable "name" %></th>    
+	<th><%= sortable "category" %></th>  
+	<th><%= sortable "tags" %></th>
+	<th> </th>
+</tr>
 
 
-<ul class="elements">
-  <% @elements.each do |element| %>
-    <%= render element %>
-  <% end %>
-</ul>
 
+	<% for element in @elements %>
+	    <%= render element %>
+	<% end %>
+
+
+
+</table>
 <%= link_to("New Element", new_element_path) %>
+
+<%= will_paginate %>
 
 <% if session[:current_item_id] %>
 <p>
