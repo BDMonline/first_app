@@ -1,12 +1,29 @@
 <% provide(:title, 'All Items') %>
 <h1>All Items</h1>
 
+<%= will_paginate %>
 
-<ul class="items">
-  <% @items.each do |item| %>
-    <%= render item %>
-  <% end %>
-</ul>
+<%= form_tag questions_path, :method => 'get' do %>
+
+	<%=render 'layouts/indexintro' %>
+
+<% end %>
+
+<table class="table" align="left">
+<tr>  
+	<th><%= sortable "id" %></th>
+	<th> <%= sortable "name" %> </th>   
+	<th> <%= sortable "tags" %> </th>
+	<th> </th>
+</tr>
+
+	<% for item in @items %>
+	    <%= render item %>
+	<% end %>
+
+
+
+</table>
 
 <%= link_to("New Item", new_item_path) %>
 

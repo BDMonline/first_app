@@ -14,7 +14,7 @@
   <td>
     <% if current_user.admin? %>
 
-      | <%= link_to "edit", edit_question_path(question.id) %>
+      <%= link_to "edit", edit_question_path(question.id) %>
 
       | <%= link_to "delete", question, method: :delete,
                                     data: { confirm: "You sure?" } %>

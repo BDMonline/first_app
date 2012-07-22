@@ -1,6 +1,6 @@
 #superfluous comment
 class ItemsController < ApplicationController
-
+    helper_method :sort_column, :sort_direction
     include ApplicationHelper
 
     before_filter :author_user
@@ -17,7 +17,9 @@ class ItemsController < ApplicationController
     end
 
     def index
-        @items = Item.paginate(page: params[:page])
+        params[:sort]||=''
+        params[:direction]||=''
+        @items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
     end
 
     def new
@@ -70,6 +72,15 @@ class ItemsController < ApplicationController
   end
 
   private
+
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
+
+    def sort_column
+        Item.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
     def author_user
         if current_user
             redirect_to(root_path) unless current_user.author

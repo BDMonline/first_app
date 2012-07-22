@@ -837,10 +837,7 @@ module ApplicationHelper
 
         @item_html=@item_html+%Q(
         <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
-        </td> 
-        </tr>
-        </tbody>
-        </table>
+        </form>
         )
 
         
@@ -874,6 +871,11 @@ module ApplicationHelper
 
 sign_in current_user
 
+        @item_html=@item_html+ %Q(
+            </tr>
+            </tbody> 
+            </table>
+            )
 
 
 

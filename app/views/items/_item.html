@@ -1,13 +1,19 @@
-<li>
+<tr>
+  <td>
   <b><%= item.id %></b>
+  </td>
+  <td>
   <%= link_to item.name, item %>
- 
+  </td>
+  <td>
   <i><%= item.tags %></i>
+  </td>
+  <td>
   <% if current_user.admin? %>
 
-    | <%= link_to "show", item %>
+      <%= link_to "edit", edit_item_path(item.id) %>
 
     | <%= link_to "delete", item, method: :delete,
                                   data: { confirm: "You sure?" } %>
   <% end %>
-</li>
+</td>
