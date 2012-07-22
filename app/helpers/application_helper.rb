@@ -720,8 +720,7 @@ module ApplicationHelper
                     <h9>)+@example_question+%Q(</h9> </td> 
                     <td style="vertical-align:middle"> 
                     <p align="right">
-                    )+hint_html+%Q(
-                    <p>
+                    )+hint_html+%Q(     
                     </td> 
                     </tr>
                     </tbody>
@@ -763,7 +762,7 @@ module ApplicationHelper
                             <td style="vertical-align:middle">
                             <h5>
                             )
-                        @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="10" > </td>'
+                        @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
                         @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
                         if @ans && @ans[count]
                             ans_match=match(answer,@ans[count],@precision_regime)
@@ -828,10 +827,6 @@ module ApplicationHelper
 
             end
         end
-        @item_html=@item_html+%Q(
-        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
-        </form>
-        )
 
         @item_html=@item_html+%Q(
         <table class="table">  
@@ -839,6 +834,16 @@ module ApplicationHelper
         <tr>
         <td>
         )
+
+        @item_html=@item_html+%Q(
+        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+        </td> 
+        </tr>
+        </tbody>
+        </table>
+        )
+
+        
 
 
         #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
@@ -869,11 +874,6 @@ module ApplicationHelper
 
 sign_in current_user
 
-        @item_html=@item_html+ %Q(
-            </tr>
-            </tbody> 
-            </table>
-            )
 
 
 
