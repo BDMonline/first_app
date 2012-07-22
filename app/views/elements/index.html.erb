@@ -2,10 +2,18 @@
 <h1>Elements Index</h1>
 <%= will_paginate %>
 
+<<<<<<< HEAD
 <%= form_tag elements_path, :method => 'get' do %>
+=======
+<%= will_paginate %>
 
-	<%= render "layouts/indexintro" %>
-
+<%= form_tag elements_path, :method => 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <h8><%= text_field_tag :search, params[:search], class: "input-mini" %>
+    <%= submit_tag "Search Tags", class: "btn btn-medium btn-info", :name => nil %></h8>
+  </p>
 <% end %>
 
 <table class="table" align="left">
@@ -17,6 +25,24 @@
 	<th> </th>
 </tr>
 
+>>>>>>> 9b89f7183e4abf2f8fd9393445b52033a44154f0
+
+	<%= render "layouts/indexintro" %>
+
+<<<<<<< HEAD
+<% end %>
+
+<table class="table" align="left">
+<tr>  
+	<th>id</th>
+	<th><%= sortable "name" %></th>    
+	<th><%= sortable "category" %></th>  
+	<th><%= sortable "tags" %></th>
+	<th> </th>
+</tr>
+
+=======
+>>>>>>> 9b89f7183e4abf2f8fd9393445b52033a44154f0
 	<% for element in @elements %>
 	    <%= render element %>
 	<% end %>
