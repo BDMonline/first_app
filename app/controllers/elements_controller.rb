@@ -14,6 +14,7 @@ class ElementsController < ApplicationController
         params[:sort]||=''
         params[:direction]||=''
         @elements = Element.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
+        
     end
 
     def show
@@ -51,11 +52,13 @@ class ElementsController < ApplicationController
 
 
         #@element = Element.find(params[:id])
+        
         @item=Item.find_by_id(session[:current_item_id])
-        @item[:content]=(eval(@item[:content]) << (params[:format]).to_s).to_s
+        @item[:content]=(eval(@item[:content]) << (params[:element]).to_s).to_s
         @item.update_attributes(params[:item])
-        flash.now[:success] = "Added Element "+params[:format].to_s+" to Item "+@item.id.to_s
-        @elements = Element.paginate(page: params[:page])
+
+        flash.now[:success] = "Added Element "+params[:element].to_s+" to Item "+@item.id.to_s
+        index
         session[:new_element_id]=nil
         render "index"
     end

@@ -23,7 +23,7 @@
 
       <% if session[:current_item_id] %>
      
-      | <%= link_to "add to item", add_element_path(element.id), :eltid => element.id %>
+      | <%= link_to "add to item", :controller => "elements", :action => "add_to_item", :element=>element.id, :search=>params[:search], :sort=>params[:sort], :direction=>params[:direction] %>
       
       
       <% end %>
