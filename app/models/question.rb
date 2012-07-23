@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id               :integer         not null, primary key
+#  name             :string(255)
+#  parameters       :string(255)
+#  answers          :string(255)
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#  text             :text(255)
+#  precision_regime :string(255)     default("2s")
+#  tags             :text            default("")
+#
+
 class Question < ActiveRecord::Base
   
   attr_accessible :answers, :name, :tags, :parameters, :text, :precision_regime

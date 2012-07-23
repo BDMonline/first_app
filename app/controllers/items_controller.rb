@@ -1,4 +1,3 @@
-#superfluous comment
 class ItemsController < ApplicationController
     helper_method :sort_column, :sort_direction
     include ApplicationHelper
@@ -19,7 +18,7 @@ class ItemsController < ApplicationController
     def index
         params[:sort]||=''
         params[:direction]||=''
-        @items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
+        @items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
     end
 
     def new

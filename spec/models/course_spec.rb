@@ -1,18 +1,17 @@
 # == Schema Information
 #
-# Table name: elements
+# Table name: courses
 #
 #  id         :integer         not null, primary key
-#  category   :string(255)
-#  name       :string(255)
-#  content    :text
+#  name       :text
 #  tags       :text
+#  content    :text            default("[]")
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #
 
 require 'spec_helper'
 
-describe Element do
+describe Course do
   pending "add some examples to (or delete) #{__FILE__}"
 end

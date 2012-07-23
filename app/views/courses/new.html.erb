@@ -1,0 +1,18 @@
+<%= provide(:title, 'New Course') %>
+<h1>Enter a New Course</h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@course) do |f| %>
+
+      <%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+
+      <%= f.label :tags, :style => "font-size: 1.7em;"%> Keywords that can be used to find this item.
+      <%= f.text_field :tags %>
+
+      <%= f.submit "Create Course", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

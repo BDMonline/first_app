@@ -1,4 +1,6 @@
 FirstApp::Application.routes.draw do
+  get "courses/new"
+
   #get "elements/new"
 
   #get "items/new"
@@ -7,12 +9,14 @@ FirstApp::Application.routes.draw do
   resources :questions
   resources :items
   resources :elements
+  resources :courses
   resources :sessions, only: [:new, :create, :destroy]
 
   root to: "static_pages#home"
 
   match '/add_element', to: 'elements#add_to_item'
   match '/addquestion', to: 'questions#add_to_item'
+  match '/newstage', to: 'courses#add_stage'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

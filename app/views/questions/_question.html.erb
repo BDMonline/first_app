@@ -21,7 +21,7 @@
 
       <% if session[:current_item_id] %>
       	<% @question=question %>
-      	| <%= link_to "add to item", :controller => "questions", :action => "add_to_item", :question => @question.id, :search=>params[:search], :sort=>params[:sort], :direction=>params[:direction] %>
+      	| <%= link_to "add to item "+session[:current_item_id].to_s, :controller => "questions", :action => "add_to_item", :question => @question.id, :search=>params[:search], :sort=>params[:sort], :direction=>params[:direction] %>
       <% end %>
     <% end %>
   </td>

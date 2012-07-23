@@ -13,7 +13,7 @@ class ElementsController < ApplicationController
         #@elements = Element.paginate(page: params[:page])
         params[:sort]||=''
         params[:direction]||=''
-        @elements = Element.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
+        @elements = Element.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
         
     end
 
