@@ -75,7 +75,7 @@ class ElementsController < ApplicationController
         #@element = Element.find(params[:id])
         
         @item=Item.find_by_id(session[:current_item_id])
-        @item[:content]=(eval(@item[:content]) << (params[:element]).to_s).to_s
+        @item[:content]=(arrayify_item_content(@item[:content]) << (params[:element]).to_s).to_s
         @item.update_attributes(params[:item])
 
         flash.now[:success] = "Added Element "+params[:element].to_s+" to Item "+@item.id.to_s
@@ -111,14 +111,14 @@ class ElementsController < ApplicationController
                 false
             end
         elsif element[:category]=="image"
-            if element[:content].match(/http:\/\/i970\.photobucket\.com\/albums\/.*\.((png)|(jpg))/)
+            if element[:content].match(/\Ahttp:\/\/i970\.photobucket\.com\/albums\/.*\.((png)|(jpg))\z/)
                 false
             else
                 @flash_text = "Only png and jpg files with urls starting 'http://i970.photobucket.com/albums' currently allowed. Please resubmit content."
                 true
             end
         elsif element[:category]=="video"
-            if element[:content].match(/(http:\/\/www\.dailymotion\.com\/.*)|(http:\/\/www\.youtube\.com\/.*)/)
+            if element[:content].match(/\A(http:\/\/www\.dailymotion\.com\/.*)|(http:\/\/www\.youtube\.com\/.*)\z/)
                 false
             else
                 @flash_text = "Only YouTube and DailyMotion videos currently allowed. Please resubmit content."

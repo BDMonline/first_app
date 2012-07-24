@@ -122,7 +122,7 @@ before_filter :author_user
 
     def add_to_item
         @item=Item.find_by_id(session[:current_item_id])
-        @item[:content]=(eval(@item[:content]) << ("Q"+params[:question]).to_s).to_s
+        @item[:content]=(arrayify_item_content(@item[:content]) << ("Q"+params[:question]).to_s).to_s
         @item.update_attributes(params[:item])
         flash.now[:success] = "Added Question "+"Q"+params[:question].to_s+" to Item "+@item.id.to_s
         index

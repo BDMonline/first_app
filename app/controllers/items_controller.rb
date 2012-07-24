@@ -116,6 +116,7 @@ class ItemsController < ApplicationController
     end
 
     def create
+        session[:new_element_id]=nil
         @item = Item.new(params[:item])
         @item[:content]="[]"
         if @item.save
@@ -131,7 +132,7 @@ class ItemsController < ApplicationController
         if session[:current_item_id]
             @item=Item.find_by_id(session[:current_item_id])
             if session[:new_element_id]
-                @item[:content]=(eval(@item[:content]) << session[:new_element_id]).to_s
+                @item[:content]=(arrayify_item_content(@item[:content]) << session[:new_element_id]).to_s
                 @item.update_attributes(params[:item])
                 flash[:success] = "Item updated"
             end

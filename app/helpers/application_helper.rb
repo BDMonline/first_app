@@ -361,7 +361,7 @@ module ApplicationHelper
         #puts prepare(string), "outcome of prepare"
     end
         x=evaluate(prepare(string))[1..-2].to_r
-        if precision_regime[0]=='0'
+        if precision_regime[1..-1]=='0'
             d=x.denominator
             if d==1 
                 return x.numerator
@@ -369,7 +369,7 @@ module ApplicationHelper
                 return x
             end
         end
-        figures=(precision_regime[0..-2]).to_i
+        figures=(precision_regime[1..-1]).to_i
 
         return rounded(x,figures)
         #return x.to_s+figures.to_s
@@ -472,7 +472,7 @@ module ApplicationHelper
                     |this_answer|
                     precision_regime=@question.precision_regime
                     if this_answer[-2] && this_answer[-2].match(/[hsr]/)
-                        precision_regime=this_answer[-2..-1].reverse
+                        precision_regime=this_answer[-2..-1]
                         this_answer=this_answer[0..-3]
                     end
 
@@ -491,7 +491,7 @@ module ApplicationHelper
                     #begin
                         x=calculate(this_answer,precision_regime).to_s
                         
-                        @example_answers << x+precision_regime.reverse
+                        @example_answers << x+precision_regime
                     #rescue
                     #    @error=true
                     #    throw :answer_problem, 'ERROR: Answer calculation '+this_answer+' causes evaluation error HERE'
@@ -604,7 +604,7 @@ module ApplicationHelper
                 
       
     def match(stringx,stringy,precision_regime)
-        figs=precision_regime[0..-2].to_i
+        figs=precision_regime[1..-1].to_i
      
         if figs==0
             if stringx==stringy
@@ -614,7 +614,7 @@ module ApplicationHelper
             else
                 return 2
             end
-        elsif precision_regime[-1]=="h"
+        elsif precision_regime[0]=="h"
             if stringx==stringy
                 return 0
             elsif stringx==rounded(stringy.to_f,figs)
@@ -622,13 +622,13 @@ module ApplicationHelper
             else
                 return 2
             end
-        elsif precision_regime[-1]=="r"
+        elsif precision_regime[0]=="r"
             if stringx==rounded(stringy.to_f,figs)
                 return 0
             else
                 return 2
             end
-        elsif precision_regime[-1]=="s"
+        elsif precision_regime[0]=="s"
             diff=(rounded(stringx.to_f,figs).delete('.')[0..figs-1].to_i-rounded(stringy.to_f,figs).delete('.')[0..figs-1].to_i).abs
             if diff>1
                 return 2
@@ -644,12 +644,24 @@ module ApplicationHelper
     end
 
 
-
-
-
-
-
-
+     def arrayify_item_content(string)
+        unless string.match(/\A\[.*\]\z/)
+            return []
+        end
+        if string=="[]"
+            return []
+        else
+            answer=[]
+            middle=string[1..-2].delete(' ')
+            bits=middle.split(",")
+            bits.each do
+                |bit|
+                bot=bit[1..-2]
+                answer<<bot
+            end
+            return answer
+        end
+    end
 
     def create_item(item)
 
@@ -659,7 +671,7 @@ module ApplicationHelper
         @item_html="<form>"
         count=0
         hint_div_count=0
-        content=eval(item.content)
+        content=arrayify_item_content(item.content)
         correct=0
         total=0
 
@@ -737,7 +749,7 @@ module ApplicationHelper
                         |index|
                         answer=@example_answers[index]
 
-                        @precision_regime=answer[-2..-1].reverse
+                        @precision_regime=answer[-2..-1]
                         answer=answer[0..-3]
                         if @ans && @ans[count]
                             answer_given=@ans[count].to_s
