@@ -16,9 +16,10 @@
         <%|stage|%>
         <% stage_number=@content.index(stage) %>
         <tr><td> <%=stage_number+1%> </td>
-            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][0]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
-            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][1]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
-            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][2]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
+            <td style="vertical-align:middle" width = "100"> <%= (Item.find_by_id(stage[0])&&Item.find_by_id(stage[0]).name)||(!Item.find_by_id(stage[0])&&"NO SUCH ITEM")%> </td>
+            <td style="vertical-align:middle" width = "100"> <%= (Item.find_by_id(stage[1])&&Item.find_by_id(stage[1]).name)||(!Item.find_by_id(stage[1])&&"NO SUCH ITEM")%> </td>
+            <td style="vertical-align:middle" width = "100"> <%= (Item.find_by_id(stage[2])&&Item.find_by_id(stage[2]).name)||(!Item.find_by_id(stage[2])&&"NO SUCH ITEM")%> </td>
+        </tr>
     <% end %>
 
 
