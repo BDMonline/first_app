@@ -18,14 +18,14 @@
         <% stage_number=@content.index(stage) %>
         <tr><td> <%=stage_number+1%> </td>
             <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][0]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
-            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][0]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
-            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][0]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
+            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][1]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
+            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@content["+stage_number.to_s+"][2]"%> value=<%=stage[0]%> rows="1" cols="20" > </td>
     <% end %>
 
 
 </table>
 
-<input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+<%= link_to "Edit this course", edit_course_path, :id=>params[:id] %>
 </form>
 
    

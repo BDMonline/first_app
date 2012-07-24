@@ -1,0 +1,33 @@
+<% provide(:title, 'Courses Index') %>
+<h1>Courses Index</h1>
+<%= will_paginate %>
+
+
+<%= form_tag courses_path, :method => 'get' do %>
+  
+  <%=render 'layouts/indexintro' %>
+
+<% end %>
+
+<table class="table" align="left">
+<tr>  
+	<th><%= sortable "id" %></th>
+	<th><%= sortable "name" %></th>     
+	<th><%= sortable "tags" %></th>
+	<th> </th>
+</tr>
+
+	<% for course in @courses %>
+	    <%= render course %>
+	<% end %>
+
+
+
+</table>
+<%= link_to("New Course", new_course_path) %>
+
+<%= will_paginate %>
+
+
+
+

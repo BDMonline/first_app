@@ -17,20 +17,22 @@ class CoursesController < ApplicationController
     end
 
     def index
+        session[:current_course_id]=nil
         params[:sort]||=''
         params[:direction]||=''
         @courses = Course.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 2, page: params[:page])
     end
 
     def new
-    	abandon_item_build
+    	#abandon_item_build
         @course = Course.new
-        @course[:content]='[["1","2","2"]]'
+        #@course[:content]='[["1","2","2"]]'
+        #create
     end
 
     def create
         @course = Course.new(params[:course])
-        @course[:content]='[["1","2","2"]]'
+        
         if @course.save
             flash.now[:success] = "Course created."
             session[:current_course_id] = @course.id
@@ -47,66 +49,70 @@ class CoursesController < ApplicationController
 
         session[:current_course_id]=params[:id]
 
-        @course=Course.find_by_id(params[:id])
+        redirect_to items_path
 
-        @values=params[:@values]
+  #       @course=Course.find_by_id(params[:id])
 
-        @content = eval(@course.content)
+  #       @values=params[:@values]
 
-        if @values
-        	@content.each do 
-        		|stage|
-        		number1=@content.index(stage)
-        		(0..2).each do
-        			|number2|
-        			refstring = number1.to_s+"x"+number2.to_s
-        			if @values[refstring]
-        				@content[number1][number2]=@values[refstring]
-        				@course.content=@content.to_s
-        			end
-        		end
-        	end
-        end
+  #       @content = eval(@course.content)
 
-        okness=true
-        @content.each do
-        	|stage|
-        	stage.each do
-        		|item|
-        		unless Item.find_by_id(item.to_i)||item==""
-        			okness=false
-        		end
-        	end
-        end
+  #       if @values
+  #       	@content.each do 
+  #       		|stage|
+  #       		number1=@content.index(stage)
+  #       		(0..2).each do
+  #       			|number2|
+  #       			refstring = number1.to_s+"x"+number2.to_s
+  #       			if @values[refstring]
+  #       				@content[number1][number2]=@values[refstring]
+  #       				@course.content=@content.to_s
+  #       			end
+  #       		end
+  #       	end
+  #       end
 
-        if okness
+  #       if params[:r]
+  #           @content.delete(["", "", ""])
+  #       end
+
+  #       if params[:a]
+            
+  #           add_stage
+        
+  #       end
+
+  #       @okness=true
+  #       @content.each do
+  #       	|stage|
+  #           stage.each do
+  #       		|item|
+  #       		unless Item.find_by_id(item.to_i)||item==""
+  #       			@okness=false
+  #       		end
+  #       	end
+  #       end
+
+  #       if @okness
   
-	        if @course.update_attributes(params[:course])
-			    flash.now[:success] = "Course updated"
+	 #        if @course.update_attributes(content: @content.to_s )
+		# 	    flash.now[:success] = "Course updated"
 			  
-			else
-				flash.now[:failure] = "Course NOT updated"
+		# 	else
+		# 		flash.now[:failure] = "Course NOT updated"
 
-			end
-		else
-			flash.now[:failure] = "Some of the items specified do not exist"
-		end
+		# 	end
+		# else
+		# 	flash.now[:failure] = "Some of the items specified do not exist"
+		# end
 
-		if params[:t]
-			
-			add_stage
-		else
-
-			render "edit"
-
-		end
-        #indexitem code nicked from itemscontroller
-        #params[:sort]||=''
-        #params[:direction]||=''
-        #@items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
+  #       #indexitem code nicked from itemscontroller
+  #       #params[:sort]||=''
+  #       #params[:direction]||=''
+  #       #@items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
 
 
-        #render "#"
+  #       #render "#"
        
     end
 
@@ -135,8 +141,8 @@ class CoursesController < ApplicationController
 
   	
 
-  	unless @content[-1]==["" ,"", ""]
-	  	@content<<["" ,"", ""]
+  	unless @content[-1]==["", "", ""]
+	  	@content<<["", "", ""]
 	  	@course.content=@content.to_s
 	  	if @course.update_attributes(params[:course])
 	        flash.now[:success] = "Course updated" 

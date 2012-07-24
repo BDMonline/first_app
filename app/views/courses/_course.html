@@ -1,0 +1,23 @@
+
+  <tr>
+    <td>
+	     <%= course.id %>
+    </td>
+    <td>
+
+  <%= link_to course.name, course %>
+  </td>
+    <td>
+  <i><%= course.tags %></i>
+  </td>
+    <td> 
+  <% if current_user.admin? %>
+
+    <%= link_to "edit", edit_course_path(course.id) %>
+
+    | <%= link_to "delete", course, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+    <% end %>
+  </td>
+  </tr>
+

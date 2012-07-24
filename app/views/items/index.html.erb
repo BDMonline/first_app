@@ -1,5 +1,57 @@
-<% provide(:title, 'All Items') %>
-<h1>All Items</h1>
+
+
+<% if session[:current_course_id] %>
+
+	<% provide(:title, "Course = "+@course.name) %>
+
+
+	<form>
+	<h1><%= "Course: "+@course.name+" (editing)" %></h1>
+		<%= render 'shared/cerror_messages' %>
+	<table class="table">
+	    <tr>  
+	        <th>Stage</th>
+	        <th>Bronze</th>    
+	        <th>Silver</th>  
+	        <th>Gold</th>
+	    </tr>
+
+
+
+
+	    <% @content.each do %>
+	        <%|stage|%>
+	        <% stage_number=@content.index(stage) %>
+
+		    <tr><td> <%=stage_number+1%> </td>
+	            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@values["+stage_number.to_s+"x0]"%> value="<%=stage[0]%>" rows="1" cols="20" ><%= (Item.find_by_id(stage[0])&&Item.find_by_id(stage[0]).name)||(!Item.find_by_id(stage[0])&&"NO SUCH ITEM")%> </td>
+	            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@values["+stage_number.to_s+"x1]"%> value="<%=stage[1]%>" rows="1" cols="20" ><%= (Item.find_by_id(stage[1])&&Item.find_by_id(stage[1]).name)||(!Item.find_by_id(stage[1])&&"NO SUCH ITEM")%> </td>
+	            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@values["+stage_number.to_s+"x2]"%> value="<%=stage[2]%>" rows="1" cols="20" ><%= (Item.find_by_id(stage[2])&&Item.find_by_id(stage[2]).name)||(!Item.find_by_id(stage[2])&&"NO SUCH ITEM")%> </td>
+		    </tr>
+		    <% end %>
+
+
+	</table>
+	<%= hidden_field_tag :direction, params[:direction] %>
+  	<%= hidden_field_tag :sort, params[:sort] %>
+  	<%= hidden_field_tag :search, params[:search] %>
+	<%= submit_tag "Update", class: "btn btn-medium btn-info",  :name=> "s" %>
+	<%= submit_tag "Add Stage", class: "btn btn-medium btn-info",  :name=> "a" %>
+	<%= submit_tag "Remove Blank Stages", class: "btn btn-medium btn-info",  :name=> "r" %>
+	<%= submit_tag "Finish", class: "btn btn-medium btn-info",  :name=> "f" %>
+
+
+
+
+
+	</form>
+
+<% else %>
+
+	<% provide(:title, 'All Items') %>
+	<h1>All Items</h1>
+
+<% end %>
 
 <%= will_paginate %>
 
