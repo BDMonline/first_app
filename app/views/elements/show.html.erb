@@ -6,7 +6,7 @@
       <h2> <p>
         Category: <%= @element.category %> <p>
         Name: <%= @element.name %> <p>
-        <%= @element.content %> <p>
+        Content: <%= @element.safe_content %> <p>
         <% if @element.category=="image" %>
         	<img src = <%= @element.content %> /> <p>
         <% end %>

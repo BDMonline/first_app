@@ -1,5 +1,7 @@
 class ElementsController < ApplicationController
 
+    include ApplicationHelper
+
 	helper_method :sort_column, :sort_direction
     before_filter :author_user
 
@@ -29,7 +31,17 @@ class ElementsController < ApplicationController
     def update
         @element = Element.find(params[:id])
         if @element.update_attributes(params[:element])
-          flash[:success] = "Element updated"
+            if naughty_content?(@element)
+                flash.now[:failure] ="Element update attempted, but "+@flash_text
+                @element.update_attribute(:content, "")
+                @element.update_attribute(:safe_content, "")
+                render "edit"
+            else
+                flash.now[:success] = "element updated."
+                @element.update_attribute(:safe_content, @element.content) 
+                redirect_to @element
+            end
+
         end
     end
 
@@ -41,8 +53,17 @@ class ElementsController < ApplicationController
     def create
         @element = Element.new(params[:element])
         if @element.save
-            flash.now[:success] = "element created."
-            redirect_to @element
+            
+            if naughty_content?(@element)
+                flash.now[:failure] ="Element created, but "+@flash_text
+                @element.update_attribute(:content, "")
+                @element.update_attribute(:safe_content, "")
+                render "edit"
+            else
+                flash.now[:success] = "element created."
+                @element.update_attribute(:safe_content, @element.content) 
+                redirect_to @element
+            end
         else
             render 'new'
         end
@@ -78,6 +99,33 @@ class ElementsController < ApplicationController
             redirect_to(root_path) unless current_user.author
         else
             redirect_to(signin_path)
+        end
+    end
+
+    def naughty_content?(element)
+        if element[:category]=="text"
+            if element[:content].match(/.*<.*>.*/)
+                @flash_text = 'for html safeness please avoid using "< ... >". You can use MathJax \\gt and \\lt. Please resubmit content.'
+                true
+            else
+                false
+            end
+        elsif element[:category]=="image"
+            if element[:content].match(/http:\/\/i970\.photobucket\.com\/albums\/.*\.((png)|(jpg))/)
+                false
+            else
+                @flash_text = "Only png and jpg files with urls starting 'http://i970.photobucket.com/albums' currently allowed. Please resubmit content."
+                true
+            end
+        elsif element[:category]=="video"
+            if element[:content].match(/(http:\/\/www\.dailymotion\.com\/.*)|(http:\/\/www\.youtube\.com\/.*)/)
+                false
+            else
+                @flash_text = "Only YouTube and DailyMotion videos currently allowed. Please resubmit content."
+                true
+            end
+        else
+            true
         end
     end
 end

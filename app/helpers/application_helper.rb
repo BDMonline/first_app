@@ -504,7 +504,7 @@ module ApplicationHelper
         end
 
         @example_question=catch(:question_problem) do
-            question_text=@question.text
+            question_text=@question.safe_text
             delimcount=question_text.count('`')
             if delimcount==0
                 @example_question=question_text
@@ -687,16 +687,16 @@ module ApplicationHelper
                     if hint_element.category=="text"
                         hint_div_count=hint_div_count+1
                         div_id="link-"+hint_div_count.to_s
-                        @item_html='<div id= "'+div_id+ '" class="hide"><h3><p>'+hint_element.content+'</p></h3></div>'+@item_html
+                        @item_html='<div id= "'+div_id+ '" class="hide"><h3><p>'+hint_element.safe_content+'</p></h3></div>'+@item_html
                         hint_html=hint_html+'<a href="#'+div_id+'" rel="prettyPhoto" title=""><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Hintbutton-1.png" alt="Hint" width="70" /></a> '
                     end
 
                     if hint_element.category=="video"
-                        hint_html=hint_html+'<a href="'+hint_element.content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Video" /> </a>'
+                        hint_html=hint_html+'<a href="'+hint_element.safe_content+'?iframe=true&width=100%&height=100%" rel="prettyPhoto[iframes]" title="Video"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Videobutton.png" width="70" alt="Video" /> </a>'
                     end
 
                     if hint_element.category=="image"
-                        hint_html=hint_html+'<a href="'+hint_element.content+'" rel="prettyPhoto" title="Image"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Imagebutton.png" width="70" alt="Image" /></a>'
+                        hint_html=hint_html+'<a href="'+hint_element.safe_content+'" rel="prettyPhoto" title="Image"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/Imagebutton.png" width="70" alt="Image" /></a>'
                     end
 
                     hint_html=hint_html+' <br />'
@@ -704,8 +704,6 @@ module ApplicationHelper
                 else
                     hint_html=hint_html+'no such element as '+hint
                 end
-
-
 
             end
             
@@ -798,24 +796,24 @@ module ApplicationHelper
                 if element
                     category=element.category
                     if category=="text"
-                        content_html=' <h9> '+ element.content+ ' </h9> '
+                        content_html=' <h9> '+ element.safe_content+ ' </h9> '
                         #@item_html=@item_html+%Q(
                         
-                        #<p><h9>)+element.content+hint_html+%Q(</h9>
+                        #<p><h9>)+element.safe_content+hint_html+%Q(</h9>
                       
                         #)
                     elsif category=="image"
-                        content_html=' <h2> <img src = '+element.content+ ' /> </h2> '
+                        content_html=' <h2> <img src = '+element.safe_content+ ' /> </h2> '
                         # @item_html=@item_html+%Q(
                         
-                        # <h2> <img src = )+element.content+%Q( /> </h2>
+                        # <h2> <img src = )+element.safe_content+%Q( /> </h2>
                        
                         # )
                     elsif category=="video"
-                        content_html='<h2> <iframe frameborder="0" width="480" height="360" src= '+element.content+' > </iframe><br /></i> </h2> '
+                        content_html='<h2> <iframe frameborder="0" width="480" height="360" src= '+element.safe_content+' > </iframe><br /></i> </h2> '
                         # @item_html=@item_html+%Q(
                       
-                        # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.content+%Q( > </iframe><br /></i> </h2>
+                        # <h2> <iframe frameborder="0" width="480" height="360" src= )+element.safe_content+%Q( > </iframe><br /></i> </h2>
                         #                     )
                     end
                     @item_html=@item_html+'<td style="vertical-align:middle" > ' +content_html+' </td> <td style="vertical-align:middle"> <p align="right">'+hint_html+%Q(</p> 

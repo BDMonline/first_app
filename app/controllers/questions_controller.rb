@@ -58,14 +58,25 @@ before_filter :author_user
 
         @question = Question.find(params[:id])
         if @question.update_attributes(params[:question])
-            construct(0)
-            if @error
-                flash.now[:failure] = "There was a problem with this question"
-                render 'edit'
+            if naughty_text?(@question)
+                flash.now[:failure] ="Question update attempted, but "+@flash_text
+                @question.update_attribute(:text, "")
+                @question.update_attribute(:safe_text, "")
+                render "edit"
             else
-                flash.now[:success] = "The website could not detect a problem with this question. But what does a website know? Please check thoroughly and refresh the page if appropriate to explore the effect of different parameter choices."
-                render 'show'
+                
+                @question.update_attribute(:safe_text, @question.text)
+                construct(0)
+                if @error
+                    flash.now[:failure] = "There was a problem with this question"
+                    render 'edit'
+                else
+                    flash.now[:success] = "The website could not detect a problem with this question. But what does a website know? Please check thoroughly and refresh the page if appropriate to explore the effect of different parameter choices."
+                    render 'show'
+                
+                end
             end
+            
         else
             flash.now[:failure] = "There was a problem with this question"
             render 'edit'
@@ -94,8 +105,16 @@ before_filter :author_user
     def create
         @question = Question.new(params[:question])
         if @question.save
-            flash.now[:success] = "Question created."
-            redirect_to @question
+            if naughty_text?(@question)
+                flash.now[:failure] ="Question created, but "+@flash_text
+                @question.update_attribute(:text, "")
+                @question.update_attribute(:safe_text, "")
+                render "edit"
+            else
+                flash.now[:success] = "question created."
+                @question.update_attribute(:safe_text, @question.text) 
+                redirect_to @question
+            end
         else
             render 'new'
         end
@@ -109,6 +128,16 @@ before_filter :author_user
         index
         session[:new_element_id]=nil
         render "index"
+    end
+
+    def naughty_text?(question)
+        if question[:text].match(/.*<.*>.*/)
+            @flash_text = 'for html safeness please avoid using "< ... >". You can use MathJax \\gt and \\lt. Please resubmit content.'
+            true
+        else
+            false
+        end
+        
     end
 
     private

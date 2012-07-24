@@ -11,15 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723111657) do
+ActiveRecord::Schema.define(:version => 20120724152801) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
     t.string   "name"
     t.text     "content"
     t.text     "tags"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.text     "safe_content", :default => ""
   end
 
   create_table "courses", :force => true do |t|
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120723111657) do
     t.text     "text",             :limit => 255
     t.string   "precision_regime",                :default => "2s"
     t.text     "tags",                            :default => ""
+    t.text     "safe_text",                       :default => ""
   end
 
   add_index "questions", ["name"], :name => "index_questions_on_name", :unique => true
