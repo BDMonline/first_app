@@ -90,9 +90,9 @@
     },
 
     // Default confirm dialog, may be overridden with custom confirm dialog in $.rails.confirm
-    confirm: function(message) {
-      return confirm(message);
-    },
+    //confirm: function(message) {
+    //  return confirm(message);
+    //},
 
     // Default ajax function, may be overridden with custom function in $.rails.ajax
     ajax: function(options) {
