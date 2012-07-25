@@ -119,7 +119,7 @@ module ApplicationHelper
         tail=ourexp
         while tail.length>0
             if tail.match(/\d/)
-                start=tail.index(/_?\d/)
+                start=tail.index(/_?[\d\.]/)
                 head=head+tail[0..start-1] if start>0
                 tail=tail[start..-1]
                 
@@ -329,7 +329,7 @@ module ApplicationHelper
                     value1=subbreak[0][1..-1]
                     value2=subbreak[2][0..-2]
                     #puts value1+'.to_r'+operator+value2+'.to_r','*&*'
-                    value3='<'+eval('('+value1+'.to_r'+')'+operator+'('+value2+'.to_r'+')').to_s+'>'
+                    value3='<'+eval('('+value1+'.to_r'+')'+operator+'('+value2+'.to_r'+')').to_r.to_s+'>'
                     ourexp=breakdown[0]+value3+breakdown[2]
                     #puts ourexp
                     if ourexp.match(/\A<-?\d+\/\d+>\z/)
