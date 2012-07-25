@@ -10,7 +10,7 @@ module ApplicationHelper
     end
 
     def number_per_page
-        3
+        15
     end
 
 	def ln(x)
