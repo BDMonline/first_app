@@ -161,18 +161,11 @@ module ApplicationHelper
                         #Output will be a rational, by coercion if necessary
                         #expressed in the format '<a/b>'
 
-        
-
+    
         # recursively deal with all brackets.
         puts 'starting over with', input
 
         ourexp=input
-
-        #puts 'starting over with ' ourexp
-
-
-
-        
 
 
         if ourexp.match(/\A<-?\d+\/\d+>\z/)
