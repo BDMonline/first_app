@@ -141,15 +141,12 @@ class CoursesController < ApplicationController
 
   	
 
-  	unless @content[-1]==["", "", ""]
-	  	@content<<["", "", ""]
-	  	@course.content=@content.to_s
-	  	if @course.update_attributes(params[:course])
-	        flash.now[:success] = "Course updated" 
-	    end
-	else
-		flash.now[:failure] = "Put some items in the blank row before adding another"
-	end
+	@content<<["", "", ""]
+	@course.content=@content.to_s
+	if @course.update_attributes(params[:course])
+      flash.now[:success] = "Course updated" 
+  end
+	
 
 
   end

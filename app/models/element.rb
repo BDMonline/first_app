@@ -14,6 +14,10 @@
 class Element < ActiveRecord::Base
   attr_accessible :content, :name, :tags, :category
 
+  validates :name, presence: true, uniqueness:  { case_sensitive: false }
+
+  validates :category, presence: true, format:{with: /text|video|image/}
+
   def self.search(search)
     if search
       where('tags LIKE ?', "%#{search}%")
