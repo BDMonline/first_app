@@ -25,7 +25,6 @@ def update
 				flash[:success]="Congratulations. You've signed up."
 				redirect_to user_path(@user),  :id => @user.id
 			end
-		
 		end
 	else
 		redirect_to root_path, :alert => "Something seems to have gone wrong. Please sign in or sign up again."
