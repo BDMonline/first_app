@@ -19,6 +19,7 @@ class ElementsController < ApplicationController
         
     end
 
+
     def show
     	@element = Element.find(params[:id])
         session[:new_element_id]= @element.id.to_s
