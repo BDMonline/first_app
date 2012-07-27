@@ -16,7 +16,7 @@ def update
 			sign_in @user
 			redirect_to user_path, :confirm => "Registration confirmed.", :id => @user.id
 		else
-			if @user.token_send_time < 2.minutes.ago
+			if @user.token_send_time < 2.hours.ago
 				@user.destroy
 				redirect_to signup_path, :alert => "Registration code expired. Please sign up again.", :id => @user.id
 			else 
