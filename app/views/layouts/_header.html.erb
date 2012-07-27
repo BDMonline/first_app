@@ -20,7 +20,11 @@
               <li><%= link_to "Elements", elements_path %></li>
               <li><%= link_to "Items", items_path %></li>
               <li><%= link_to "Courses", courses_path %></li>
+
             <% end %>
+             <li>
+                  <%= link_to "Sign out", signout_path, {:method => "delete"} %>
+                </li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
@@ -46,6 +50,7 @@
     <% if session[:current_course_id] %>
       Building course <%= session[:current_course_id] %>
     <% end %>
+    <%= current_user&&current_user.confirmed %>
   </h2>
   
     </div>

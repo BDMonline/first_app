@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724202452) do
+ActiveRecord::Schema.define(:version => 20120726200855) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(:version => 20120724202452) do
     t.boolean  "admin",           :default => false
     t.boolean  "author"
     t.text     "item_successes",  :default => "[]"
+    t.string   "login_token"
+    t.datetime "token_send_time"
+    t.boolean  "confirmed",       :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

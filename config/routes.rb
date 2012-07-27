@@ -1,4 +1,10 @@
 FirstApp::Application.routes.draw do
+  get "registration_confirmations/new"
+
+  get "registration_confirmation/new"
+
+  get "password_resets/new"
+
   get "courses/new"
 
   #get "elements/new"
@@ -11,12 +17,15 @@ FirstApp::Application.routes.draw do
   resources :elements
   resources :courses
   resources :sessions, only: [:new, :create, :destroy]
+  resources :password_resets
+  resources :registration_confirmations
 
   root to: "static_pages#home"
 
   match '/add_element', to: 'elements#add_to_item'
   match '/addquestion', to: 'questions#add_to_item'
   match '/newstage', to: 'courses#add_stage'
+  match '/confirm_password', to: 'password_resets#confirm_password'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

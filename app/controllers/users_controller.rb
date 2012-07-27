@@ -22,11 +22,10 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       @user = User.new(params[:user])
-      if @user.save
-        UserMailer.registration_confirmation(@user).deliver
-        sign_in @user
-        flash[:success] = "Welcome to the Sample App!"
-        redirect_to @user
+      if @user.update_attributes(:name => @user.name, :email => @user.email, :password => @user.password, :password_confirmation => @user.password_confirmation)
+        @user.send_registration_confirmation if @user
+        flash[:success]="An email with instructions has been sent to your address. Please follow the instructions to complete your registration. You may sign in here once registration is complete."
+        redirect_to signin_path(@user)
       else
         render 'new'
       end
@@ -65,9 +64,14 @@ class UsersController < ApplicationController
     end
 
     def correct_user
-      @user = User.find(params[:id])
+      @user = User.find_by_id(params[:id])
+      unless @user
+        @user = User.find_by_login_token(params[:id]) 
+        params[:id]=@user.id
+      end
+      
       redirect_to(root_path) unless current_user?(@user)
-    end
+      end
 
     def author_user
       redirect_to(root_path) if current_user==nil

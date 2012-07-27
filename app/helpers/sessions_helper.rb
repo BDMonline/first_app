@@ -1,8 +1,14 @@
 module SessionsHelper
 
   def sign_in(user)
-    cookies.permanent[:remember_token] = user.remember_token
+    if user.confirmed
     self.current_user = user
+    cookies.permanent[:remember_token] = user.remember_token
+    else
+    flash[:failure] = 'Registration not yet confirmed. Check your email for instructions.'
+    redirect_to signin_path
+  end
+    
   end
 
   def signed_in?

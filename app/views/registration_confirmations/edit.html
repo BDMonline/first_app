@@ -1,0 +1,8 @@
+<h1>Registration Confirmation</h1>
+
+
+<%= form_tag registration_confirmation_path(params[:id]), :method => :put do%>
+ 
+
+  <h2> Please click "Proceed" to complete your registration. <%= submit_tag "Proceed",class: "btn btn-large btn-primary" %></h2>
+<% end %>

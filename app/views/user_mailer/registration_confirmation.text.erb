@@ -1,3 +1,7 @@
-Dear <%= @user.name %>
+Dear <%= @user.email %>
 
-You have successfully registered at the site.
+Someone, hopefully you, just signed up for our independent learning website using your email address. If it was you, and you'd like to confirm your registration, please click the link below or paste it into your browser.
+
+<%= edit_registration_confirmation_url(@user.login_token) %>
+
+If you did not mean to register with the site, please ignore this email.
