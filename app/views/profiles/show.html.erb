@@ -1,0 +1,55 @@
+
+<% provide(:title, @user.name+@course.name) %>
+
+<h1>
+
+Course: <%= @course.name %>
+<br>
+
+</h1>
+
+<h2>
+<table class="table">
+
+
+
+    <% @content=eval(@course.content) %>
+    <% @content.each do %>
+        <%|stage|%>
+        <% stage_number=@content.index(stage) %>
+        <tr><td style="vertical-align:middle"> <%=stage_number+1%> </td><td></td>
+        	<% (0..2).each do %>
+	        	<% |part| %>
+	        	<% name=(Item.find_by_id(stage[part])&&Item.find_by_id(stage[part]).name)||(!Item.find_by_id(stage[part])&&"NO SUCH ITEM") %>
+	        	<td style="vertical-align:middle" width = "120">
+	        	<% if name=="NO SUCH ITEM" %>
+	        		- 
+	        	<% else %>
+	            	<%= link_to name, item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+	    		<% end %>
+	    		
+				<td style="vertical-align:middle" width = "80">
+	    		<% if eval(current_user.item_successes).include?(stage[part].to_i) %>
+	    		
+	    			<% if part==0 %>
+	    				<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/bronze.jpg" width="40">
+	    			<% elsif part==1 %>
+	    				<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/silver.jpg" width="40">
+	    			<% elsif part==2 %>
+	    				<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/gold.jpg" width="40">
+	    			
+	    			<% end %>
+	    		<% else %>
+	    			<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/none.jpg" width="40">
+	    		<% end %>
+	    		<td>
+
+	    	<% end %>  
+        </tr>
+    <% end %>
+
+
+</table>
+
+<%= link_to "Return to your profile page", user_path(@user.id) %>
+</h5>

@@ -19,6 +19,7 @@ FirstApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets
   resources :registration_confirmations
+  resources :profiles
 
   root to: "static_pages#home"
 
@@ -33,6 +34,7 @@ FirstApp::Application.routes.draw do
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/courseitem', to: 'profiles#show_item'
   #match '/addquestion', to: 'questions#new'
 
 

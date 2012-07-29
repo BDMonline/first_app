@@ -117,30 +117,23 @@ class CoursesController < ApplicationController
     end
 
     def update
-    @course=Course.find_by_id(session[:current_course_id])  
-    if @course.update_attributes(params[:course])
-        flash.now[:success] = "Course updated"
-        session[:current_course_id] = nil
-        redirect_to @course
+    @course = Course.find_by_id(session[:current_course_id]) 
+    
+    if @course
+      @course.update_attributes(params[:course])
+      flash.now[:success] = "Course updated"
+      session[:current_course_id] = nil
+      redirect_to @course
     else
-      #deal with invalid course
+      @course ||= Course.find_by_id(params[:id])
+      @course.update_attribute(:tag, @course.tag)
+      redirect_to @course
     end
   end
 
-  def abandon_item_build
-  	if session[:current_item_id]
-    	@item=Item.find_by_id(session[:current_item_id])  
-			if @item.update_attributes(params[:item])
-    			flash[:success] = "Stopped editing Item "+session[:current_item_id].to_s
-    		end
-    	session[:current_item_id] = nil
-    end	
-  end
-
+ 
   def add_stage
-
-  	
-
+    
 	@content<<["", "", ""]
 	@course.content=@content.to_s
 	if @course.update_attributes(params[:course])

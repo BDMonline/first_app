@@ -4,6 +4,7 @@ class ElementsController < ApplicationController
 
 	helper_method :sort_column, :sort_direction
     before_filter :author_user
+    before_filter :abandon_course_build
 
     def destroy
         Element.find(params[:id]).destroy

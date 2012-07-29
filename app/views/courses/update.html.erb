@@ -1,5 +1,5 @@
 <% provide(:title, @course.name) %>
-
+update
 <%= form_for(@course) do |f| %>
 <table class="table">
     <tr>  
@@ -27,9 +27,8 @@
 
 <%= link_to "Edit this course", edit_course_path, :id=>params[:id] %>
 
-<%= f.label :tag %>
-      <%= f.text_field :tag %>
-      
+Tags: <%= @course.tag %>
+
 <% end %>
 
    

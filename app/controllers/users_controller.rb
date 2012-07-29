@@ -1,13 +1,24 @@
 
 class UsersController < ApplicationController
 
+  include ApplicationHelper
+
+
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :show]
   before_filter :correct_user,   only: [:edit, :update, :show, :update]
   before_filter :author_user, only: [:index]
+  before_filter :abandon_course_build
+  before_filter :abandon_item_build
 
   def show
-    
+    @profiles=Profile.find(:all, :order => :id)
     @user = User.find(params[:id])
+    tags=@user.tag.split(' ')
+    tags=tags.delete('') if tags.include?('')
+    @oldcourses=Course.find(:all, :order => :name).find_all {|course| Profile.find(:all, :order => :id).find_all {|profile| profile.course== course.id&&profile.user==@user.id}.count>0}
+    #@courses_html=displaycourses(@user.id, @oldcourses)
+    @courses=Course.find(:all, :order => :name).find_all {|course| tags.find_all {|tag| course.tag.match('`'+tag+'`')}.count>0}
+    @newcourses=@courses.find_all {|course| @oldcourses.include?(course)==false}
   end
   
   def new
@@ -70,8 +81,8 @@ class UsersController < ApplicationController
         params[:id]=@user.id
       end
       
-      redirect_to(root_path) unless current_user?(@user)
-      end
+    redirect_to(root_path) unless current_user?(@user)
+    end
 
     def author_user
       redirect_to(root_path) if current_user==nil

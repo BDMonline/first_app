@@ -1,12 +1,29 @@
 
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user, size:35 %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
+
+<%= @user.name %>
+<br><br>
+
+Tags: <%= @user.tag %>
+<br><br>
+
+Your current courses:<br>
+
+<% @oldcourses.each do  |course| %>
+	<%= link_to course.name, :controller => "profiles", :action =>"show", :user_id => @user.id, :course_id => course.id %>
+	<br>
+<% end %>
+
+<br>
+
+New courses available:<br>
+
+
+
+<% @newcourses.each do  |course| %>
+	<%= course.name %>
+	<%= link_to "Join course", :controller => "profiles", :action =>"new", :user_id => @user.id, :course_id => course.id %>
+	<br>
+<% end %>
+
 </div>

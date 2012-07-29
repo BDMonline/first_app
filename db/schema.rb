@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726200855) do
+ActiveRecord::Schema.define(:version => 20120729225623) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120726200855) do
     t.text     "content",    :default => "[]"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.text     "tag",        :default => ""
   end
 
   create_table "items", :force => true do |t|
@@ -36,6 +37,15 @@ ActiveRecord::Schema.define(:version => 20120726200855) do
     t.text     "tags"
     t.text     "content"
     t.text     "markpolicy"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user"
+    t.integer  "course"
+    t.text     "tag"
+    t.text     "feedback"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -67,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120726200855) do
     t.string   "login_token"
     t.datetime "token_send_time"
     t.boolean  "confirmed",       :default => false
+    t.text     "tag"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

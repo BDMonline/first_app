@@ -1,7 +1,7 @@
 <% provide(:title, @course.name) %>
 
 
-<form>
+<%= form_for(@course) do |f| %>
 
 	<%= render 'shared/cerror_messages' %>
 <table class="table">
@@ -29,6 +29,8 @@
 
 
 </table>
+<br><br>If you are ready to publish this course, add tag here: <input type="textarea"  name=<%="@values['newtag']"%> value="<%=@newtag%>" rows="1" cols="20" >
+
 <%= submit_tag "Submit changes", class: "btn btn-medium btn-info",  :name=> "s" %>
 <%= submit_tag "Add Stage", class: "btn btn-medium btn-info",  :name=> "a" %>
 <%= submit_tag "Remove Blank Stages", class: "btn btn-medium btn-info",  :name=> "r" %>
@@ -36,6 +38,4 @@
 
 
 
-
-
-</form>
+<% end %>

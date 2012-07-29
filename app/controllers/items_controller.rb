@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
     end
 
     def index
+        @user=  User.find_by_remember_token(cookies[:remember_token])
         if session[:current_course_id]
             if session[:current_item_id]
                 @item=Item.find_by_id(session[:current_item_id])  
@@ -46,6 +47,24 @@ class ItemsController < ApplicationController
                 end
             end
 
+            @newtag=params[:@newtag]
+
+            if @newtag && @newtag.match(/[^ ]/)
+                unless @course.tag.match(" `"+@newtag+"_"+@user.id.to_s+"`")
+                    tag=@course.tag+" `"+@newtag+"_"+@user.id.to_s+"`"
+                    @course.update_attribute(:tag, tag)
+                end
+            end
+
+            @oldtag=params[:@oldtag]
+
+            if @oldtag
+                string= " `"+@oldtag+"_"+@user.id.to_s+"`"
+
+                    tag=@course.tag.gsub(string,"")
+                    @course.update_attribute(:tag, tag)  
+            end
+
             if params[:r]
                 @content.delete(["", "", ""])
             end
@@ -54,15 +73,10 @@ class ItemsController < ApplicationController
                 
                 unless @content[-1]==["", "", ""]
                     @content<<["", "", ""]
-                    @course.content=@content.to_s
-                    if @course.update_attributes(params[:course])
-                        flash.now[:success] = "Course updated" 
-                    end
-               
-            
-
+                    @course.update_attribute(:content, @content.to_s)
+                    flash.now[:success] = "Course updated" 
                 else
-                    flash.now[:failure] = "Put some items in the blank row before adding another"
+                    flash.now[:failure] = "Put some items in the blank row before adding another - otherwise you'd have two rows the same."
                 end
             
             end
@@ -80,16 +94,14 @@ class ItemsController < ApplicationController
 
             if @okness
       
-                if @course.update_attributes(content: @content.to_s )
-                    flash.now[:success] = "Course updated"
-                    if params[:f]
-                        redirect_to courses_path
-                    end
-                  
-                else
-                    flash.now[:failure] = "Course NOT updated"
-
+                @course.update_attribute(:content, @content.to_s)
+                flash.now[:success] = "Course updated"
+                if params[:f]
+                    id=session[:current_course_id]
+                    session[:current_course_id]=nil
+                    redirect_to course_path(id)
                 end
+                    
             else
                 flash.now[:failure] = "Some of the items specified do not exist"
             end

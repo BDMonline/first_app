@@ -11,7 +11,7 @@
 #
 
 class Course < ActiveRecord::Base
-  attr_accessible :content, :name, :tags
+  attr_accessible  :name, :tags
   VALID_CONTENT_REGEX = /\[\]|\[\["\d*"(, "\d*"){2}\](, \["\d*"(, "\d*"){2}\])*\]/
   validates :content, format: { with: VALID_CONTENT_REGEX }
 

@@ -19,6 +19,9 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
+      <%= f.label :tag %>
+      <%= f.text_field :tag %>
+
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

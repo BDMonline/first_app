@@ -874,7 +874,7 @@ module ApplicationHelper
 
 
 
-sign_in current_user
+        sign_in current_user
 
         @item_html=@item_html+ %Q(
             </tr>
@@ -889,4 +889,30 @@ sign_in current_user
 
     end
 
+
+  def abandon_item_build
+    if session[:current_item_id]
+      @item=Item.find_by_id(session[:current_item_id])  
+      if @item.update_attributes(params[:item])
+          flash[:success] = "Stopped editing Item "+session[:current_item_id].to_s
+        end
+      session[:current_item_id] = nil
+    end 
+  end
+
+  def abandon_course_build
+    if session[:current_course_id]
+      @course=Course.find_by_id(session[:current_course_id])  
+      if @course.update_attributes(params[:course])
+          flash[:success] = "Stopped editing Course "+session[:current_course_id].to_s
+        end
+      session[:current_course_id] = nil
+    end 
+  end
+
+  def displaycourse(profile)
+  end
+
+  def displaycourses(user, coursearray)
+  end
 end
