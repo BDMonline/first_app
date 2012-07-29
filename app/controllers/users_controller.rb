@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def show
     @profiles=Profile.find(:all, :order => :id)
     @user = User.find(params[:id])
+    @user.update_attribute(:tag, "") unless @user.tag
     tags=@user.tag.split(' ')
     tags=tags.delete('') if tags.include?('')
     @oldcourses=Course.find(:all, :order => :name).find_all {|course| Profile.find(:all, :order => :id).find_all {|profile| profile.course== course.id&&profile.user==@user.id}.count>0}
