@@ -1,4 +1,7 @@
 <% provide(:title, @item.name) %>
+
+
+
 <div class="row">
   
     <section>
@@ -16,6 +19,13 @@
       </h2>
 
         <%= @item_html.html_safe %>
+
+        <%= hidden_field_tag(:really, params[:really]) %>
+        <%= hidden_field_tag(:profile_id, params[:profile_id]) %> 
+
+        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+        </form>
+
       <h2>
 
       <% if params[:really] %>
@@ -31,6 +41,7 @@
         <%= link_to "Questions index", questions_path %><p>
 
         <%= link_to "Edit this item", edit_item_path %>
+
       <% end %>
 
       </h2>

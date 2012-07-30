@@ -840,10 +840,7 @@ module ApplicationHelper
         <td>
         )
 
-        @item_html=@item_html+%Q(
-        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
-        </form>
-        )
+        
 
         
 
