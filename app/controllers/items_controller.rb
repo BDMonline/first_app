@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
     helper_method :sort_column, :sort_direction
     include ApplicationHelper
 
-    before_filter :author_user
+    before_filter :author_user, only: [:index, :edit, :update, :destroy, :new, :create]
     
     def show 
         @item=Item.find(params[:id])
