@@ -20,14 +20,14 @@
       <%= f.password_field :password_confirmation %>
 
       <%= f.label :tag %>
-      <%= f.text_field :tag %>
+      <%= f.text_field :tag %><br>
       Enter one or more tags to receive invitations to join courses.
       <br>
       <br>
 
       <input type="checkbox"  name="@agree"> I have read and agree to the <a rel="prettyPhoto" title="terms and conditions" href="#0">terms and conditions</a> and the <a href="#1" rel="prettyPhoto" value="cookies and privacy policy">cookies and privacy policy</a><br><br>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+      <%= submit_tag "Create my account", class: "btn btn-large btn-primary", :agree => 1 %>
     <% end %>
   </div>
 </div>

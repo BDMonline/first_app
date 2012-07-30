@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def create
     if signed_in?
       redirect_to root_path
-    elsif !@agree
+    elsif !params[:@agree]
       flash[:failure]="You must agree to the terms and conditions and accept the cookies and privacy policy"
       redirect_to signup_path
     else
