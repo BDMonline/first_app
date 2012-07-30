@@ -886,6 +886,45 @@ module ApplicationHelper
 
     end
 
+    def score(profile)
+        content=eval(Course.find_by_id(profile.course).content)
+        user=User.find_by_id(profile.user)
+        return ["0/0","none.jpg",[]] if content == []
+        successes=0
+        total=0
+        medals=[1,1,1]
+        success_array=[]
+        content.each do
+            |stage|
+            stagecode=''
+            (0..2).each do
+                |part|
+                unless stage[part]==""
+                    total=total+1
+                    if eval(user.item_successes).include?(stage[part].to_i)
+                        stagecode=stagecode+'T'
+                        successes=successes+1
+                    else
+                        stagecode=stagecode+'F'
+                        medals[part]=0
+                    end
+                else
+                    stagecode=stagecode+'F'
+                    medals[part]=0
+                end
+            end
+            success_array<<stagecode
+        end
+        medal="none.jpg"
+        
+        medal="bronze.png" if medals[0]==1        
+        medal="silver.png" if medals[1]==1 && medals[0]==1     
+        medal="gold.png" if medals[2]==1 && medals[1]==1 && medals[0]==1
+
+        return [successes.to_s+'/'+total.to_s,medal,success_array]
+    end
+
+
 
   def abandon_item_build
     if session[:current_item_id]

@@ -13,13 +13,19 @@ class UsersController < ApplicationController
   def show
     @profiles=Profile.find(:all, :order => :id)
     @user = User.find(params[:id])
-    @user.update_attribute(:tag, "") unless @user.tag
+    @user.update_attribute(:tag, "") unless @user.tag 
     tags=@user.tag.split(' ')
     tags=tags.delete('') if tags.include?('')
     @oldcourses=Course.find(:all, :order => :name).find_all {|course| Profile.find(:all, :order => :id).find_all {|profile| profile.course== course.id&&profile.user==@user.id}.count>0}
     #@courses_html=displaycourses(@user.id, @oldcourses)
+    @scores=[]
+    @oldcourses.each do 
+      |course|
+      @scores<<score((Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==@user.id})[0])
+    end
     @courses=Course.find(:all, :order => :name).find_all {|course| tags.find_all {|tag| course.tag.match('`'+tag+'`')}.count>0}
     @newcourses=@courses.find_all {|course| @oldcourses.include?(course)==false}
+    
   end
   
   def new
@@ -32,6 +38,9 @@ class UsersController < ApplicationController
   def create
     if signed_in?
       redirect_to root_path
+    elsif !@agree
+      flash[:failure]="You must agree to the terms and conditions and accept the cookies and privacy policy"
+      redirect_to signup_path
     else
       @user = User.new(params[:user])
       if @user.update_attributes(:name => @user.name, :email => @user.email, :password => @user.password, :password_confirmation => @user.password_confirmation)

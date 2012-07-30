@@ -1,22 +1,49 @@
 
 <% provide(:title, @user.name) %>
+<h5a>
 
 <%= @user.name %>
 <br><br>
 
-Tags: <%= @user.tag %>
-<br><br>
+
 
 Your current courses:<br>
-
+</h5a>
+<table class="table">
+<% @index=0 %>
 <% @oldcourses.each do  |course| %>
-	<%= link_to course.name, :controller => "profiles", :action =>"show", :user_id => @user.id, :course_id => course.id %>
-	<br>
+	<tr>
+		<td style="vertical-align:middle">
+			<h5>
+				<%= link_to course.name, :controller => "profiles", :action =>"show", :user_id => @user.id, :course_id => course.id %><%= @score %>
+			</h5>
+		</td>
+		<td style="vertical-align:middle">
+			<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/vbar.png" width="20">
+			<% @scores[@index][2].each do %>
+				<% |stage| %>
+				<img src=<%="http://i970.photobucket.com/albums/ae189/gumboil/website/stars"+stage+".png"%> width="20">
+				<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="20">
+			<% end %>
+
+		</td>
+		
+		<td style="vertical-align:middle">
+			<img src=<%="http://i970.photobucket.com/albums/ae189/gumboil/website/"+@scores[@index][1]%> width="57">
+
+		</td>
+
+		<td style="vertical-align:middle">
+			<h5a> Current score: <%= @scores[@index][0] %> </h5a>
+		</td>
+		<% @index=@index+1 %>
+	</tr>
 <% end %>
+</table>
 
 <br>
-
-New courses available:<br>
+<h5a>
+New courses available:<br><br>
 
 
 
@@ -24,6 +51,12 @@ New courses available:<br>
 	<%= course.name %>
 	<%= link_to "Join course", :controller => "profiles", :action =>"new", :user_id => @user.id, :course_id => course.id %>
 	<br>
-<% end %>
+	<% end %>
 
+<%="(none at present)" if @newcourses.count == 0%>
+
+<br><br>
+
+Tags: <%= @user.tag %>
+</h5a>
 </div>

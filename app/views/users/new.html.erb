@@ -2,7 +2,7 @@
 <h1>Sign up</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span8 offset2">
     <%= form_for(@user) do |f| %>
     
       <%= render 'shared/error_messages' %>
@@ -21,8 +21,73 @@
 
       <%= f.label :tag %>
       <%= f.text_field :tag %>
+      Enter one or more tags to receive invitations to join courses.
+      <br>
+      <br>
+
+      <input type="checkbox"  name="@agree"> I have read and agree to the <a rel="prettyPhoto" title="terms and conditions" href="#0">terms and conditions</a> and the <a href="#1" rel="prettyPhoto" value="cookies and privacy policy">cookies and privacy policy</a><br><br>
 
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
+</div>
+<div id= "1" class="hide">
+
+<h3>Cookies and Privacy</h3>
+<p><b>StemLoops respects your privacy.</b></p>
+
+<p><b>Cookies </b></p>
+<p>A "cookie" is a small data text file that is placed in your browser and allows StemLoops to recognize you each time you visit this site(customisation etc). If you choose not to sign out of StemLoops, a cookie will store the details of your session so you can continue from where you left off the next time you visit the site. Cookies are also used to help with navigation from page to page on the site. Cookies themselves do not contain any personal information, and StemLoops does not use cookies to collect personal information. Cookies may also be used by 3rd party content providers such as newsfeeds. By registering with StemLoops you agree to the use of cookies by the site.</p>
+
+<p>Any personal information you provide to us including and similar to your name and e-mail address will not be released, sold, or rented to any entities or individuals outside of StemLoops.</p>
+
+<p><b>Credit card details</b></p>
+<p>StemLoops will never ask for Credit Card details and request that you do not enter it on any of the forms on StemLoops.</p>
+
+<p><b>External Sites.</b></p>
+<p>StemLoops is not responsible for the content of external internet sites. You are advised to read the privacy policy of external sites before disclosing any personal information.</p>
+
+<p><b>Remember The Risks Whenever You Use The Internet </b></p>
+<p>While we do our best to protect your personal information, we cannot guarantee the security of any information that you transmit to StemLoops and you are solely responsible for maintaining the secrecy of any passwords or other account information. In addition other Internet sites or services that may be accessible through StemLoops have separate data and privacy practices independent of us, and therefore we disclaim any responsibility or liability for their policies or actions. </p>
+<p>Please contact those vendors and others directly if you have any questions about their privacy policies.</p>
+
+For any other information email <a href='mailto:stemloops@gmail.com'>StemLoops</a>
+<!--privacy policy generator from http://madsubmitter.com-->
+
+</div>
+
+<div id= "0" class="hide">
+<h3>Terms and Conditions of Use of StemLoops</h3>
+<p><b>1 &nbsp;Acceptance The Use Of StemLoops Terms and Conditions</b></p>
+<p>Your  access  to  and  use  of  StemLoops is  subject exclusively to these Terms and Conditions. You will not use the Website for any purpose that is unlawful or prohibited by these Terms and Conditions. By using  the  Website  you  are  fully  accepting  the  terms,  conditions  and disclaimers contained in this notice. If you do not accept these Terms and Conditions you must immediately stop using the Website.</p>
+
+<p><b>2 &nbsp;Credit card details</b></p>
+<p>StemLoops will never ask for Credit Card details and request that you do not enter it on any of the forms on StemLoops.</p>
+
+<p><b>3 &nbsp;Advice</b></p>
+<p>The contents of StemLoops website do not constitute advice and should not be relied upon in making or refraining from making, any decision.</p>
+
+<p><b>4 &nbsp;Change of Use</b></p>
+<p>StemLoops reserves the right to:<br /> 4.1 &nbsp;change or remove (temporarily or permanently) the Website or any part of it without notice and you confirm that StemLoops shall not be liable to you for any such change or removal and.<br /> 4.2 &nbsp;change these Terms and Conditions at any time, and your continued use of the Website following any changes shall be deemed to be your acceptance of such change.</p>
+
+<p><b>5 &nbsp;Links to Third Party Websites</b></p>
+<p>StemLoops Website may include links to third party websites that are controlled and maintained by others. Any link to other websites is not an endorsement of such websites and you acknowledge and agree that we are not responsible for the content or availability of any such sites.</p>
+
+<p><b>6 &nbsp;Copyright </b></p>
+<p>6.1 &nbsp;All  copyright,  trade  marks  and  all  other  intellectual  property  rights  in  the Website and its content (including without limitation the Website design, text, graphics and all software and source codes connected with the Website) are owned by or   licensed to StemLoops or otherwise used by StemLoops as permitted by law.<br /> 6.2 &nbsp;In accessing the Website you agree that you will access the content solely for your personal, non-commercial use. None of the content may be downloaded, copied, reproduced, transmitted, stored, sold or distributed without the prior written consent of the copyright holder. This excludes the downloading, copying and/or printing of pages of the Website for personal, non-commercial home use only.</p>
+
+<p><b>7 &nbsp;Disclaimers and Limitation of Liability </b></p>
+<p>7.1 &nbsp;The Website is provided on an AS IS and AS AVAILABLE basis without any representation or endorsement made and without warranty of any kind whether express or implied, including but not limited to the implied warranties of satisfactory quality, fitness for a particular purpose, non-infringement, compatibility, security and accuracy.<br /> 7.2 &nbsp;To the extent permitted by law, StemLoops will not be liable for any indirect or consequential loss or damage whatever (including without limitation loss of business, opportunity, data, profits) arising out of or in connection with the use of the Website.<br /> 7.3 &nbsp;StemLoops makes no warranty that the functionality of the Website will be uninterrupted or error free, that defects will be corrected or that the Website or the server that makes it available are free of viruses or anything else which may be harmful or destructive.<br /> 7.4 &nbsp;Nothing in these Terms and Conditions shall be construed so as to exclude or limit the liability of StemLoops for death or personal injury as a result of the negligence of StemLoops or that of its employees or agents.</p>
+
+<p><b>8 &nbsp;Indemnity</b></p>
+<p>You agree to indemnify and hold StemLoops and its employees and agents harmless from and against all liabilities, legal fees, damages, losses, costs and other expenses in relation to any claims or actions brought against StemLoops arising out of any breach by you of these Terms and Conditions or other liabilities arising out of your use of this Website.</p>
+
+<p><b>9 &nbsp;Severance</b></p>
+<p>If any of these Terms and Conditions should be determined to be invalid, illegal or unenforceable for any reason by any court of competent jurisdiction then such Term or Condition shall be severed and the remaining Terms and Conditions shall survive and remain in full force and effect and continue to be binding and enforceable.</p>
+
+<p><b>10 &nbsp;Governing Law</b></p>
+<p>These Terms and Conditions shall be governed by and construed in accordance with the law of the United Kingdom and you hereby submit to the exclusive jurisdiction of the UK courts.</p>
+
+For any further information please email <a href='mailto:stemloops@gmail.com'>StemLoops</a>
+<!--Terms and conditions generator from http://madsubmitter.com-->
 </div>
