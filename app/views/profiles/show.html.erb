@@ -27,15 +27,16 @@ Course: <%= @course.name %>
 		    		<% if eval(current_user.item_successes).include?(stage[part].to_i) %>
 		    		
 		    			<% if part==0 %>
-		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/bronze.png", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/bronze.png", :onmouseover => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/bronzeblur2-1.jpg'", :onmouseout => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/bronze.png'", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+		    				
 		    			<% elsif part==1 %>
-		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/silver.png", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/silver.png", :onmouseover => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/silverblur2.jpg'", :onmouseout => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/silver.png'", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
 		    			<% elsif part==2 %>
-		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/gold.png", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+		    				<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/gold.png", :onmouseover => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/goldblur2.jpg'", :onmouseout => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/gold.png'", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
 		    			
 		    			<% end %>
 		    		<% else %>
-		    			<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/stemlooppale-1.png", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
+		    			<%= link_to image_tag("http://i970.photobucket.com/albums/ae189/gumboil/website/stemlooppale-1.png", :onmouseover => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/stemloop.png'", :onmouseout => "this.src='http://i970.photobucket.com/albums/ae189/gumboil/website/stemlooppale-1.png'", :width=>"48", :title => name), item_path(stage[part].to_i, :profile_id => @profile.id, :really => true )%>
 		    		<% end %>
 		    	<% end%>
 	    		<td>
