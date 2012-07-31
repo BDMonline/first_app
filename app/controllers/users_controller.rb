@@ -27,6 +27,9 @@ class UsersController < ApplicationController
     end
     @courses=Course.find(:all, :order => :name).find_all {|course| tags.find_all {|tag| course.tag.match('`'+tag+'`')}.count>0}
     @newcourses=@courses.find_all {|course| @oldcourses.include?(course)==false}
+
+    @authorhtml=''
+
     if @author
       @authorcourses=Course.find(:all, :order => :name).find_all {|course| course.tag.match('_'+@author.id.to_s+'`')}
       @authorusers=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('_'+@author.id.to_s+'(\z| )'))}
@@ -42,35 +45,20 @@ class UsersController < ApplicationController
         end
       end
 
-# if @author
-#       @authorcourses=Course.find(:all, :order => :name).find_all {|course| course.tag.match('_'+@author.id.to_s+'`')}
-#       @authorusers=User.find(:all, :order => :name).find_all {|user| user.tag.match('_'+@author.id.to_s+'`')}
-#       @authortags=[]
-#       @authorcourses.each do
-#         |course|
-#         reg= Regexp::new('`[^`]+_'+@author.id.to_s+'`' )
-#         tags=matches(course.tag,reg)
-#         tags.each do
-#           |tag|
-#           @authortags<<tag unless @authortags.include?(tag)
-#         end
-#       end
-
-       @authorhtml=''
-
       @authortags.each do
         |tag|
         @authorhtml=@authorhtml+'<h5a><br>With tag: '+tag[1..-2]+'</h5a><br>'
         courses=@authorcourses.find_all {|course| course.tag.match(tag)}
         courses.each do
           |course|
-          @authorhtml=@authorhtml+'<br><h3>'+course.name+'</h3><table class="table"> <td style="vertical-align:middle" width="20">'
+          @authorhtml=@authorhtml+'<br><h3>'+course.name+'</h3><table class="table"><tr>'
           users=@authorusers.find_all {|user| user.tag.match(Regexp::new('(\A| )'+tag[1..-2]+'(\z| )'))}
           users.each do
             |user|
             name=User.find_by_id(user).name
             profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==user.id}[0]
-            @authorhtml=@authorhtml+'<br>'+name+':</td><td style="vertical-align:middle" width="50">'
+            name=name+' <h8>(not joined)</h8>' unless profile
+            @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
             score=score(profile)
             score[2].each do
               |stage|
@@ -78,7 +66,7 @@ class UsersController < ApplicationController
               <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
             end
             @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
-            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></tr>'
+            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
 
           end
           @authorhtml=@authorhtml+'</table>'

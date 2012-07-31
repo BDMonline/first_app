@@ -887,6 +887,7 @@ module ApplicationHelper
     end
 
     def score(profile)
+        return ["0/0","none.jpg",[]] if profile == nil
         content=eval(Course.find_by_id(profile.course).content)
         user=User.find_by_id(profile.user)
         return ["0/0","none.jpg",[]] if content == []
