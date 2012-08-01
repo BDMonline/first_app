@@ -3,10 +3,13 @@
     <% if signed_in? %>
       <li>  <%= link_to 'Signed in as '+current_user.name, '#' %>  </li>
     <% end %>
+    <% if users_browser_ie? %>
+      You are using IE you silly sausage.
+    <% end %>
     <div class="container">
       
-      <%= link_to "StemLoops", root_path, id: "logo" %>
-        
+      <%= link_to "StemLoops ", root_path, id: "logo" %>
+      
       <nav>
 
         <ul class="nav pull-right">

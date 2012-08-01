@@ -27,5 +27,10 @@
 
   </h2>
 
-  This site does not currently work well with Internet Explorer, and you are strongly advised to use a different browser.
+      
+  <% if users_browser_ie? %>
+      It appears you are using Internet Exporer. This site does not currently work well with IE, and you are strongly advised to use a different browser.
+  <% end %>
+
+  
 

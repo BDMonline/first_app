@@ -146,6 +146,16 @@ module ApplicationHelper
 
     end
 
+    def users_browser_ie?
+        user_agent =  request.env['HTTP_USER_AGENT'].downcase 
+        if user_agent.index('msie') && !user_agent.index('opera') && !user_agent.index('webtv')
+            true
+        else
+            false
+        end
+    end
+                
+
 
 	# Returns the full title on a per page basis
 	def full_title(page_title)
