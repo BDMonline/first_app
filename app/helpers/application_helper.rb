@@ -146,16 +146,6 @@ module ApplicationHelper
 
     end
 
-    def users_browser_ie?
-        user_agent =  request.env['HTTP_USER_AGENT'].downcase 
-        if user_agent.index('msie') && !user_agent.index('opera') && !user_agent.index('webtv')
-            true
-        else
-            false
-        end
-    end
-                
-
 
 	# Returns the full title on a per page basis
 	def full_title(page_title)
@@ -666,7 +656,7 @@ module ApplicationHelper
         end
     end
 
-    def create_item(item)
+     def create_item(item)
 
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
@@ -850,7 +840,10 @@ module ApplicationHelper
         <td>
         )
 
-        
+        @item_html=@item_html+%Q(
+        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+        </form>
+        )
 
         
 
@@ -870,7 +863,6 @@ module ApplicationHelper
         elsif eval(current_user.item_successes).include?(@item.id)
             @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Greystar.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item previously solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
         end
-
         # unless correct==total 
         #     success_array=eval(current_user.item_successes)
         #     if success_array.include?(@item.id)

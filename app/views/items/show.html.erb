@@ -6,13 +6,13 @@
   
     <section>
       <h2> <p>
-      <% if params[:really] %>
+      <% if params[:really]=="yes" %>
       Course: <%= Course.find_by_id(Profile.find_by_id(params[:profile_id]).course).name%>
       <br> 
       Item: <%= @item.name %>
 
       <% else %>  
-      	Showing Item <%= @item.id %> 
+      	Showing Item <%= @item.id %> really=<%=params[:really] %>
 
       <% end %>
 
@@ -23,12 +23,10 @@
         <%= hidden_field_tag(:really, params[:really]) %>
         <%= hidden_field_tag(:profile_id, params[:profile_id]) %> 
 
-        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
-        </form>
 
       <h2>
 
-      <% if params[:really] %>
+      <% if params[:really]=="yes" %>
         <%= link_to "Return to course profile page", :controller => "profiles", :action =>"show", :user_id => Profile.find_by_id(params[:profile_id]).user, :course_id => Profile.find_by_id(params[:profile_id]).course %>
       <% else %>
         Content: <%= @item.content %> <p>
