@@ -219,7 +219,7 @@ DEPENDENCIES
   mathjax-rails
   pg (= 0.12.2)
   prettyphoto-rails
-  rails (= 3.2.7)
+  rails
   rspec-rails (= 2.10.0)
   sass-rails (= 3.2.4)
   spork (= 0.9.0)
