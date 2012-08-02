@@ -638,7 +638,7 @@ def users_browser_ie?
                 return 2
             end
         elsif precision_regime[0]=="s"
-            return 0 if ((stringx.to_f)/(stringy.to_f)-1).abs>0.5
+            return 2 if ((stringx.to_f)/(stringy.to_f)-1).abs>0.5
             diff=(rounded(stringx.to_f,figs).delete('.')[0..figs-1].to_i-rounded(stringy.to_f,figs).delete('.')[0..figs-1].to_i).abs
             if diff>1
                 return 2
