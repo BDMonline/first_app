@@ -938,7 +938,10 @@ def users_browser_ie?
         )
 
         @item_html=@item_html+%Q(<input id="really" name="really" type="hidden" value="yes" />
-        <input id="profile_id" name="profile_id" type="hidden" value=")+params[:profile_id]+ %Q(" />
+        <input id="profile_id" name="profile_id" type="hidden" value=")+params[:profile_id]+ '" />' if params[:profile_id] 
+
+
+        @item_html=@item_html+ %Q(
         <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
         </form>
         )
