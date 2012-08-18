@@ -753,7 +753,9 @@ def users_browser_ie?
                     <table class="table">  
                     <tbody>
                     )
-                    total=total+@example_answers.count
+                    total=total+1
+
+                    ans_match=nil
 
                     (0..@example_answers.count-1).each do
                         |index|
@@ -787,17 +789,24 @@ def users_browser_ie?
                         @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
                         @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
                         if @ans && @ans[count]
-                            ans_match=match(answer,@ans[count],@precision_regime)
-                            if ans_match==0
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
-                                correct=correct+1
-                            elsif ans_match==1
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
+                            ans_match=0 unless ans_match
+                            this_ans_match=match(answer,@ans[count],@precision_regime)
+                            ans_match=this_ans_match if this_ans_match>ans_match
+                            if index==@example_answers.count-1
+                                if ans_match==0
+                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
+                                    correct=correct+1
+                                elsif ans_match==1
+                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
+                                else
+                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
+                                end
                             else
-                                 @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
+                                @item_html=@item_html+'<td></td>'
                             end
+
                         end
-                        count=count+1
+                        count=count+1 
                         @item_html=@item_html+ '</tr>'
                     end
                     @item_html=@item_html+ '</tbody> </table>'
