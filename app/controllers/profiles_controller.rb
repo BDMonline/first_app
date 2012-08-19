@@ -28,6 +28,7 @@ include ApplicationHelper
 
 	def create
 		# requires params[] to have :user_id and :course_id
+	
 		
 		@profile.update_attribute(:user, params[:user_id])
 		@profile.update_attribute(:course, params[:course_id])
@@ -36,6 +37,27 @@ include ApplicationHelper
 		params[:user_id]=@profile.user
 		params[:course_id]=@profile.course
 		render "show"
+	end
+
+	def destroy
+		if params[:profile_id]
+			Profile.find(params[:profile_id]).destroy
+		else
+	    	Profile.find(params[:id]).destroy
+		end
+	    flash[:success] = "Course removed."
+	    redirect_to current_user
+	   
+	end
+
+	def delete
+		if params(:profile_id)
+			Profile.find(params[:profile_id]).destroy
+		else
+	    	Profile.find(params[:id]).destroy
+		end
+	    flash[:success] = "Course removed."
+
 	end
 
 	def show_item
@@ -48,7 +70,10 @@ include ApplicationHelper
 
 			@existing=Profile.find(:all, :order => :id).find_all {|profile| profile.course.to_s==params[:course_id]&&profile.user.to_s==params[:user_id]}
 			@profile=@existing[0] if @existing[0]
+		elsif params[:profile_id]
+			@profile=Profile.find(params[:profile_id])
 		end
+
 		@profile||=Profile.find_by_id(params[:profile_id])
 		@profile||=Profile.find_by_id(params[:id])
 		@user=User.find_by_id(@profile.user)

@@ -162,14 +162,19 @@ class ItemsController < ApplicationController
     end
 
     def update
-    @item=Item.find_by_id(session[:current_item_id])  
-    if @item.update_attributes(params[:item])
-        flash[:success] = "Item updated"
-        session[:current_item_id] = nil
-        redirect_to @item
-    else
-      #deal with invalid item
-    end
+        if session[:current_item_id]
+            @item=Item.find_by_id(session[:current_item_id])
+        else 
+            @item=Item.find_by_id(params[:id])
+        end
+
+        if @item.update_attributes(params[:item])
+            flash[:success] = "Item updated"
+            session[:current_item_id] = nil
+            redirect_to @item
+        else
+          #deal with invalid item
+        end
   end
 
   private

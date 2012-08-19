@@ -21,9 +21,12 @@ class UsersController < ApplicationController
     @oldcourses=Course.find(:all, :order => :name).find_all {|course| Profile.find(:all, :order => :id).find_all {|profile| profile.course== course.id&&profile.user==@user.id}.count>0}
     #@courses_html=displaycourses(@user.id, @oldcourses)
     @scores=[]
+    @profiles=[]
     @oldcourses.each do 
       |course|
-      @scores<<score((Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==@user.id})[0])
+      profile=(Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==@user.id})[0]
+      @profiles<<profile
+      @scores<<score(profile)
     end
     @courses=Course.find(:all, :order => :name).find_all {|course| tags.find_all {|tag| course.tag.match('`'+tag+'`')}.count>0}
     @newcourses=@courses.find_all {|course| @oldcourses.include?(course)==false}
@@ -106,9 +109,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_path
+    user=User.find(params[:id])
+    unless current_user?(user)
+      user.destroy
+      flash[:success] = "User destroyed."
+      redirect_to users_path
+    else
+      flash[:alert] = "You cannot destroy yourself."
+      redirect_to user_path
+    end
+
   end
 
   def index
