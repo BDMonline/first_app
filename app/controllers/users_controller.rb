@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :show]
   before_filter :correct_user,   only: [:edit, :update, :show, :update]
-  before_filter :author_user, only: [:index]
+  before_filter :admin_user, only: [:index]
   before_filter :abandon_course_build
   before_filter :abandon_item_build
 
@@ -163,9 +163,9 @@ class UsersController < ApplicationController
     redirect_to(root_path) unless current_user?(@user)
     end
 
-    def author_user
+    def admin_user
       redirect_to(root_path) if current_user==nil
-      redirect_to(root_path) unless current_user.author
+      redirect_to(root_path) unless current_user.admin
     end
 
 end
