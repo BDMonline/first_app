@@ -14,8 +14,8 @@ class ElementsController < ApplicationController
 
     def index
         #@elements = Element.paginate(page: params[:page])
-        params[:sort]||=''
-        params[:direction]||=''
+        params[:sort]||='id'
+        params[:direction]||='desc'
         @elements = Element.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
         
     end

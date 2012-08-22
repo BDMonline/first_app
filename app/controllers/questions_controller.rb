@@ -46,8 +46,8 @@ before_filter :author_user
     end
 
     def index
-        params[:sort]||=''
-        params[:direction]||=''
+        params[:sort]||='id'
+        params[:direction]||='desc'
         @questions = Question.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
     end
 
