@@ -100,6 +100,17 @@ before_filter :author_user
 
     def new
         @question = Question.new
+        if params[:format]
+            id=@question.id
+            prev_question=Question.find(params[:format])
+            @question.name=prev_question.name+' - copy'
+            @question.text=prev_question.text
+            @question.parameters=prev_question.parameters
+            @question.tags=prev_question.tags
+            @question.answers=prev_question.answers
+            @question.precision_regime=prev_question.precision_regime
+            @question.id=id
+        end
     end
 
     def create
