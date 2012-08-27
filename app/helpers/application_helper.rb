@@ -652,7 +652,11 @@ def users_browser_ie?
             else
                 excess_figs=stringy.delete('.').to_i.to_s.length-figs
                 if excess_figs>1
-                    return 1
+                    if stringy.delete('.').to_i.to_s[-excess_figs..-1].match(/\A0*\z/)
+                        return 0
+                    else
+                        return 1
+                    end
                 else
                     return 0
                 end
