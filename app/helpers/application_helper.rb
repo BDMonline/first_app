@@ -587,35 +587,37 @@ def users_browser_ie?
     end
 
     def rounded(number,figs)
-        if number<0
-            sign ='-'
-        else
-            sign=''
-        end
-        if number==0
-            answer="0"
-            if figs>1
-                answer=answer+'.'+'0'*(figs-1)
-            end
-            return answer
-        end
-        number = number.abs
         exponent=(log10(number)).floor
-        abscissa=number.to_f/(10**exponent)
-        abscissa=abscissa.round(figs-1).to_s.delete('.')
-        shortness=figs-abscissa.length
-        if shortness>0
-            abscissa=abscissa+"0"*shortness
-        end
-        if exponent == figs-1
-            return sign+abscissa
-        elsif exponent < 0
-            return sign+"0."+"0"*(-1-exponent)+abscissa
-        elsif exponent >= figs
-            return sign+abscissa + "0"*(exponent-figs+1)
-        else
-            return sign+abscissa[0..exponent]+"."+abscissa[exponent+1..-1]
-        end
+        return number.round(figs-exponent).to_s
+        # if number<0
+        #     sign ='-'
+        # else
+        #     sign=''
+        # end
+        # if number==0
+        #     answer="0"
+        #     if figs>1
+        #         answer=answer+'.'+'0'*(figs-1)
+        #     end
+        #     return answer
+        # end
+        # number = number.abs
+        # exponent=(log10(number)).floor
+        # abscissa=number.to_f/(10**exponent)
+        # abscissa=abscissa.round(figs-1).to_s.delete('.')
+        # shortness=figs-abscissa.length
+        # if shortness>0
+        #     abscissa=abscissa+"0"*shortness
+        # end
+        # if exponent == figs-1
+        #     return sign+abscissa
+        # elsif exponent < 0
+        #     return sign+"0."+"0"*(-1-exponent)+abscissa
+        # elsif exponent >= figs
+        #     return sign+abscissa + "0"*(exponent-figs+1)
+        # else
+        #     return sign+abscissa[0..exponent]+"."+abscissa[exponent+1..-1]
+        # end
     end
                 
       
