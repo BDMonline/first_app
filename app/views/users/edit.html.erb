@@ -1,16 +1,15 @@
 <% provide(:title, "Edit user") %> 
-<h1>Update your profile</h1>
+<h1>Change password/Update tag</h1>
 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= @user.name %></br></br>
+      
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= @user.email %></br></br>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
@@ -19,12 +18,11 @@
       <%= f.password_field :password_confirmation %>
 
       <%= f.label :tag %>
-      <%= f.text_field :tag %>
+      <%= f.text_field :tag %></br>
+      Enter a tag given to you by a teacher. The number at the end of the tag means your progress on courses will be visible to that teacher only.</br></br>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 
-    <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">change</a>
   </div>
 </div>
