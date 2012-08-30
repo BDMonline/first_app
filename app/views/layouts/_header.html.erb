@@ -7,7 +7,7 @@
         
       <nav>
 
-        <ul class="nav pull-right">
+        <ul class="nav pull-left">
           <% if signed_in? %>
             <li><%= link_to current_user.name, current_user %></li>
             <li><%= link_to "Settings", edit_user_path(current_user) %></li>
