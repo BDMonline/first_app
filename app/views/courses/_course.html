@@ -11,9 +11,12 @@
   <i><%= course.tags %></i>
   </td>
     <td> 
-  <% if current_user.admin? %>
+  <% if current_user.author? %>
 
     <%= link_to "edit", edit_course_path(course.id) %>
+  <% end %>
+
+  <% if current_user.admin? %>
 
     | <%= link_to "delete", course, method: :delete,
                                   data: { confirm: "You sure?" } %>

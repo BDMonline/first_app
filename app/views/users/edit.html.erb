@@ -6,7 +6,8 @@
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <%= @user.name %></br></br>
+      <%= f.label :name %>
+      <%= f.password_field :name %></br>
       
 
       <%= @user.email %></br></br>
