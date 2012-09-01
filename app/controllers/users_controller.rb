@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
       @authortags.each do
         |tag|
-        @authorhtml=@authorhtml+'<h5a><br>With tag: '+tag[1..-2]+'</h5a><br>'
+        @authorhtml=@authorhtml+'<h5a><br>With tag: '+tag[0..-2]+'</h5a><br>'
         courses=@authorcourses.find_all {|course| course.tag.match(tag)}
         courses.each do
           |course|
