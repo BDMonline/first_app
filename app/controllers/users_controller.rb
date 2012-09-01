@@ -55,7 +55,7 @@ class UsersController < ApplicationController
         courses.each do
           |course|
           @authorhtml=@authorhtml+'<br><h3>'+course.name+'</h3><table class="table"><tr>'
-          users=@authorusers.find_all {|user| user.tag.match(Regexp::new('(\A| )'+tag[1..-2]+'(\z| )'))}
+          users=@authorusers.find_all {|user| user.tag.match(Regexp::new('(\A| )'+tag[0..-2]+'(\z| )'))}
           users.each do
             |user|
             name=User.find_by_id(user).name
