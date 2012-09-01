@@ -1,13 +1,36 @@
 <% provide(:title, "Edit user") %> 
 <h1>Change password/Update tag</h1>
-
+<%= hidden_field_tag :tagedit, params[:tagedit] %>
+<% if params[:tagedit]=='1' %>
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages' %>
+    Update your tags:</br>
+    <%= hidden_field_tag :tagedit, params[:tagedit] %>
+
+      <%= f.text_field :tag %></br></br>
+      Enter a tag given to you by a teacher. The number at the end of the tag means your progress on courses will be visible to that teacher only.</br></br>
+
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+
+
+    <% end %>
+  </div>
+</div>
+    ______________________________________________________________________________________________
+<% else %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@user) do |f| %>
+    <%= render 'shared/error_messages' %>
+      Update your user details
 
       <%= f.label :name %>
-      <%= f.text_field :name %></br>
+      <%= f.text_field :name %>
+      
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
@@ -15,12 +38,9 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.label :tag %>
-      <%= f.text_field :tag %></br>
-      Enter a tag given to you by a teacher. The number at the end of the tag means your progress on courses will be visible to that teacher only.</br></br>
-
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 
   </div>
 </div>
+<% end %>

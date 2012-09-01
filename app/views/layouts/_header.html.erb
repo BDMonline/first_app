@@ -10,7 +10,8 @@
         <ul class="nav pull-left">
           <% if signed_in? %>
             <li><%= link_to current_user.name, current_user %></li>
-            <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+            <li><%= link_to  "Tags", edit_user_path(current_user,{:tagedit => 1})%></li>
+            <li><%= link_to  "Account", edit_user_path(current_user,{:tagedit => 0})%></li>
             <li><%= link_to "Sign out", signout_path, {:method => "delete"} %> </li>
           <% end %>
           <li><%= link_to "Title page", root_path %></li>
