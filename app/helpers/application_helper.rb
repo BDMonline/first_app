@@ -693,9 +693,11 @@ def users_browser_ie?
         session[:items]=[] unless session[:items]
         if session[:answers][item.id.to_s]&&@ans
             session[:answers][item.id.to_s]=@ans
+            session[:items].delete(item.id.to_s)
+            session[:items]<<item.id.to_s
         elsif @ans
             oldest=session[:items][0]
-            unless session[:answers].count<5
+            unless session[:answers].count<6
                 session[:answers].delete(oldest.to_s)
                 session[:items]=session[:items][1..-1]
             end
