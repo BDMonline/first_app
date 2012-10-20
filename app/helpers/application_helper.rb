@@ -689,6 +689,24 @@ def users_browser_ie?
         # create a string containing the html to display an item body
         # and spaces for answers plus feedback.
         @ans=params["@ans"]
+        session[:answers]={} unless session[:answers]
+        session[:items]=[] unless session[:items]
+        if session[:answers][item.id.to_s]&&@ans
+            session[:answers][item.id.to_s]=@ans
+        elsif @ans
+            oldest=session[:items][0]
+            unless session[:answers].count<5
+                session[:answers].delete(oldest.to_s)
+                session[:items]=session[:items][1..-1]
+            end
+            session[:answers][item.id.to_s]=@ans
+            session[:items]<<item.id.to_s
+        elsif session[:answers][item.id.to_s]
+            @ans=session[:answers][item.id.to_s]
+        end
+            
+
+
         @item_html="<form>"
         count=0
         hint_div_count=0
