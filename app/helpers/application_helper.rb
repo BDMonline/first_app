@@ -620,6 +620,15 @@ def users_browser_ie?
                 
       
     def match(stringx,stringy,precision_regime)
+
+        if precision_regime=="w"
+            if stringx.downcase==stringy.downcase
+                return 0
+            else
+                return 2
+            end
+        end
+
         figs=precision_regime[1..-1].to_i
      
         if figs==0
