@@ -364,6 +364,8 @@ def users_browser_ie?
         
     end
     def calculate(string, precision_regime)
+        if precision_regime="w" then return string
+        end
     unless string.count('(')==string.count(')') 
         #puts string, "initial input"
         x=1/0
