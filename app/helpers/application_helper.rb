@@ -364,7 +364,7 @@ def users_browser_ie?
         
     end
     def calculate(string, precision_regime)
-        if precision_regime="w" then return string
+        if precision_regime="w0" then return string
         end
     unless string.count('(')==string.count(')') 
         #puts string, "initial input"
@@ -623,7 +623,7 @@ def users_browser_ie?
       
     def match(stringx,stringy,precision_regime)
 
-        if precision_regime=="w"
+        if precision_regime=="w0"
             if stringx.downcase==stringy.downcase
                 return 0
             else
