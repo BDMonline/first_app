@@ -489,7 +489,7 @@ def users_browser_ie?
                 answerlist.each do
                     |this_answer|
                     precision_regime=@question.precision_regime
-                    if this_answer[-2] && this_answer[-2].match(/[hsr]/)
+                    if this_answer[-2] && this_answer[-2].match(/[hsrw]/)
                         precision_regime=this_answer[-2..-1]
                         this_answer=this_answer[0..-3]
                     end
