@@ -122,7 +122,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    #@users = User.paginate(page: params[:page])
+    params[:sort]||='id'
+        params[:direction]||='desc'
+        @users = User.order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
   end
 
   def update
