@@ -10,16 +10,24 @@ before_filter :author_user
     def show
         @question = Question.find(params[:id])
         session[:new_element_id]= "Q"+@question.id.to_s
-        construct(0)
-
-        if @error 
-            flash.now[:success] = "There was a problem with this question. Please address the issues below."
+        begin    
+            construct(0)
+        rescue
+            flash.now[:warning] = "There was a problem with this question. Please review and update it."
             @question.destroy
             render 'edit'
- 	    else
-            
-            @question.update_attributes(params[:question])
-            render 'show'
+
+        else
+
+            if @error 
+                flash.now[:success] = "There was a problem with this question. Please address the issues below."
+                @question.destroy
+                render 'edit'
+     	    else
+                
+                @question.update_attributes(params[:question])
+                render 'show'
+            end
         end
 
     end
@@ -53,7 +61,7 @@ before_filter :author_user
 
     def update
         #@testtext=calculate('-2-1/(2-4*(2+ln(2)))')
- 
+    
  
 
         @question = Question.find(params[:id])
@@ -66,15 +74,22 @@ before_filter :author_user
             else
                 
                 @question.update_attribute(:safe_text, @question.text)
-                construct(0)
-                if @error
-                    flash.now[:failure] = "There was a problem with this question"
+                begin    
+                    construct(0)
+                rescue
+                    flash.now[:warning] = "There was a problem with this question. Please review and update it."
+                    @question.destroy
                     render 'edit'
                 else
-                    flash.now[:success] = "The website could not detect a problem with this question. But what does a website know? Please check thoroughly and refresh the page if appropriate to explore the effect of different parameter choices."
-                    render 'show'
-                
-                end
+                    if @error
+                        flash.now[:failure] = "There was a problem with this question"
+                        render 'edit'
+                    else
+                        flash.now[:success] = "The website could not detect a problem with this question. But what does a website know? Please check thoroughly and refresh the page if appropriate to explore the effect of different parameter choices."
+                        render 'show'
+                    
+                    end
+                end    
             end
             
         else
