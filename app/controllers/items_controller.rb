@@ -151,8 +151,13 @@ class ItemsController < ApplicationController
                 @item.update_attributes(params[:item])
                 flash[:success] = "Item updated"
             end
-            create_item(@item)
-            render "edit"
+            if @item
+                create_item(@item)
+                render "edit"
+            else
+                render "index"
+            end
+
         
         else
             session[:current_item_id]=params[:id]
