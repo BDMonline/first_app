@@ -4,8 +4,11 @@
   <%= user.id %>
   <%= link_to user.name, user %>
   <%= user.email %>
+  | last activity
+  <%= time_ago_in_words(user.updated_at) %>  
+  ago
   <% unless user.confirmed %>
-  	| <i> unconfirmed user </i>
+  	| <font color=#833> unconfirmed user <font color="black"> 
   <% end %>
   | activity <%= user.item_successes.length %>
   <% if current_user.admin? && !current_user?(user) %>
