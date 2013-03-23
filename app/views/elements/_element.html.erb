@@ -14,12 +14,9 @@
   <i><%= element.tags %></i>
   </td>
     <td> 
-  <% if current_user.admin? %>
+  <% if current_user.author? %>
 
     <%= link_to "edit", edit_element_path(element.id) %>
-
-    | <%= link_to "delete", element, method: :delete,
-                                  data: { confirm: "You sure?" } %>
 
       <% if session[:current_item_id] %>
      
@@ -27,6 +24,12 @@
       
       
       <% end %>
+    <% end %>
+  <% if current_user.admin? %>
+
+     | <%= link_to "delete", element, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+
     <% end %>
   </td>
   </tr>
