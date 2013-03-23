@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731133913) do
+ActiveRecord::Schema.define(:version => 20130323163344) do
 
   create_table "Elements", :force => true do |t|
     t.string   "category"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120731133913) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.text     "safe_content", :default => ""
+    t.integer  "author",       :default => 1
   end
 
   create_table "courses", :force => true do |t|
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120731133913) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.text     "tag",        :default => ""
+    t.integer  "author",     :default => 1
   end
 
   create_table "items", :force => true do |t|
@@ -37,8 +39,9 @@ ActiveRecord::Schema.define(:version => 20120731133913) do
     t.text     "tags"
     t.text     "content"
     t.text     "markpolicy"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "author",     :default => 1
   end
 
   create_table "profiles", :force => true do |t|
@@ -60,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20120731133913) do
     t.string   "precision_regime",                :default => "s2"
     t.text     "tags",                            :default => ""
     t.text     "safe_text",                       :default => ""
+    t.integer  "author",                          :default => 1
   end
 
   add_index "questions", ["name"], :name => "index_questions_on_name", :unique => true

@@ -6,6 +6,9 @@
   <%= link_to item.name, item %>
   </td>
   <td>
+  <%= User.find_by_id(item.author).name %>
+  </td>
+  <td>
   <i><%= item.tags %></i>
   </td>
   <td>

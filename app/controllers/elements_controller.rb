@@ -54,6 +54,9 @@ class ElementsController < ApplicationController
 
     def create
         @element = Element.new(params[:element])
+        if current_user
+            @element.author=current_user.id
+        end
         if @element.save
             
             if naughty_content?(@element)

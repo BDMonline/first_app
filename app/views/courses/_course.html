@@ -7,6 +7,9 @@
 
   <%= link_to course.name, course %>
   </td>
+  <td>
+  <%= User.find_by_id(course.author).name %>
+  </td>
     <td>
   <i><%= course.tags %></i>
   </td>
