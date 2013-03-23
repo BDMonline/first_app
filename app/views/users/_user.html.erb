@@ -1,8 +1,13 @@
 <li>
   <%= gravatar_for user, size: 52 %>
+
+  <%= user.id %>
   <%= link_to user.name, user %>
   <%= user.email %>
-  <%= user.item_successes.length %>
+  <% unless user.confirmed %>
+  	| <i> unconfirmed user </i>
+  <% end %>
+  | activity <%= user.item_successes.length %>
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>

@@ -95,6 +95,10 @@ class UsersController < ApplicationController
       flash[:failure]="You must agree to the terms and conditions and accept the cookies and privacy policy"
       redirect_to signup_path
     else
+      @existing_user=User.find_by_email(params[:user][:email])
+      if @existing_user&&!@existing_user.confirmed
+        User.find_by_email(params[:user][:email]).destroy
+      end
       @user = User.new(params[:user])
       if @user.update_attributes(:name => @user.name, :email => @user.email, :password => @user.password, :password_confirmation => @user.password_confirmation)
         @user.send_registration_confirmation if @user
