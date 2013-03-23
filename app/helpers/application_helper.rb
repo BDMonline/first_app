@@ -1069,8 +1069,9 @@ def users_browser_ie?
 
   def abandon_item_build
     if session[:current_item_id]
-      @item=Item.find_by_id(session[:current_item_id])  
-      if @item.update_attributes(params[:item])
+      @item=Item.find_by_id(session[:current_item_id])
+
+      if @item&&@item.update_attributes(params[:item])
           flash[:success] = "Stopped editing Item "+session[:current_item_id].to_s
         end
       session[:current_item_id] = nil

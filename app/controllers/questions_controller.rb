@@ -14,7 +14,7 @@ before_filter :author_user
             construct(0)
         rescue
             flash.now[:warning] = "There was a problem with this question. Please review and update it."
-            @question.destroy
+            #@question.destroy
             render 'edit'
 
         else
@@ -78,7 +78,7 @@ before_filter :author_user
                     construct(0)
                 rescue
                     flash.now[:warning] = "There was a problem with this question. Please review and update it."
-                    @question.destroy
+                    #@question.destroy
                     render 'edit'
                 else
                     if @error
