@@ -131,6 +131,9 @@ class ItemsController < ApplicationController
         session[:new_element_id]=nil
         @item = Item.new(params[:item])
         @item[:content]="[]"
+        if current_user
+            @item.update_attribute(:author, current_user.id)
+        end
         if @item.save
             flash.now[:success] = "Item created."
             session[:current_item_id] = @item.id

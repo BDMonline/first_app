@@ -32,6 +32,9 @@ class CoursesController < ApplicationController
 
     def create
         @course = Course.new(params[:course])
+        if current_user
+            @course.update_attribute(:author, current_user.id)
+        end
         
         if @course.save
             flash.now[:success] = "Course created."

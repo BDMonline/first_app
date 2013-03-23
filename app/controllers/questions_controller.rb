@@ -130,6 +130,9 @@ before_filter :author_user
 
     def create
         @question = Question.new(params[:question])
+        if current_user
+            @question.update_attribute(:author, current_user.id)
+        end
         if @question.save
             if naughty_text?(@question)
                 flash.now[:failure] ="Question created, but "+@flash_text

@@ -55,7 +55,7 @@ class ElementsController < ApplicationController
     def create
         @element = Element.new(params[:element])
         if current_user
-            @element.author=current_user.id
+            @element.update_attribute(:author, current_user.id)
         end
         if @element.save
             
