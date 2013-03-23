@@ -3,6 +3,11 @@
 
 <%= link_to("New Question", new_question_path) %><br><br>
 
+<% if session[:current_item_id] %>
+<%= link_to("Go to Item "+session[:current_item_id].to_s, "/items/"+session[:current_item_id].to_s+"/edit") %>
+<p>
+<% end %>
+
 <%= will_paginate %>
 
 <%= form_tag questions_path, :method => 'get' do %>
