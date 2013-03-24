@@ -821,7 +821,7 @@ def users_browser_ie?
                                     answer_given=''
                                 end
 
-                                top_tail=@promptlist[index].split('`')
+                                top_tail=@promptlist[index].split('`') if @promptlist[index]
                                 if top_tail[0]
                                     top=top_tail[0]
                                 else
