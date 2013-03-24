@@ -28,7 +28,7 @@
       
       <% end %>
     <% end %>
-  <% if current_user.admin? %>
+  <% if current_user.admin?||current_user.id==element.author%>
 
      | <%= link_to "delete", element, method: :delete,
                                   data: { confirm: "You sure?" } %>

@@ -19,7 +19,7 @@
     <%= link_to "edit", edit_course_path(course.id) %>
   <% end %>
 
-  <% if current_user.admin? %>
+  <% if current_user.admin?||current_user.id==course.author %>
 
     | <%= link_to "delete", course, method: :delete,
                                   data: { confirm: "You sure?" } %>
