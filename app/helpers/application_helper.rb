@@ -820,8 +820,11 @@ def users_browser_ie?
                                 else
                                     answer_given=''
                                 end
-
-                                top_tail=@promptlist[index].split('`') if @promptlist[index]
+                                if @promptlist[index]
+                                    top_tail=@promptlist[index].split('`')
+                                else
+                                    top_tail=[]
+                                end
                                 if top_tail[0]
                                     top=top_tail[0]
                                 else
