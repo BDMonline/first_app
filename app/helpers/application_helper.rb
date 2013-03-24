@@ -778,69 +778,138 @@ def users_browser_ie?
                    
                 @question=Question.find_by_id(item_string[1..-1].to_i)
                 if @question
-                    construct(1)
-                    @item_html=@item_html+%Q(
-                    
-                    <p>
-                    <td style="vertical-align:middle">
-                    <h9>)+@example_question+%Q(</h9> </td> 
-                    <td style="vertical-align:middle"> 
-                    <p align="right">
-                    )+hint_html+%Q(     
-                    </td> 
-                    </tr>
-                    </tbody>
-                    </table>         
-                    )
-                    
-                    @item_html=@item_html+%Q(
-                    <table class="table">  
-                    <tbody>
-                    )
+                    begin
+                        construct(1)
+                    rescue
+                        @item_html=@item_html+'<p> Something went wrong with question '+@question.id.to_s+' </p>'
+                    else
+                        @item_html=@item_html+%Q(
+                        
+                        <p>
+                        <td style="vertical-align:middle">
+                        <h9>)+@example_question+%Q(</h9> </td> 
+                        <td style="vertical-align:middle"> 
+                        <p align="right">
+                        )+hint_html+%Q(     
+                        </td> 
+                        </tr>
+                        </tbody>
+                        </table>         
+                        )
+                        
+                        @item_html=@item_html+%Q(
+                        <table class="table">  
+                        <tbody>
+                        )
 
 
-                    if @grouped_answers
+                        if @grouped_answers
 
-                        total=total+1
+                            total=total+1
 
-                        ans_match=nil
+                            ans_match=nil
 
-                        (0..@example_answers.count-1).each do
-                            |index|
-                            answer=@example_answers[index]
+                            (0..@example_answers.count-1).each do
+                                |index|
+                                answer=@example_answers[index]
 
-                            @precision_regime=answer[-2..-1]
-                            answer=answer[0..-3]
-                            if @ans && @ans[count]
-                                answer_given=@ans[count].to_s
-                            else
-                                answer_given=''
+                                @precision_regime=answer[-2..-1]
+                                answer=answer[0..-3]
+                                if @ans && @ans[count]
+                                    answer_given=@ans[count].to_s
+                                else
+                                    answer_given=''
+                                end
+
+                                top_tail=@promptlist[index].split('`')
+                                if top_tail[0]
+                                    top=top_tail[0]
+                                else
+                                    top=''
+                                end
+                                if top_tail[1]
+                                    tail=top_tail[1]
+                                else
+                                    tail=''
+                                end
+
+                                @item_html=@item_html+%Q(
+                                    <tr>
+                                    <td style="vertical-align:middle">
+                                    <h5>
+                                    )
+                                @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
+                                @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
+                                if @ans && @ans[count]
+                                    ans_match=0 unless ans_match
+                                    this_ans_match=match(answer,@ans[count],@precision_regime)
+                                    ans_match=this_ans_match if this_ans_match>ans_match
+                                    if index==@example_answers.count-1
+                                        if ans_match==0
+                                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
+                                            correct=correct+1
+                                        elsif ans_match==1
+                                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
+                                        else
+                                             @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
+                                        end
+                                    else
+                                        @item_html=@item_html+'<td></td>'
+                                    end
+
+                                end
+                                count=count+1 
+                                @item_html=@item_html+ '</tr>'
                             end
-
-                            top_tail=@promptlist[index].split('`')
-                            if top_tail[0]
-                                top=top_tail[0]
-                            else
-                                top=''
-                            end
-                            if top_tail[1]
-                                tail=top_tail[1]
-                            else
-                                tail=''
-                            end
-
+                            @item_html=@item_html+ '</tbody> </table>'
                             @item_html=@item_html+%Q(
-                                <tr>
-                                <td style="vertical-align:middle">
-                                <h5>
-                                )
-                            @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
-                            @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
-                            if @ans && @ans[count]
-                                ans_match=0 unless ans_match
-                                this_ans_match=match(answer,@ans[count],@precision_regime)
-                                ans_match=this_ans_match if this_ans_match>ans_match
-                                if index==@example_answers.count-1
+                            <table class="table">  
+                            <tbody>
+                            <tr>
+                            )
+                        
+                        else
+                                                            
+                            
+                            @item_html=@item_html+%Q(
+                            <table class="table">  
+                            <tbody>
+                            )
+                            total=total+@example_answers.count
+
+                            (0..@example_answers.count-1).each do
+                                |index|
+                                answer=@example_answers[index]
+
+                                @precision_regime=answer[-2..-1]
+                                answer=answer[0..-3]
+                                if @ans && @ans[count]
+                                    answer_given=@ans[count].to_s
+                                else
+                                    answer_given=''
+                                end
+
+                                top_tail=@promptlist[index].split('`')
+                                if top_tail[0]
+                                    top=top_tail[0]
+                                else
+                                    top=''
+                                end
+                                if top_tail[1]
+                                    tail=top_tail[1]
+                                else
+                                    tail=''
+                                end
+
+                                @item_html=@item_html+%Q(
+                                    <tr>
+                                    <td style="vertical-align:middle">
+                                    <h5>
+                                    )
+                                @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
+                                @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
+                                if @ans && @ans[count]
+                                    ans_match=match(answer,@ans[count],@precision_regime)
                                     if ans_match==0
                                          @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
                                         correct=correct+1
@@ -849,84 +918,20 @@ def users_browser_ie?
                                     else
                                          @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
                                     end
-                                else
-                                    @item_html=@item_html+'<td></td>'
                                 end
-
+                                count=count+1
+                                @item_html=@item_html+ '</tr>'
                             end
-                            count=count+1 
-                            @item_html=@item_html+ '</tr>'
-                        end
-                        @item_html=@item_html+ '</tbody> </table>'
-                        @item_html=@item_html+%Q(
-                        <table class="table">  
-                        <tbody>
-                        <tr>
-                        )
-                    
-                    else
-                                                        
-                        
-                        @item_html=@item_html+%Q(
-                        <table class="table">  
-                        <tbody>
-                        )
-                        total=total+@example_answers.count
-
-                        (0..@example_answers.count-1).each do
-                            |index|
-                            answer=@example_answers[index]
-
-                            @precision_regime=answer[-2..-1]
-                            answer=answer[0..-3]
-                            if @ans && @ans[count]
-                                answer_given=@ans[count].to_s
-                            else
-                                answer_given=''
-                            end
-
-                            top_tail=@promptlist[index].split('`')
-                            if top_tail[0]
-                                top=top_tail[0]
-                            else
-                                top=''
-                            end
-                            if top_tail[1]
-                                tail=top_tail[1]
-                            else
-                                tail=''
-                            end
-
+                            @item_html=@item_html+ '</tbody> </table>'
                             @item_html=@item_html+%Q(
-                                <tr>
-                                <td style="vertical-align:middle">
-                                <h5>
-                                )
-                            @item_html=@item_html+top+'</h5></td><td style="vertical-align:middle" width = "100"> <input type="textarea"  name="@ans[]" value="'+ answer_given + '" rows="1" cols="20" > </td>'
-                            @item_html=@item_html+'<td style="vertical-align:middle"><h5a>'+tail+'</h5a></td>'
-                            if @ans && @ans[count]
-                                ans_match=match(answer,@ans[count],@precision_regime)
-                                if ans_match==0
-                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/tick.jpg width="70" height="70" /> </p> </td>'
-                                    correct=correct+1
-                                elsif ans_match==1
-                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/orangetriangle-1.jpg width="70" height="70" /> </p> </td>'
-                                else
-                                     @item_html=@item_html+'<td> <p align="right"> <img src = http://i970.photobucket.com/albums/ae189/gumboil/cross.jpg width="70" height="70" /> </p> </td>'
-                                end
-                            end
-                            count=count+1
-                            @item_html=@item_html+ '</tr>'
+                            <table class="table">  
+                            <tbody>
+                            <tr>
+                            )
                         end
-                        @item_html=@item_html+ '</tbody> </table>'
-                        @item_html=@item_html+%Q(
-                        <table class="table">  
-                        <tbody>
-                        <tr>
-                        )
+                    else
+                        @item_html=@item_html+ 'No such question as '+item_string[1..-1]
                     end
-                else
-                    @item_html=@item_html+ 'No such question as '+item_string[1..-1]
                 end
 
         
