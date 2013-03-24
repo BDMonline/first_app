@@ -803,6 +803,7 @@ def users_browser_ie?
                         )
 
 
+
                         if @grouped_answers
 
                             total=total+1
