@@ -4,6 +4,10 @@
   <p>
     <%= submit_tag "Search for Tag", class: "btn btn-medium btn-info", :name => nil %></h8>
     <h8><%= text_field_tag :search, params[:search], class: "input-mini" %>
+  </p>  
+  <p>
+    <%= submit_tag "Only show my stuff", class: "btn btn-medium btn-info", :name => nil %></h8>
+    <h8><%= check_box_tag :onlyme, true, params[:onlyme] %>
   </p>
 
 

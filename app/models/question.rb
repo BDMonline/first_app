@@ -30,13 +30,19 @@ class Question < ActiveRecord::Base
   #VALID_TEXT_REGEX = /\A[^`]*(`(([+-\/*^\(\)A-Z]|\d)+)*((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+(`((((cos\(|sin\()|(tan\(|acos\())|((asin\(|atan\()|(exp\(|log\())|ln\()(([+-\/*^\(\)A-Z]|\d)+))*([+-\/*^\(\)A-Z]|\d)+)*`[^`]*)*\z/
   validates :text, presence: true#, format: { with: VALID_TEXT_REGEX }
 
-def self.search(search)
-    if search
+  def self.search(search,onlyme,user)
+    
+    if search&&onlyme
+      where('tags LIKE ? AND author = ?', "%#{search}%", user)
+    elsif search
       where('tags LIKE ?', "%#{search}%")
+    elsif onlyme
+      where('id = ?', user)
     else
       scoped
     end
-end
+  end
+  
 
 end
 # all are strings

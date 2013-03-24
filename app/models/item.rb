@@ -19,12 +19,18 @@ class Item < ActiveRecord::Base
 	validates :name, presence: true, length: { maximum: 50 },
 			uniqueness:  { case_sensitive: false }
 
-def self.search(search)
-    if search
+  def self.search(search,onlyme,user)
+    
+    if search&&onlyme
+      where('tags LIKE ? AND author = ?', "%#{search}%", user)
+    elsif search
       where('tags LIKE ?', "%#{search}%")
+    elsif onlyme
+      where('id = ?', user)
     else
       scoped
     end
-end
+  end
+  
 
 end

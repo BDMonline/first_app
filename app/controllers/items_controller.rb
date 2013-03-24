@@ -119,7 +119,7 @@ class ItemsController < ApplicationController
         end
         params[:sort]||='id'
         params[:direction]||='desc'
-        @items = Item.search(params[:search]).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
+        @items = Item.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
     end
 
     def new
@@ -144,20 +144,15 @@ class ItemsController < ApplicationController
     end
 
     def edit 
-        if session[:current_item_id]
+        if session[:current_item_id]&&Item.find_by_id(session[:current_item_id])
             @item=Item.find_by_id(session[:current_item_id])
             if session[:new_element_id]
                 @item[:content]=(arrayify_item_content(@item[:content]) << session[:new_element_id]).to_s
                 @item.update_attributes(params[:item])
                 flash[:success] = "Item updated"
             end
-            if @item
-                create_item(@item)
-                render "edit"
-            else
-                render "index"
-            end
-
+            create_item(@item)
+            render "edit"
         
         else
             session[:current_item_id]=params[:id]

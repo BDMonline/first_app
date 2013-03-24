@@ -8,7 +8,7 @@
   <%= time_ago_in_words(user.updated_at) %>  
   ago
   <% unless user.confirmed %>
-  	| <font color=#833> unconfirmed user <font color="black"> 
+  	| <font color=#833> unconfirmed <font color="black"> 
   <% end %>
   | activity <%= user.item_successes.length %>
   <% if current_user.admin? && !current_user?(user) %>
