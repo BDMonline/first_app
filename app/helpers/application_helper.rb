@@ -669,7 +669,13 @@ def users_browser_ie?
             count=0
             keywords.each do
                 |word|
-                count=count+1 if stringy.include?(word)
+                subcount=0
+                alternatives = word.split('|')
+                alternatives.each do
+                    |alternative|
+                    subcount=subcount+1 if stringy.include?(alternative)
+                end
+                count=count+1 if subcount>0
             end
             if count<precision_regime[1..-1].to_i
                 return 2
