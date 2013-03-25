@@ -28,7 +28,7 @@
 	            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@values["+stage_number.to_s+"x1]"%> value="<%=stage[1]%>" rows="1" cols="20" ><%= (Item.find_by_id(stage[1])&&Item.find_by_id(stage[1]).name)||(!Item.find_by_id(stage[1])&&"NO SUCH ITEM")%> </td>
 	            <td style="vertical-align:middle" width = "100"> <input type="textarea"  name=<%="@values["+stage_number.to_s+"x2]"%> value="<%=stage[2]%>" rows="1" cols="20" ><%= (Item.find_by_id(stage[2])&&Item.find_by_id(stage[2]).name)||(!Item.find_by_id(stage[2])&&"NO SUCH ITEM")%> </td>
 		    </tr>
-		    <% end %>
+		<% end %>
 		    Note: this screen cannot currently cope well if any two rows are identical - you'll notice they get given the same stage number and behaviour after this may not be what you expect. Let Brian know if this is a problem in practice. <br><br>
 
 

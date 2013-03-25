@@ -366,7 +366,7 @@ def users_browser_ie?
         
     end
     def calculate(string, precision_regime)
-        if precision_regime=="w0" then return string
+        if precision_regime[0].downcase=="w" then return string
         end
     unless string.count('(')==string.count(')') 
         #puts string, "initial input"
@@ -491,7 +491,7 @@ def users_browser_ie?
                 answerlist.each do
                     |this_answer|
                     precision_regime=@question.precision_regime
-                    if this_answer[-2] && this_answer[-2].match(/[hsrw]/)
+                    if this_answer[-2] && this_answer[-2].match(/[hsrwW]/)
                         precision_regime=this_answer[-2..-1]
                         this_answer=this_answer[0..-3]
                     end
@@ -590,6 +590,24 @@ def users_browser_ie?
     
     end
 
+    # def decode_answer(answer)
+    #     parsed_answer={}
+    #     answer_strings=answer.split(/\[[^\[\]]\]/)
+    #     if answer_strings[0]==''
+    #         answer_strings=answer_strings[1..-1]
+    #     else
+    #         parsed_answer[:errortext]=parsed_answer[:errortext]+"There is no prompt list at the start of the answer string. "
+    #     end
+    #     parsed_answer[:answers]=[]
+    #     parsed_answer[:answer_types]=[]
+    #     parsed_answer[:notes]=[]
+
+
+
+
+
+
+
     def rounded(number,figs)
         if number<0
             sign ='-'
@@ -625,11 +643,38 @@ def users_browser_ie?
       
     def match(stringx,stringy,precision_regime)
 
+        if precision_regime=="W0"
+            if stringx==stringy
+                return 0
+            else
+                return 2
+            end
+        end
+
         if precision_regime=="w0"
             if stringx.downcase==stringy.downcase
                 return 0
             else
                 return 2
+            end
+        end
+
+        if precision_regime[0].downcase=='w'
+            if precision_regime[0]=='w'
+                stringx=stringx.downcase
+                stringy=stringy.downcase
+            end
+
+            keywords=stringx.split('`')
+            count=0
+            keywords.each do
+                |word|
+                count=count+1 if stringy.include?(word)
+            end
+            if count<precision_regime[1..-1].to_i
+                return 2
+            else
+                return 0
             end
         end
 
