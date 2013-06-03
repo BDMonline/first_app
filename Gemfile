@@ -10,8 +10,6 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'mathjax-rails'
 
-gem 'jquery-ui-rails'
-
 group :development do
   gem 'sqlite3', '1.3.5'
   gem 'annotate', '~> 2.4.1.beta'
@@ -25,8 +23,8 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails'
-#gem 'jquery-ui-rails'
+gem 'jquery-rails', '2.3.0'
+gem 'jquery-ui-rails'
 gem 'prettyphoto-rails'
 
 group :test, :development do
