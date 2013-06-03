@@ -689,7 +689,7 @@ def users_browser_ie?
         if figs==0
             if stringx==stringy
                 return 0
-            elsif stringx.to_f==stringy.to_f
+            elsif stringx.to_f==stringy.to_f && !stringy=''
                 return 1
             else
                 return 2
