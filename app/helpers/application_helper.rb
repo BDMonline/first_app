@@ -703,7 +703,7 @@ def users_browser_ie?
                 return 2
             end
         elsif precision_regime[0]=="r"
-            if stringx==rounded(stringy.to_f,figs)||stringx==stringy
+            if stringx==rounded(stringy.to_f,figs)||rounded(stringx.to_r.to_f,figs)==rounded(stringy.to_f,figs)
                 return 0
             else
                 return 2
