@@ -123,7 +123,21 @@ class ElementsController < ApplicationController
                 true
             end
         elsif element[:category]=="video"
-            if element[:content].match(/\A(http:\/\/www\.dailymotion\.com\/.*)|(http:\/\/www\.youtube\.com\/.*)\z/)
+            if element[:content].match(/\A(http:\/\/www\.dailymotion\.com\/.*)|((http:|https:)?(\/\/)?www\.youtube\.com\/.*)\z/)
+                if element[:content].match(/\/\/www\.youtube\.com\/.*\z/)
+                    element[:content]="https:"+element[:content]
+                end
+                if element[:content].match(/www\.youtube\.com\/.*\z/)
+                    element[:content]="https://"+element[:content]
+                end
+                if element[:content].match(/http:\/\/www\.youtube\.com\/.*\z/)
+                    element[:content]="https"+element[:content][4..-1]
+                end
+                if element[:content].match(/https:\/\/www\.youtube\.com\/.*\z/)
+                    unless element[:content].match(/.*?rel=0\z/)
+                        element[:content]=element[:content]+"?rel=0"
+                    end
+                end
                 false
             else
                 @flash_text = "Only YouTube and DailyMotion videos currently allowed. Please resubmit content."
