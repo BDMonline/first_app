@@ -4,6 +4,10 @@ module ApplicationHelper
 
     include ActionView
 
+    def testthing(string)
+        return string+"bobo"+string
+    end
+
     def sortable(column, title = nil)
         title ||= column.titleize
         css_class = (column == sort_column) ? "current #{sort_direction}" : nil
