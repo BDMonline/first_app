@@ -4,9 +4,6 @@ module ApplicationHelper
 
     include ActionView
 
-    def testthing(string)
-        return string+"bobo"+string
-    end
 
     def sortable(column, title = nil)
         title ||= column.titleize
@@ -693,7 +690,7 @@ def users_browser_ie?
         if figs==0
             if stringx==stringy
                 return 0
-            elsif stringx.to_f==stringy.to_f && !stringy=''
+            elsif stringx.to_f==stringy.to_f && !stringy==''
                 return 1
             else
                 return 2
