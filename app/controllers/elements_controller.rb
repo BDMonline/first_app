@@ -125,15 +125,15 @@ class ElementsController < ApplicationController
         elsif element[:category]=="video"
             if element[:content].match(/\A(http:\/\/www\.dailymotion\.com\/.*)|((http:|https:)?(\/\/)?www\.youtube\.com\/.*)\z/)
                 if element[:content].match(/\/\/www\.youtube\.com\/.*\z/)
-                    element[:content]="https:"+element[:content]
+                    element[:content]="\Ahttps:"+element[:content]
                 end
-                if element[:content].match(/www\.youtube\.com\/.*\z/)
+                if element[:content].match(/\Awww\.youtube\.com\/.*\z/)
                     element[:content]="https://"+element[:content]
                 end
-                if element[:content].match(/http:\/\/www\.youtube\.com\/.*\z/)
+                if element[:content].match(/\Ahttp:\/\/www\.youtube\.com\/.*\z/)
                     element[:content]="https"+element[:content][4..-1]
                 end
-                if element[:content].match(/https:\/\/www\.youtube\.com\/.*\z/)
+                if element[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
                     unless element[:content].match(/.*?rel=0\z/)
                         element[:content]=element[:content]+"?rel=0"
                     end
