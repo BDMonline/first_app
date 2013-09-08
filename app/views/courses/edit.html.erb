@@ -4,6 +4,10 @@
 <%= form_for(@course) do |f| %>
 
 	<%= render 'shared/cerror_messages' %>
+<%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+      <h1><p></h1>
+    
 <table class="table">
     <tr>  
         <th>Stage</th>
