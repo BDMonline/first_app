@@ -4,9 +4,7 @@
 <%= form_for(@course) do |f| %>
 
 	<%= render 'shared/cerror_messages' %>
-<%= f.label :name, :style => "font-size: 1.7em;"%>
-      <%= f.text_field :name %>
-      <h1><p></h1>
+
     
 <table class="table">
     <tr>  
@@ -34,6 +32,10 @@
 
 </table>
 <br><br>If you are ready to publish this course, add tag here: <input type="textarea"  name=<%="@values['newtag']"%> value="<%=@newtag%>" rows="1" cols="20" >
+
+<%= f.label :name, :style => "font-size: 1.7em;"%>
+      <%= f.text_field :name %>
+      <h1><p></h1>
 
 <%= submit_tag "Submit changes", class: "btn btn-medium btn-info",  :name=> "s" %>
 <%= submit_tag "Add Stage", class: "btn btn-medium btn-info",  :name=> "a" %>
