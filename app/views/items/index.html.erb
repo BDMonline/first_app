@@ -34,6 +34,11 @@
 
 	</table>
 
+	<br>Course Title <input type="textarea"  name=<%="@course_title"%> value="<%=@course.name%>" rows="1" cols="20">
+
+	
+      <h1><p></h1>
+
 	<br>If you are ready to publish this course, add tag here: <input type="textarea"  name=<%="@newtag"%> value="<%=@newtag%>" rows="1" cols="20" > Current codes <%= @course.tag %> <br>Remove my tag:<input type="textarea"  name=<%="@oldtag"%> value="<%=@oldtag%>" rows="1" cols="20" > <br> The tag for users will be your string, followed by '_', followed by <%=@user.id.to_s%> (your user id number), e.g. if you enter 'mytag', their tag will be mytag_<%= @user.id.to_s%>  If they enter this in their tags they will see your course<br><br>
 
 	<%= submit_tag "Update", class: "btn btn-medium btn-info",  :name=> "s" %>

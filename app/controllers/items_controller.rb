@@ -65,6 +65,12 @@ class ItemsController < ApplicationController
                     @course.update_attribute(:tag, tag)  
             end
 
+            @course_title=params[:@course_title]
+
+            if @course_title
+                @course.update_attribute(:name,@course_title )  
+            end
+
             if params[:r]
                 @content.delete(["", "", ""])
             end
