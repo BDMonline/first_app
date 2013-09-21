@@ -643,6 +643,7 @@ def users_browser_ie?
                 
       
     def match(stringx,stringy,precision_regime)
+        stringy.strip!
 
         if precision_regime=="W0"
             if stringx==stringy
