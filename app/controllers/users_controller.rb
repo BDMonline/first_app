@@ -175,7 +175,7 @@ class UsersController < ApplicationController
         params[:id]=@user.id
       end
       
-    redirect_to(root_path) unless current_user?(@user)
+    redirect_to(root_path) unless current_user?(@user)||@user.admin
     end
 
     def admin_user
