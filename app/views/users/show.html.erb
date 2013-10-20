@@ -37,9 +37,9 @@ Your current courses:<br>
 
 		</td>
 
-		<td style="vertical-align:middle">
+		<!-- <td style="vertical-align:middle">
 			<h5a> Score: <%= @scores[@index][0] %> </h5a>
-		</td>
+		</td> -->
 
 		<td style="vertical-align:middle">
 		<%= link_to "remove this course", {:controller => "profiles", :action => 'destroy', :id => @profiles[@index].id, :user_id => @user.id, :course_id => course.id}, :method => :delete, data: { confirm: "Are you sure?" } %> 
