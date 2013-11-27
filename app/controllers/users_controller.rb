@@ -100,7 +100,7 @@ class UsersController < ApplicationController
         User.find_by_email(params[:user][:email]).destroy
       end
       @user = User.new(params[:user])
-      if @user.update_attributes(:name => @user.name, :email => @user.email, :password => @user.password, :password_confirmation => @user.password_confirmation)
+      if @user.update_attributes(:name => @user.name, :email => @user.email.downcase, :password => @user.password, :password_confirmation => @user.password_confirmation)
         @user.send_registration_confirmation if @user
         flash[:success]="An email with instructions has been sent to your address. Please follow the instructions to complete your registration. You may sign in here once registration is complete."
         redirect_to signin_path(@user)
