@@ -35,10 +35,10 @@ class UsersController < ApplicationController
 
     if @author
       @authorcourses=Course.find(:all, :order => :name).find_all {|course| course.tag.match('_'+@author.id.to_s+'`')}
-      @authorusers=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('_'+@author.id.to_s+'(\z| )'))}
+      #@authorusers=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('_'+@author.id.to_s+'(\z| )'))}
       
       @authortags=[]
-     @authorcourses.each do
+      @authorcourses.each do
         |course|
         reg= Regexp::new('`[^`]+_'+@author.id.to_s+'`' )
         tags=matches(course.tag,reg)
@@ -48,37 +48,121 @@ class UsersController < ApplicationController
         end
       end
 
-      @authortags.each do
-        |tag|
-        @authorhtml=@authorhtml+'<h5a><br>With tag: '+tag[1..-2]+'</h5a><br>'
-        courses=@authorcourses.find_all {|course| course.tag.match(tag)}
-        courses.each do
-          |course|
-          @authorhtml=@authorhtml+'<br><h3>'+course.name+'</h3><table class="table"><tr>'
-          users=@authorusers.find_all {|user| user.tag.match(Regexp::new('(\A| )'+tag[1..-2]+'(\z| )'))}
-          users.each do
-            |user|
-            name=User.find_by_id(user).name
-            profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==user.id}[0]
-            name=name+' <h8>(not joined)</h8>' unless profile
-            @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
-            score=score(profile)
-            score[2].each do
-              |stage|
-              @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/stars'+stage+'.png" width="10">
-              <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
-            end
-            @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
-            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
 
+      if @authortags.count>0
+        session[:authortag]=params[:newtag] if params[:newtag]
+        if session[:authortag]
+          oldtag=session[:authortag]
+          if @authortags.index(oldtag)
+            authortag=oldtag
+          else
+            authortag=@authortags[0]
           end
-          @authorhtml=@authorhtml+'</table>'
+        else
+          authortag=@authortags[0]
         end
+        session[:authortag]=authortag
+
+        if @authortags.count>1
+          @authorhtml='<br><h7>You have courses with the following tags:</h7><form><br><h10><table width=100%><tr>'
+          @authortags.each do |tag|
+            @authorhtml=@authorhtml+'<td><INPUT type="radio" name="newtag" value="'+tag+'"'
+            @authorhtml=@authorhtml+' CHECKED ' if tag==authortag
+            @authorhtml=@authorhtml+'> '+tag[1..-2]+'</td>'
+          end
+          @authorhtml=@authorhtml+%Q(</tr><tr><td>Choose a tag and click </h10><h8><b><INPUT type="submit" value="Select"></b></h8><h10></td></tr>
+            </table>
+            </form></h10>)
+        end
+
+        @authorhtml=@authorhtml+'<BR><h7>You have the following courses tagged '+authortag[1..-2]+ '</h7> <br>'
+
+        selected_courses=@authorcourses.find_all {|course| course.tag.match(authortag)} 
+
+        session[:authorcourse]=Course.find_by_name(params[:newcourse]) if params[:newcourse]
+        if session[:authorcourse]
+          oldcourse=session[:authorcourse]
+          if selected_courses.index(oldcourse)
+            authorcourse=oldcourse
+          else
+            authorcourse=selected_courses[0]
+          end
+        else
+          authorcourse=selected_courses[0]
+        end
+        session[:authorcourse]=authorcourse
+
+        if selected_courses.count>1
+          @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr>'
+          selected_courses.each do |course|
+            @authorhtml=@authorhtml+'<td><INPUT type="radio" name="newcourse" value="'+course.name+'"'
+            @authorhtml=@authorhtml+' CHECKED ' if course==authorcourse
+            @authorhtml=@authorhtml+'> '+course.name + '</td>'
+          end
+          @authorhtml=@authorhtml+%Q(</tr><tr><td>Choose a course and click </h10><h8><INPUT type="submit" value="Select"></h8></td></tr>
+           </table></form>)
+        end
+
+        @authorhtml=@authorhtml+'<BR><h7>User progress with course '+authorcourse.name+ ': <h7><br>'
+
+        @authorhtml=@authorhtml+'<br><h3>'+authorcourse.name+'</h3><table class="table"><tr>'
+        users=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('(\A| )'+authortag[1..-2]+'(\z| )'))}
+        users.each do
+          |user|
+          name=User.find_by_id(user).name
+          profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==authorcourse.id&&profile.user==user.id}[0]
+          name=name+' <h8>(not joined)</h8>' unless profile
+          @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+          score=score(profile)
+          score[2].each do
+            |stage|
+            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/stars'+stage+'.png" width="10">
+            <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+          end
+          @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
+          @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
+        end
+        @authorhtml=@authorhtml+'</table>'
       end
+
+
+
+      # @authortags.each do
+      #   |tag|
+      #   @authorhtml=@authorhtml+'<h5a><br>With tag: '+tag[1..-2]+'</h5a><br>'
+      #   courses=@authorcourses.find_all {|course| course.tag.match(tag)}
+      #   courses.each do
+      #     |course|
+      #     @authorhtml=@authorhtml+'<br><h3>'+course.name+'</h3><table class="table"><tr>'
+      #     users=@authorusers.find_all {|user| user.tag.match(Regexp::new('(\A| )'+tag[1..-2]+'(\z| )'))}
+      #     users.each do
+      #       |user|
+      #       name=User.find_by_id(user).name
+      #       profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==user.id}[0]
+      #       name=name+' <h8>(not joined)</h8>' unless profile
+      #       @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+      #       score=score(profile)
+      #       score[2].each do
+      #         |stage|
+      #         @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/stars'+stage+'.png" width="10">
+      #         <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+      #       end
+      #       @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
+      #       @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
+
+      #     end
+      #     @authorhtml=@authorhtml+'</table>'
+      #   end
+      # end
+
+      
+
+
+
+
+
     end
 
-
-    
   end
   
   def new

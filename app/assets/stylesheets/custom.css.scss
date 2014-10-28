@@ -43,7 +43,7 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h5a, h6, h7, h8, h9 {
+h1, h2, h3, h4, h5, h5a, h6, h7, h8, h9 h10{
   line-height: 1;
 }
 
@@ -121,6 +121,12 @@ h9 {
   text-align: left;
   font-weight: normal;
   color: $gray;
+}
+
+h10 {
+  font-size: 1.1em;
+  text-align: left;
+  font-weight: normal;
 }
 
 p {
