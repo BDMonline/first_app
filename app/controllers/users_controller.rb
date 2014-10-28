@@ -70,7 +70,7 @@ class UsersController < ApplicationController
             @authorhtml=@authorhtml+' CHECKED ' if tag==authortag
             @authorhtml=@authorhtml+'> '+tag[1..-2]+'</td>'
           end
-          @authorhtml=@authorhtml+%Q(</tr><tr><td>Choose a tag and click </h10><h8><b><INPUT type="submit" value="Select"></b></h8><h10></td></tr>
+          @authorhtml=@authorhtml+%Q(</tr></table>Choose a tag and click </h10><h8><b><INPUT type="submit" value="Select"></b></h8><h10>
             </table>
             </form></h10>)
         end
@@ -99,11 +99,11 @@ class UsersController < ApplicationController
             @authorhtml=@authorhtml+' CHECKED ' if course==authorcourse
             @authorhtml=@authorhtml+'> '+course.name + '</td>'
           end
-          @authorhtml=@authorhtml+%Q(</tr><tr><td>Choose a course and click </h10><h8><INPUT type="submit" value="Select"></h8></td></tr>
+          @authorhtml=@authorhtml+%Q(</tr><tr></table>Choose a course and click </h10><h8><INPUT type="submit" value="Select"></h8>
            </table></form>)
         end
 
-        @authorhtml=@authorhtml+'<BR><h7>User progress with course '+authorcourse.name+ ': <h7><br>'
+        @authorhtml=@authorhtml+'<BR><h7>User progress with course '+authorcourse.name+ ': </h7><br>'
 
         @authorhtml=@authorhtml+'<br><h3>'+authorcourse.name+'</h3><table class="table"><tr>'
         users=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('(\A| )'+authortag[1..-2]+'(\z| )'))}
