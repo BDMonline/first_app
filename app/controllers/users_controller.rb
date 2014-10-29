@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         selected_courses=@authorcourses.find_all {|course| course.tag.match(authortag)} 
 
 
-
+session[:authorcourse]=nil
         if selected_courses.count==1
           authorcourse=[selected_courses[0]]
           session[:authorcourse]=[authorcourse[0].id]
