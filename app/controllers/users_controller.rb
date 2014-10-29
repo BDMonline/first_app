@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         selected_courses=@authorcourses.find_all {|course| course.tag.match(authortag)} 
 
 
-session[:authorcourse]=nil
+#session[:authorcourse]=nil
         if selected_courses.count==1
           authorcourse=[selected_courses[0]]
           session[:authorcourse]=[authorcourse[0].id]
@@ -118,11 +118,15 @@ session[:authorcourse]=nil
           end
 
         
-          @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr>'
+          @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr><COLGROUP span="4" width=25%>
+   </COLGROUP><tr>'
+          count=0
           selected_courses.each do |course|
+            count=count+1
             @authorhtml=@authorhtml+'<td><INPUT type="checkbox" name="newcourse[]" value="'+course.name+'"'
             @authorhtml=@authorhtml+' CHECKED ' if authorcourse.index(course)
             @authorhtml=@authorhtml+'><course> '+course.name + '</course></td>'
+            @authorhtml=@authorhtml+'</tr><tr>' if count.gcd(4)==4
           end
           @authorhtml=@authorhtml+%Q(</tr><tr></table>Choose one or more courses (not too many!) and click </h10><h8><INPUT type="submit" value="Select"></h8>
            </table></form>)
