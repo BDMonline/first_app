@@ -57,7 +57,7 @@ New courses available:<br><br>
 
 
 <% @newcourses.each do  |course| %>
-	<%= course.name %>
+	<course><%= course.name %> </course>
 	<%= link_to "Join course", :controller => "profiles", :action =>"new", :user_id => @user.id, :course_id => course.id %>
 	<br>
 	<% end %>

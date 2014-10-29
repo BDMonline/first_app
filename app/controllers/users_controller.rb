@@ -126,7 +126,7 @@ class UsersController < ApplicationController
             @authorhtml=@authorhtml+'<td><INPUT type="checkbox" name="newcourse[]" value="'+course.name+'"'
             @authorhtml=@authorhtml+' CHECKED ' if authorcourse.index(course)
             @authorhtml=@authorhtml+'><course> '+course.name + '</course></td>'
-            @authorhtml=@authorhtml+'</tr><tr>' if count.gcd(4)==4
+            @authorhtml=@authorhtml+'</tr><tr>' if count.gcd(3)==3
           end
           @authorhtml=@authorhtml+%Q(</tr><tr></table>Choose one or more courses (not too many!) and click </h10><h8><INPUT type="submit" value="Select"></h8>
            </table></form>)
