@@ -19,7 +19,7 @@ Your current courses:<br>
 	<tr>
 		<td style="vertical-align:middle">
 			<h5>
-				<%= link_to course.name, :controller => "profiles", :action =>"show", :user_id => @user.id, :course_id => course.id %><%= @score %>
+				<course><%= link_to course.name, :controller => "profiles", :action =>"show", :user_id => @user.id, :course_id => course.id %></course><%= @score %>
 			</h5>
 		</td>
 		<td style="vertical-align:middle">
@@ -66,5 +66,5 @@ New courses available:<br><br>
 
 <br><br>
 
-Your tags: <%= @user.tag %>
+Your tags: <tag><%= @user.tag %></tag>
 </h5a>

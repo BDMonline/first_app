@@ -64,65 +64,94 @@ class UsersController < ApplicationController
         session[:authortag]=authortag
 
         if @authortags.count>1
-          @authorhtml='<br><h7>You have courses with the following tags:</h7><form><br><h10><table width=100%><tr>'
+          @authorhtml='<br><h7a>You have courses with the following tags:</h7a><form><br><h10><table width=100%><COLGROUP span="5" width=20%>
+   </COLGROUP><tr>'
+   count=0
           @authortags.each do |tag|
+            count=count+1
             @authorhtml=@authorhtml+'<td><INPUT type="radio" name="newtag" value="'+tag+'"'
             @authorhtml=@authorhtml+' CHECKED ' if tag==authortag
-            @authorhtml=@authorhtml+'> '+tag[1..-2]+'</td>'
+            @authorhtml=@authorhtml+'> <tag>'+tag[1..-2]+'</tag></td>'
+            @authorhtml=@authorhtml + '</tr><tr>' if count.gcd(5)==5
           end
-          @authorhtml=@authorhtml+%Q(</tr></table>Choose a tag and click </h10><h8><b><INPUT type="submit" value="Select"></b></h8><h10>
+          @authorhtml=@authorhtml+%Q(</tr></table><br>Choose a tag and click </h10><h8><b><INPUT type="submit" value="Select"></b></h8><h10>
             </table>
             </form></h10>)
         end
 
-        @authorhtml=@authorhtml+'<BR><h7>You have the following courses tagged '+authortag[1..-2]+ '</h7> <br>'
-
         selected_courses=@authorcourses.find_all {|course| course.tag.match(authortag)} 
 
-        session[:authorcourse]=Course.find_by_name(params[:newcourse]) if params[:newcourse]
-        if session[:authorcourse]
-          oldcourse=session[:authorcourse]
-          if selected_courses.index(oldcourse)
-            authorcourse=oldcourse
-          else
-            authorcourse=selected_courses[0]
-          end
-        else
-          authorcourse=selected_courses[0]
-        end
-        session[:authorcourse]=authorcourse
 
-        if selected_courses.count>1
+
+        if selected_courses.count==1
+          authorcourse=[selected_courses[0]]
+          session[:authorcourse]=[authorcourse[0].id]
+          @authorhtml=@authorhtml+'<h7a>Your only course with this tag is</h7a> <course>' + authorcourse[0].name + '</course><br><br>'
+        else
+
+          @authorhtml=@authorhtml+'<BR><h7a>You have the following courses tagged <tag>'+authortag[1..-2]+ '</tag></h7a> <br>'
+
+
+          if params[:newcourse]&&params[:newcourse].count>0
+            authorcourse=[]
+            params[:newcourse].each do |coursename|
+              authorcourse<<Course.find_by_name(coursename)
+            end
+          elsif session[:authorcourse]
+            oldcourses=[]
+            session[:authorcourse].each do |course_id|
+              this_course=Course.find_by_id(course_id) 
+              oldcourses<<this_course if selected_courses.index(this_course) 
+            end
+            if oldcourses.count>0
+              authorcourse=oldcourses
+            else
+              authorcourse=[selected_courses[0]]
+            end
+       
+          else
+            authorcourse=[selected_courses[0]]
+          end
+          session[:authorcourse]=[]
+          authorcourse.each do |course|
+            session[:authorcourse]<<course.id
+          end
+
+        
           @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr>'
           selected_courses.each do |course|
-            @authorhtml=@authorhtml+'<td><INPUT type="radio" name="newcourse" value="'+course.name+'"'
-            @authorhtml=@authorhtml+' CHECKED ' if course==authorcourse
-            @authorhtml=@authorhtml+'> '+course.name + '</td>'
+            @authorhtml=@authorhtml+'<td><INPUT type="checkbox" name="newcourse[]" value="'+course.name+'"'
+            @authorhtml=@authorhtml+' CHECKED ' if authorcourse.index(course)
+            @authorhtml=@authorhtml+'><course> '+course.name + '</course></td>'
           end
-          @authorhtml=@authorhtml+%Q(</tr><tr></table>Choose a course and click </h10><h8><INPUT type="submit" value="Select"></h8>
+          @authorhtml=@authorhtml+%Q(</tr><tr></table>Choose one or more courses (not too many!) and click </h10><h8><INPUT type="submit" value="Select"></h8>
            </table></form>)
         end
+        authorcourse.each do |course|
 
-        @authorhtml=@authorhtml+'<BR><h7>User progress with course '+authorcourse.name+ ': </h7><br>'
+          @authorhtml=@authorhtml+'<BR><h7a>User progress with course <course>'+course.name+ ':</course> </h7a><br>'
+        
 
-        @authorhtml=@authorhtml+'<br><h3>'+authorcourse.name+'</h3><table class="table"><tr>'
-        users=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('(\A| )'+authortag[1..-2]+'(\z| )'))}
-        users.each do
-          |user|
-          name=User.find_by_id(user).name
-          profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==authorcourse.id&&profile.user==user.id}[0]
-          name=name+' <h8>(not joined)</h8>' unless profile
-          @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
-          score=score(profile)
-          score[2].each do
-            |stage|
-            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/stars'+stage+'.png" width="10">
-            <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+          @authorhtml=@authorhtml+'<br><h3><course>'+course.name+'</course></h3><table class="table"><tr>'
+          users=User.find(:all, :order => :name).find_all {|user| user.tag.match(Regexp::new('(\A| )'+authortag[1..-2]+'(\z| )'))}
+          users.each do
+            |user|
+            name=User.find_by_id(user).name
+            profile=Profile.find(:all, :order => :id).find_all {|profile| profile.course==course.id&&profile.user==user.id}[0]
+            name=name+' <h8>(not joined)</h8>' unless profile
+            @authorhtml=@authorhtml+' <td style="vertical-align:middle" width="20">'+name+'</td><td style="vertical-align:middle" width="50"><img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+            score=score(profile)
+            score[2].each do
+              |stage|
+              @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/stars'+stage+'.png" width="10">
+              <img src="http://i970.photobucket.com/albums/ae189/gumboil/website/starsfinishline.png" width="10">'
+            end
+            @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
+            @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
           end
-          @authorhtml=@authorhtml+'</td><td style="vertical-align:middle" width="100">'+score[0].to_s+'</td><td style="vertical-align:middle" width="100">'
-          @authorhtml=@authorhtml+'<img src="http://i970.photobucket.com/albums/ae189/gumboil/website/'+ score[1]+'" width="25"></td></tr>'
+          @authorhtml=@authorhtml+'</table>'
         end
-        @authorhtml=@authorhtml+'</table>'
+        
       end
 
 

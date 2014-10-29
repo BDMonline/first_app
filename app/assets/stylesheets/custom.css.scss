@@ -4,6 +4,8 @@
 
 $grayLightish: #eaeaea;
 $pinkish: #ffaaaa;
+$lightblue: #aaccff;
+$darkblue: #5577aa;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -15,6 +17,7 @@ $pinkish: #ffaaaa;
 
 /* universal */
 
+  
 
 html {
   overflow-y: scroll;
@@ -22,6 +25,7 @@ html {
 
 
 body {
+  font-family: Cambria;
   padding-top: 120px;
 }
 
@@ -43,7 +47,7 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h5a, h6, h7, h8, h9 h10{
+h1, h2, h3, h4, h5, h5a, h6, h7, h7a, h8, h9, h10, tag, course{
   line-height: 1;
 }
 
@@ -108,6 +112,12 @@ h7 {
   font-weight: bold;
   color: $red;
 }
+h7a {
+  font-size: 1.2em;
+  text-align: left;
+  font-weight: bold;
+  color: $black;
+}
 
 h8 {
   font-size: 0.6em;
@@ -127,6 +137,16 @@ h10 {
   font-size: 1.1em;
   text-align: left;
   font-weight: normal;
+}
+
+tag {
+  font-family: Century Gothic;
+  color: $lightblue;
+}
+
+course {
+  font-family: Century Gothic;
+  color: $darkblue;
 }
 
 p {
