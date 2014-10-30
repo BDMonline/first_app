@@ -74,7 +74,7 @@ class UsersController < ApplicationController
             @authorhtml=@authorhtml+'> <tag>'+tag[1..-2]+'</tag></td>'
             @authorhtml=@authorhtml + '</tr><tr>' if count.gcd(5)==5
           end
-          @authorhtml=@authorhtml+%Q(</tr></table><br></h10><h7a>Choose a tag and click </h7a><h8><b><INPUT type="submit" value="Select"></b></h8><h10>
+          @authorhtml=@authorhtml+%Q(</tr></table><br></h10><h7a>Choose a tag and click  </h7a><h8><b><INPUT type="submit" value="Select"></b></h8><h10>
             </table>
             </form></h10>)
         end
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
             @authorhtml=@authorhtml+'><course> '+course.name + '</course></td>'
             @authorhtml=@authorhtml+'</tr><tr>' if count.gcd(3)==3
           end
-          @authorhtml=@authorhtml+%Q(</tr><tr></table></small> </h10><h7a>Choose one or more courses (not too many!) and click</h7a><h8><INPUT type="submit" value="Select"></h8>
+          @authorhtml=@authorhtml+%Q(</tr><tr></table></small> </h10><h7a>Choose one or more courses (not too many!) and click  </h7a><h8><INPUT type="submit" value="Select"></h8>
            </table></form>)
         end
         authorcourse.each do |course|

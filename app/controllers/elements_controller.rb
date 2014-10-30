@@ -116,10 +116,10 @@ class ElementsController < ApplicationController
                 false
             end
         elsif element[:category]=="image"
-            if element[:content].match(/\Ahttp:\/\/i970\.photobucket\.com\/albums\/.*\.((png)|(jpg))\z/)
+            if element[:content].match(/\Ahttp:\/\/i970\.photobucket\.com\/albums\/.*\.((png)|(jpg)|(gif))\z/)
                 false
             else
-                @flash_text = "Only png and jpg files with urls starting 'http://i970.photobucket.com/albums' currently allowed. Please resubmit content."
+                @flash_text = "Only png, gif and jpg files with urls starting 'http://i970.photobucket.com/albums' currently allowed. Please resubmit content."
                 true
             end
         elsif element[:category]=="video"
