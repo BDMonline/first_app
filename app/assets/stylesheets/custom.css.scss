@@ -22,28 +22,28 @@ $darkgreen: #449977;
   
 
 html {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   overflow-y: scroll;
 }
 
 
 body {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   padding-top: 120px;
 }
 
 section {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   overflow: auto;
 }
 
 textarea {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   resize: vertical;
 }
 
 .center {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   text-align: center;
   h1 {
     margin-bottom: 10px;
@@ -121,7 +121,6 @@ h7 {
 h7a {
   font-size: 1.2em;
   text-align: left;
-  font-weight: bold;
   color: $black;
 }
 
@@ -146,19 +145,23 @@ h10 {
 }
 
 tag {
-  font-family: Papyrus;
-  font-size: 1.3em;
-  color: $lightgreen;
+  font-family: Lucida Calligraphy;
+  font-size: 1.0em;
+  color: $green;
 }
 
 course {
-  font-family: Papyrus;
-  font-size: 1.3em;
-  color: $darkgreen;
+  font-family: Trebuchet MS;
+  font-size: 1.0em;
+  color: $green;
+}
+
+small {
+  font-size: 1em;
 }
 
 p {
-  font-family: Cambria;
+  font-family: Bookman Old Style;
   font-size: 1.1em;
   line-height: 1.7em;
 }
@@ -349,7 +352,7 @@ table {
      color: #444;
      display: block;
      float: left;
-     font: normal 12px Cambria, sans-serif;
+     font: normal 12px Bookman Old Style, sans-serif;
      height: 24px;
      margin-right: 6px;
      padding-right: 18px; /* sliding doors padding */
