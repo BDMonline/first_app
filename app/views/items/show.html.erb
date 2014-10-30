@@ -7,7 +7,7 @@
     <section>
       <h2> <p>
       <% if params[:really]=="yes" %>
-      Course: <%= Course.find_by_id(Profile.find_by_id(params[:profile_id]).course).name%>
+      Course: <course><%= Course.find_by_id(Profile.find_by_id(params[:profile_id]).course).name%></course>
       <br> 
       Item: <%= @item.name %>
 

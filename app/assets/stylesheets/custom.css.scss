@@ -6,6 +6,8 @@ $grayLightish: #eaeaea;
 $pinkish: #ffaaaa;
 $lightblue: #aaccff;
 $darkblue: #5577aa;
+$lightgreen: #99eecc;
+$darkgreen: #449977;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -20,6 +22,7 @@ $darkblue: #5577aa;
   
 
 html {
+  font-family: Cambria;
   overflow-y: scroll;
 }
 
@@ -30,14 +33,17 @@ body {
 }
 
 section {
+  font-family: Cambria;
   overflow: auto;
 }
 
 textarea {
+  font-family: Cambria;
   resize: vertical;
 }
 
 .center {
+  font-family: Cambria;
   text-align: center;
   h1 {
     margin-bottom: 10px;
@@ -140,16 +146,19 @@ h10 {
 }
 
 tag {
-  font-family: Century Gothic;
-  color: $lightblue;
+  font-family: Papyrus;
+  font-size: 1.3em;
+  color: $lightgreen;
 }
 
 course {
-  font-family: Century Gothic;
-  color: $darkblue;
+  font-family: Papyrus;
+  font-size: 1.3em;
+  color: $darkgreen;
 }
 
 p {
+  font-family: Cambria;
   font-size: 1.1em;
   line-height: 1.7em;
 }
@@ -340,7 +349,7 @@ table {
      color: #444;
      display: block;
      float: left;
-     font: normal 12px arial, sans-serif;
+     font: normal 12px Cambria, sans-serif;
      height: 24px;
      margin-right: 6px;
      padding-right: 18px; /* sliding doors padding */

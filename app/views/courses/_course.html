@@ -5,7 +5,7 @@
     </td>
     <td>
 
-  <%= link_to course.name, course %>
+  <course><%= link_to course.name, course %></course>
   </td>
   <td>
   <%= User.find_by_id(course.author).name %>

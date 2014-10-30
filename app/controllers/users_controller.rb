@@ -82,14 +82,14 @@ class UsersController < ApplicationController
         selected_courses=@authorcourses.find_all {|course| course.tag.match(authortag)} 
 
 
-#session[:authorcourse]=nil
+#params[:newcourse]=nil
         if selected_courses.count==1
           authorcourse=[selected_courses[0]]
           session[:authorcourse]=[authorcourse[0].id]
           @authorhtml=@authorhtml+'<h7a>Your only course with this tag is</h7a> <course>' + authorcourse[0].name + '</course><br><br>'
         else
 
-          @authorhtml=@authorhtml+'<BR><h7a>You have the following courses tagged <tag>'+authortag[1..-2]+ '</tag></h7a> <br>'
+          @authorhtml=@authorhtml+'<BR><h7a>You have the following courses tagged as <tag>'+authortag[1..-2]+ '</tag></h7a> <br>'
 
 
           if params[:newcourse]&&params[:newcourse].count>0
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
           end
 
         
-          @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr><COLGROUP span="4" width=25%>
+          @authorhtml=@authorhtml+'<BR><form><h10><table width=100%><tr><COLGROUP span="3" width=33%>
    </COLGROUP><tr>'
           count=0
           selected_courses.each do |course|
