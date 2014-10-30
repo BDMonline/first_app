@@ -8,6 +8,9 @@ $lightblue: #aaccff;
 $darkblue: #5577aa;
 $lightgreen: #99eecc;
 $darkgreen: #449977;
+$teal: #008080;
+$olive: #a0a010;
+$graydark: #668888;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -145,15 +148,21 @@ h10 {
 }
 
 tag {
-  font-family: Lucida Calligraphy;
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: -1px;
   font-size: 1.0em;
-  color: $green;
+  color: $graydark;
 }
 
 course {
   font-family: Trebuchet MS;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: -1px;
   font-size: 1.0em;
-  color: $green;
+  color: $graydark;
 }
 
 small {
@@ -346,6 +355,20 @@ table {
      overflow: hidden;
      width: 100%;
  }
+
+.bobutton {
+  font-family: 'Bookman Old Style';
+  font-weight: bold; 
+  padding-top: 8px;
+  color: white; 
+  background-color: #668888;
+  vertical-align: baseline length -50;
+  }
+
+.bobutton:hover {
+  color: #668888; 
+  background-color: $grayLightish;
+  }
 
  a.button {
      background: transparent url('bg_button_a.gif') no-repeat scroll top right;
