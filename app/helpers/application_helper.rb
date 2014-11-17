@@ -1040,7 +1040,7 @@ def users_browser_ie?
 
 
         @item_html=@item_html+ %Q(
-        <input type="image" value="Check answers" src="http://i970.photobucket.com/albums/ae189/gumboil/Checkbutton.png" alt="Check Answers" width="150">
+        <input type="submit" class="bobutton" value="Check answers" alt="Check Answers">
         </form>
         )
 
@@ -1048,7 +1048,7 @@ def users_browser_ie?
 
 
         #@item_html=@item_html+'Score: \(\frac{'+correct.to_s+'}{'+total.to_s+'}\)'
-        @item_html=@item_html+'<h9> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
+        @item_html=@item_html+'<h9><br> Current score: '+correct.to_s+'/'+total.to_s+ "</h9> </td>"
 
         if correct==total && total>0
             @item_html='<div> <table class="table"> <tbody <tr> <td> <img src = http://i970.photobucket.com/albums/ae189/gumboil/Goldstarnew.jpg width="150" height="90" /> </td> <td style="vertical-align:middle"> <p align="right"> <h9>Item solved</h9> </p> </td> </tr> </tbody> </table> </div>' + @item_html
