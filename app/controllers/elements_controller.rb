@@ -20,7 +20,7 @@ class ElementsController < ApplicationController
         @videos=Element.find(:all)
         @videos.each do |v|
             if v[:category]=="video"&&v[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
-                v[:content]="http"+v[:content][5..-1]
+                v.update_attribute(:content,"http"+v[:content][5..-1])
             end
         end
 
