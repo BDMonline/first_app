@@ -16,16 +16,6 @@ class ElementsController < ApplicationController
         #@elements = Element.paginate(page: params[:page])
         params[:sort]||='id'
         params[:direction]||='desc'
-
-        videos=elements.find_all(|element| element[:category]=="video")
-        videos.each do |video|
-            if video[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
-                video[:content]="http"+video[:content][5..-1]
-            end
-        end
-
-
-
         @elements = Element.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
         
     end
@@ -135,15 +125,15 @@ class ElementsController < ApplicationController
         elsif element[:category]=="video"
             if element[:content].match(/\A(http:\/\/www\.dailymotion\.com\/.*)|((http:|https:)?(\/\/)?www\.youtube\.com\/.*)\z/)
                 if element[:content].match(/\A\/\/www\.youtube\.com\/.*\z/)
-                    element[:content]="http:"+element[:content]
+                    element[:content]="https:"+element[:content]
                 end
                 if element[:content].match(/\Awww\.youtube\.com\/.*\z/)
-                    element[:content]="http://"+element[:content]
-                end
-                if element[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
-                    element[:content]="http"+element[:content][5..-1]
+                    element[:content]="https://"+element[:content]
                 end
                 if element[:content].match(/\Ahttp:\/\/www\.youtube\.com\/.*\z/)
+                    element[:content]="https"+element[:content][4..-1]
+                end
+                if element[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
                     unless element[:content].match(/.*?rel=0\z/)
                         element[:content]=element[:content]+"?rel=0"
                     end
