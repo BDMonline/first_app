@@ -17,12 +17,12 @@ class ElementsController < ApplicationController
         params[:sort]||='id'
         params[:direction]||='desc'
 
-        # videos=Element.find_all(|element| element[:category]=="video")
-        # videos.each do |video|
-        #     if video[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
-        #         video[:content]="http"+video[:content][5..-1]
-        #     end
-        # end
+        @videos=Element.find(:all)
+        @videos.each do |v|
+            if v[:category]=="video"&&v[:content].match(/\Ahttps:\/\/www\.youtube\.com\/.*\z/)
+                v[:content]="http"+v[:content][5..-1]
+            end
+        end
 
 
 
