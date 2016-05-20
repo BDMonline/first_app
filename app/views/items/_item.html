@@ -5,7 +5,6 @@
   <td>
   <% if item %>
   <%= link_to item.name, item %>
-  <% end %>
   </td>
   <td>
   <%= User.find_by_id(item.author).name %>
@@ -20,5 +19,6 @@
 
     | <%= link_to "delete", item, method: :delete,
                                   data: { confirm: "You sure?" } %>
+  <% end %>
   <% end %>
 </td>
