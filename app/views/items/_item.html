@@ -3,7 +3,7 @@
   <b><%= item.id %></b>
   </td>
   <td>
-  <%= link_to item.name, item %>
+  <%= if item {link_to item.name, item} %>
   </td>
   <td>
   <%= User.find_by_id(item.author).name %>

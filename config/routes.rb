@@ -1,4 +1,6 @@
 FirstApp::Application.routes.draw do
+  get "algorithms/new"
+
   get "registration_confirmations/new"
 
   get "registration_confirmation/new"
