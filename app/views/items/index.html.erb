@@ -81,7 +81,9 @@
 </tr>
 
 	<% for item in @items %>
+	<% if item %>
 	    <%= render item %>
+	<% end %>
 	<% end %>
 
 
