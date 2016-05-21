@@ -125,7 +125,7 @@ class ItemsController < ApplicationController
         end
         params[:sort]||='id'
         params[:direction]||='desc'
-        @items = Item.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 1, page: params[:page])
+        @items = Item.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
     end
 
     def new

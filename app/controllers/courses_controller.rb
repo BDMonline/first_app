@@ -20,7 +20,7 @@ class CoursesController < ApplicationController
         session[:current_course_id]=nil
         params[:sort]||='id'
         params[:direction]||='desc'
-        @courses = Course.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: 1, page: params[:page])
+        @courses = Course.search(params[:search],params[:onlyme],current_user.id).order(params[:sort] + ' ' + params[:direction]).paginate(per_page: number_per_page, page: params[:page])
     end
 
     def new
