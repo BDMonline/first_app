@@ -23,7 +23,7 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails', '2.3.0'
+gem 'jquery-rails', '3.1.3'
 gem 'jquery-ui-rails'
 gem 'prettyphoto-rails'
 
